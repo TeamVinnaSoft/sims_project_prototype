@@ -1,0 +1,17 @@
+name: Website Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+
+      - name: Check files
+        run: ls
