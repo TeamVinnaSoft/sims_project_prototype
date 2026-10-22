@@ -2,13 +2,109 @@
 <html>
 <head>
     <title>syallabus configuration</title>
+     <link rel="stylesheet" href = "style.css">
 </head>
 <body>
+
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <a href="../dashboard/dashboard.html">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Student Data </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Staff Data </a>
+            <a href="#"> Create Staff </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> fee received </a>
+            <a href="#"> expenditure</a>
+        </div>
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item ">
+
+            <a href="../dashboard/configurations.html">
+                Configurations
+            </a>
+
+        </div>
+       
+
+        <div class="logout-area">
+
+            <a href="#" class="logout-button"> Logout </a>
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
     <h2>Subject</h2>
-    <h4>configuration</h4>
-    <p>Selected Class name</p>
+    <h4>Class Subject / Configuration</h4>
     <div class="table">
-        <hr>
+       
         <table>
             <tr>
                 <th>Class subject name</th>
@@ -22,7 +118,7 @@
                 <td>Telugu</td>
                 <td>TEL</td>
                 <td>2</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_syllabus.html">
                         <button class="view-btn">View Syllabus</button>
@@ -33,7 +129,7 @@
                 <td>English</td>
                 <td>ENG</td>
                 <td>5</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_syllabus.html">
                         <button class="view-btn">View Syllabus</button>
@@ -44,7 +140,7 @@
                 <td>Hindi</td>
                 <td>HIN</td>
                 <td>4</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_syllabus.html">
                         <button class="view-btn">View Syllabus</button>
@@ -55,7 +151,7 @@
                 <td>Mathematics</td>
                 <td>MAT</td>
                 <td>2</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_syllabus.html">
                         <button class="view-btn">View Syllabus</button>
@@ -66,7 +162,7 @@
                 <td>Social</td>
                 <td>SOC</td>
                 <td>6</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_syllabus.html">
                         <button class="view-btn">View Syllabus</button>
@@ -74,7 +170,6 @@
                 </td>
             </tr> 
         </table>
-        <hr><br>
 </div>
 </body><br><br>
 

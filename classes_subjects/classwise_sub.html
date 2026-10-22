@@ -2,12 +2,113 @@
 <html>
 <head>
     <title>syallabus configuration</title>
+    <link rel="stylesheet" href = "style.css">
 </head>
 <body>
+
+   
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <a href="../dashboard/dashboard.html">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Student Data </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+
+      
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Staff Data </a>
+            <a href="#"> Create Staff </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> fee received </a>
+            <a href="#"> expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item ">
+
+            <a href="../dashboard/configurations.html">
+                Configurations
+            </a>
+
+        </div>
+       
+
+        <div class="logout-area">
+
+            <a href="#" class="logout-button"> Logout </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
     <h2>Classes & Subjects</h2>
     <h4>Class wise subjects</h4>
     <div class="table">
-    <hr>
         <table>
             <tr>
                 <th>Class name</th>
@@ -19,7 +120,7 @@
             <tr>
                 <td>1st Class</td>
                 <td>8</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_views.html">
                         <button class="view-btn">View Subjects</button>
@@ -29,7 +130,7 @@
              <tr>
                 <td>2nd Class</td>
                 <td>8</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_views.html">
                         <button class="view-btn">View Subjects</button>
@@ -39,7 +140,7 @@
              <tr>
                 <td>3rd Class</td>
                 <td>8</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_views.html">
                         <button class="view-btn">View Subjects</button>
@@ -49,7 +150,7 @@
              <tr>
                 <td>4th Class</td>
                 <td>8</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_views.html">
                         <button class="view-btn">View Subjects</button>
@@ -59,7 +160,7 @@
              <tr>
                 <td>5th Class</td>
                 <td>8</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_views.html">
                         <button class="view-btn">View Subjects</button>
@@ -69,7 +170,7 @@
              <tr>
                 <td>6th Class</td>
                 <td>8</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_views.html">
                         <button class="view-btn">View Subjects</button>
@@ -79,7 +180,7 @@
              <tr>
                 <td>7th Class</td>
                 <td>8</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_views.html">
                         <button class="view-btn">View Subjects</button>
@@ -89,7 +190,7 @@
              <tr>
                 <td>8th Class</td>
                 <td>8</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_views.html">
                         <button class="view-btn">View Subjects</button>
@@ -99,7 +200,7 @@
              <tr>
                 <td>9th Class</td>
                 <td>8</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_views.html">
                         <button class="view-btn">View Subjects</button>
@@ -109,7 +210,7 @@
             <tr>
                 <td>10th Class</td>
                 <td>8</td>
-                <td>Active</td>
+                <td><span class="status">Active</span></td>
                 <td>
                     <a href="sub_views.html">
                         <button class="view-btn">View Subjects</button>
@@ -120,7 +221,6 @@
             
            
         </table>
-        <hr><br>
 </div>
 </body><br><br>
 </html>

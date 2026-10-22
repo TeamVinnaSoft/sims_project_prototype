@@ -2,6 +2,7 @@
 <head>
 
 <title>Principal Configuration</title>
+<link rel="stylesheet" href = "../classes_subjects/style.css">
 
 <style>
 
@@ -24,26 +25,119 @@
 </head>
 
 <body>
-    <div>
-        <h4>Principal Configuration</h4>
-        <p>Configurations</p>
-    </div>
-    <hr><br>
-    
-<div>
-    <a href="principal_assignment.html">
-        <button class="view-btn">Remove Principal</button>
-    </a>
 
-</div>
-<hr>
+    
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
     </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <a href="../dashboard/dashboard.html">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Student Data </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Staff Data </a>
+            <a href="#"> Create Staff </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> fee received </a>
+            <a href="#"> expenditure</a>
+        </div>
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item ">
+
+            <a href="../dashboard/configurations.html">
+                Configurations
+            </a>
+
+        </div>
+       
+
+        <div class="logout-area">
+
+            <a href="#" class="logout-button"> Logout </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+<div class="main">
+    <div class ="page-heading">
+       <div class="heading-left">
+           <h2>Principal Configuration</h2>
+    </div>
+    <div class="heading-right">
+        <a href="principal_assignment.html">
+            <button class="view-btn">Remove Principal</button>
+        </a>
+    </div>
+    </div>
+
 
     <div class="col-md-6">
         <p><span class="label">Employee ID :</span>
                 <span class="value">1</span>
 
-<div class="col-md-6">
+    </div>
+
+    <div class="col-md-6">
     <p><span class="label">Full Name :</span>
         <span class="value">Mr Teja R</span></p>
         
@@ -63,7 +157,7 @@
 
         <P><span class="label">Join Date:</span>
                 <span class="value">1 Feb 2025</span></p>
-
+    </div>
 
 </div>
 
