@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Data | SIMS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f2f2;color:#222;font-size:14px}
+.topbar{height:60px;background:#fff;border-bottom:1px solid #eee;display:flex;align-items:center;padding:0 24px;gap:22px}
+.logo{width:220px;flex-shrink:0;font-size:25px;font-weight:bold;color:#4054c7}
+.logo-mark{color:#65b52b;margin-right:8px}
+.search{display:flex;flex:1;min-width:0;height:48px}
+.search input{flex:1;min-width:0;border:1px solid #eee;padding:0 16px}
+.search select{border:1px solid #eee;background:white;padding:0 10px;color:#777}
+.search button{border:0;background:#4f80ff;color:white;padding:0 24px;cursor:pointer}
+.user{white-space:nowrap}
+.layout{display:flex;min-height:calc(100vh - 128px)}
+.sidebar{width:258px;flex-shrink:0;background:white;border-right:1px solid #e7e7e7}
+.nav-link{display:flex;align-items:center;gap:18px;min-height:48px;padding:0 23px;color:#222;text-decoration:none;border-bottom:1px solid #f0f0f0}
+.nav-link i:first-child{width:16px}
+.nav-link.active{color:#5682ff}
+.nav-parent{width:100%;background:white;border:0;text-align:left;font:inherit;cursor:pointer}
+.chevron{margin-left:auto;font-size:12px}
+.sub-menu{display:none;padding:5px 0 12px 60px}
+.sub-menu.open{display:block}
+.sub-menu a{display:block;padding:10px 0;text-decoration:none;color:#333}
+.sub-menu a::before{content:"•";margin-right:14px;color:#111}
+.sub-menu a.active,.sub-menu a:hover{color:#4f80ff}
+.main{flex:1;min-width:0;padding:28px 20px 40px}
+.heading-row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+h1{font-size:30px;margin:0 0 8px}
+.breadcrumb{color:#777;margin-bottom:28px}
+.breadcrumb a,.back{color:#4f80ff;text-decoration:none}
+.toolbar{background:white;border:1px solid #e7e7e7;padding:16px;display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.toolbar input,.toolbar select{padding:10px;border:1px solid #ddd;border-radius:3px;min-width:150px}
+.btn{padding:10px 14px;border:0;border-radius:3px;background:#4f80ff;color:white;cursor:pointer}
+.btn:hover{filter:brightness(.95)}
+.btn.green{background:#65b52b}
+.btn.gray{background:#707780}
+.table-card{background:white;border:1px solid #e7e7e7;padding:16px;overflow:hidden}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;white-space:nowrap}
+th,td{padding:14px 12px;border:1px solid #eee;text-align:left}
+th{background:#fafafa;font-weight:600}
+tbody tr:hover{background:#f7f9ff}
+.status{color:#29934b;font-weight:600}
+.actions{display:flex;gap:6px}
+.action-btn{border:0;border-radius:3px;color:white;padding:7px 9px;cursor:pointer}
+.view{background:#4f80ff}.edit{background:#e6a23c}.delete{background:#e65353}
+.count{color:#666;margin:0 0 14px}
+.footer{display:flex;justify-content:space-between;padding:22px 20px;color:#777;border-top:1px solid #e5e5e5}
+dialog{width:min(500px,92vw);border:0;border-radius:6px;padding:24px;box-shadow:0 10px 40px #0003}
+dialog::backdrop{background:#0005}
+.modal-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-fields label{display:flex;flex-direction:column;gap:6px}
+.modal-fields input,.modal-fields select{padding:10px;border:1px solid #ccc;width:100%}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+@media(max-width:850px){.sidebar{width:190px}.logo{width:auto}.topbar{gap:12px;padding:0 12px}.user{display:none}.search select{display:none}}
+@media(max-width:600px){.sidebar{width:145px}.nav-link{padding:0 10px;gap:8px}.sub-menu{padding-left:18px}.main{padding:18px 10px}.logo{font-size:20px}.modal-fields{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo"><span class="logo-mark">◢</span> SIMS</div>
+  <form class="search" id="globalSearch">
+    <input id="globalQuery" placeholder="Search by name / email / mobile no." aria-label="Search">
+    <select aria-label="Search category"><option>In Students</option><option selected>In Staff</option></select>
+    <button type="submit">Search</button>
+  </form>
+  <div class="user"><span class="logo-mark">◢</span> Dev 2 &nbsp;⌄</div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+  <nav>
+    <a class="nav-link" href="../index.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+    <button class="nav-link nav-parent" data-toggle="reports"><i class="fa-solid fa-list"></i> Reports <i class="fa-solid fa-chevron-down chevron"></i></button>
+    <div class="sub-menu" id="reports"><a href="#">Summary</a><a href="#">Staff reports</a></div>
+    <button class="nav-link nav-parent" data-toggle="students"><i class="fa-solid fa-user-group"></i> Students <i class="fa-solid fa-chevron-down chevron"></i></button>
+    <div class="sub-menu" id="students"><a href="#">Student list</a><a href="#">Attendance</a></div>
+    <button class="nav-link nav-parent active" data-toggle="staff"><i class="fa-solid fa-users"></i> Staff <i class="fa-solid fa-chevron-up chevron"></i></button>
+    <div class="sub-menu open" id="staff">
+      <a href="summary.html">Summary</a>
+      <a class="active" href="staff-data.html">Staff data</a>
+      <a href="attendance.html">Attendance</a>
+      <a href="create-staff.html">Create Staff</a>
+    </div>
+    <button class="nav-link nav-parent" data-toggle="finance"><i class="fa-solid fa-wallet"></i> Finance module <i class="fa-solid fa-chevron-down chevron"></i></button>
+    <div class="sub-menu" id="finance"><a href="#">Fee collection</a><a href="#">Expenses</a></div>
+    <button class="nav-link nav-parent" data-toggle="configurations"><i class="fa-solid fa-gear"></i> Configurations <i class="fa-solid fa-chevron-down chevron"></i></button>
+    <div class="sub-menu" id="configurations"><a href="#">Academic year</a></div>
+  </nav>
+</aside>
+
+<main class="main">
+  <div class="heading-row">
+    <h1>Staff</h1>
+    <a class="back" href="summary.html"><i class="fa-solid fa-circle-arrow-left"></i> Go back</a>
+  </div>
+  <div class="breadcrumb"><a href="../index.html"><i class="fa-solid fa-house"></i></a> / Staff / Staff data</div>
+
+  <div class="toolbar">
+    <input id="staffSearch" type="search" placeholder="Search staff...">
+    <select id="roleFilter">
+      <option value="">All roles</option>
+      <option>Administrator</option><option>Accountant</option><option>Clerk</option>
+      <option>Receptionist</option><option>Teacher</option><option>Principal</option>
+      <option>Sports</option><option>No Role Assigned</option>
+    </select>
+    <select id="statusFilter"><option value="">All statuses</option><option>Active</option><option>Inactive</option></select>
+    <button class="btn green" id="addStaff"><i class="fa-solid fa-plus"></i> Add Staff</button>
+  </div>
+
+  <section class="table-card">
+    <p class="count" id="recordCount"></p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>ID</th><th>Title</th><th>First name</th><th>Last name</th>
+          <th>Surname</th><th>Mobile</th><th>Role Name</th><th>Status</th><th>Action</th>
+        </tr></thead>
+        <tbody id="staffRows"></tbody>
+      </table>
+    </div>
+    <p id="noResults" hidden>No staff records match your search.</p>
+  </section>
+</main>
+</div>
+
+<footer class="footer"><span>Copyright © 2026 All rights reserved.</span><span>Version 1.0.0</span></footer>
+
+<dialog id="staffDialog">
+  <h2 id="dialogTitle">Staff details</h2>
+  <form id="staffForm">
+    <div class="modal-fields">
+      <label>ID<input name="id" required></label>
+      <label>Title<select name="title"><option>Mr</option><option>Mrs</option><option>Miss</option><option>Dr</option></select></label>
+      <label>First name<input name="first" required></label>
+      <label>Last name<input name="last"></label>
+      <label>Surname<input name="surname"></label>
+      <label>Mobile<input name="mobile" inputmode="numeric"></label>
+      <label>Role<select name="role"><option>Administrator</option><option>Accountant</option><option>Clerk</option><option>Receptionist</option><option>Teacher</option><option>Principal</option><option>Sports</option><option>No Role Assigned</option></select></label>
+      <label>Status<select name="status"><option>Active</option><option>Inactive</option></select></label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn gray" type="button" id="cancelDialog">Cancel</button>
+      <button class="btn" type="submit" id="saveStaff">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+const initialStaff = [
+ {id:"1",title:"Mr",first:"Prasad",last:"Rao",surname:"Mallela",mobile:"9123456789",role:"Administrator",status:"Active"},
+ {id:"2",title:"Mr",first:"praveen",last:"kumar",surname:"ravuri",mobile:"9879879879",role:"Accountant",status:"Active"},
+ {id:"3",title:"Mr",first:"Rakesh",last:"Sharma",surname:"Duvvada",mobile:"9876987698",role:"Administrator",status:"Active"},
+ {id:"4",title:"Mr",first:"Prashanth",last:"Kumar",surname:"Manchi",mobile:"9876789987",role:"Teacher",status:"Active"},
+ {id:"5",title:"Mr",first:"Ravi",last:"kumar",surname:"Maruthi",mobile:"9876556765",role:"Clerk",status:"Active"},
+ {id:"6",title:"Mr",first:"Avinash",last:"kumar",surname:"rajula",mobile:"9889878787",role:"Receptionist",status:"Active"},
+ {id:"7",title:"Mr",first:"suman",last:"kumar",surname:"konda",mobile:"9098909989",role:"Teacher",status:"Active"},
+ {id:"8",title:"Mr",first:"priyanka",last:"chopra",surname:"sonam",mobile:"9876654323",role:"Teacher",status:"Active"},
+ {id:"9",title:"Mr",first:"sathish",last:"kumar",surname:"anthati",mobile:"8009007006",role:"Teacher",status:"Active"},
+ {id:"10",title:"Mr",first:"vekatesh",last:"prasad",surname:"yadav",mobile:"8009007889",role:"Teacher",status:"Active"},
+ {id:"11",title:"Mr",first:"charan",last:"kumar",surname:"challa",mobile:"7888766667",role:"Teacher",status:"Active"},
+ {id:"12",title:"Mr",first:"balu",last:"yadav",surname:"goud",mobile:"6788766777",role:"Teacher",status:"Active"},
+ {id:"13",title:"Mr",first:"kiran",last:"kumar",surname:"sadu",mobile:"8976778877",role:"Teacher",status:"Active"},
+ {id:"14",title:"Mr",first:"sandeep",last:"kumar",surname:"manam",mobile:"9088988877",role:"Teacher",status:"Active"},
+ {id:"104",title:"Mr",first:"Vimali",last:"",surname:"A",mobile:"8000000001",role:"Teacher",status:"Active"},
+ {id:"1002",title:"Mrs",first:"Atmajyotii",last:"",surname:"B",mobile:"8000000002",role:"Teacher",status:"Active"},
+ {id:"1003",title:"Miss",first:"Bansii",last:"",surname:"C",mobile:"8000000003",role:"Teacher",status:"Active"},
+ {id:"1004",title:"Dr",first:"Atanuu",last:"Kumar",surname:"D",mobile:"8000000004",role:"Teacher",status:"Active"},
+ {id:"1005",title:"Mr",first:"Nirupamm",last:"",surname:"E",mobile:"8000000005",role:"Teacher",status:"Active"},
+ {id:"1006",title:"Mrs",first:"Snehinn",last:"",surname:"F",mobile:"8000000006",role:"Teacher",status:"Active"},
+ {id:"1007",title:"Miss",first:"Pranett",last:"",surname:"G",mobile:"8000000007",role:"Teacher",status:"Active"},
+ {id:"1008",title:"Dr",first:"Abhrakasinn",last:"",surname:"H",mobile:"8000000008",role:"Teacher",status:"Active"},
+ {id:"1009",title:"Mr",first:"Hitendraa",last:"Varma",surname:"I",mobile:"8000000009",role:"Teacher",status:"Active"},
+ {id:"1010",title:"Mrs",first:"Abhirupp",last:"",surname:"J",mobile:"8000000010",role:"Teacher",status:"Active"},
+ {id:"1011",title:"Mr",first:"sharath",last:"prasad",surname:"venkata",mobile:"7898778898",role:"Principal",status:"Active"},
+ {id:"1012",title:"Mr",first:"stalin",last:"reddy",surname:"gun",mobile:"7867676767",role:"Receptionist",status:"Active"},
+ {id:"1001",title:"Mr",first:"Vimal",last:"",surname:"A",mobile:"9000000001",role:"No Role Assigned",status:"Active"},
+ {id:"1002",title:"Mrs",first:"Atmajyoti",last:"",surname:"B",mobile:"9000000002",role:"No Role Assigned",status:"Active"},
+ {id:"1003",title:"Miss",first:"Bansi",last:"",surname:"C",mobile:"9000000003",role:"No Role Assigned",status:"Active"},
+ {id:"1004",title:"Dr",first:"Atanu",last:"Kumar",surname:"D",mobile:"9000000004",role:"No Role Assigned",status:"Active"},
+ {id:"1005",title:"Mr",first:"Nirupam",last:"",surname:"E",mobile:"9000000005",role:"No Role Assigned",status:"Active"},
+ {id:"1006",title:"Mrs",first:"Snehin",last:"",surname:"F",mobile:"9000000006",role:"Teacher",status:"Active"},
+ {id:"1007",title:"Miss",first:"Pranet",last:"",surname:"G",mobile:"9000000007",role:"Teacher",status:"Active"},
+ {id:"1008",title:"Dr",first:"Abhrakasin",last:"",surname:"H",mobile:"9000000008",role:"Teacher",status:"Active"},
+ {id:"1009",title:"Mr",first:"Hitendra",last:"Varma",surname:"I",mobile:"9000000009",role:"Teacher",status:"Active"},
+ {id:"1010",title:"Mrs",first:"Abhirup",last:"",surname:"J",mobile:"9000000010",role:"Teacher",status:"Active"},
+ {id:"1013",title:"Mr",first:"sudarshan",last:"rao",surname:"konam",mobile:"6234567899",role:"Clerk",status:"Active"}
+];
+
+let staff = [];
+try { staff = JSON.parse(localStorage.getItem("simsStaffDirectory")) || initialStaff; }
+catch { staff = initialStaff; }
+
+const rows = document.getElementById("staffRows");
+const search = document.getElementById("staffSearch");
+const roleFilter = document.getElementById("roleFilter");
+const statusFilter = document.getElementById("statusFilter");
+const dialog = document.getElementById("staffDialog");
+const form = document.getElementById("staffForm");
+let editingId = null;
+let viewingOnly = false;
+
+function persist() {
+  localStorage.setItem("simsStaffDirectory", JSON.stringify(staff));
+}
+
+function makeCell(value) {
+  const td = document.createElement("td");
+  td.textContent = value || "—";
+  return td;
+}
+
+function renderStaff() {
+  rows.replaceChildren();
+  const term = search.value.trim().toLowerCase();
+  const role = roleFilter.value;
+  const status = statusFilter.value;
+
+  const filtered = staff.filter(s => {
+    const text = [s.id,s.title,s.first,s.last,s.surname,s.mobile,s.role,s.status].join(" ").toLowerCase();
+    return text.includes(term) && (!role || s.role === role) && (!status || s.status === status);
+  });
+
+  filtered.forEach(s => {
+    const tr = document.createElement("tr");
+    [s.id,s.title,s.first,s.last,s.surname,s.mobile,s.role].forEach(v => tr.appendChild(makeCell(v)));
+    const statusCell = makeCell(s.status);
+    statusCell.className = s.status === "Active" ? "status" : "";
+    tr.appendChild(statusCell);
+
+    const actionCell = document.createElement("td");
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    [["View","view"],["Edit","edit"],["Delete","delete"]].forEach(([label,cls]) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `action-btn ${cls}`;
+      button.textContent = label;
+      button.addEventListener("click", () => handleAction(label,s.id));
+      actions.appendChild(button);
+    });
+
+    actionCell.appendChild(actions);
+    tr.appendChild(actionCell);
+    rows.appendChild(tr);
+  });
+
+  document.getElementById("recordCount").textContent =
+    `Showing ${filtered.length} of ${staff.length} staff records`;
+  document.getElementById("noResults").hidden = filtered.length > 0;
+}
+
+function handleAction(action,id) {
+  const person = staff.find(s => s.id === id);
+  if (!person) return;
+
+  if (action === "Delete") {
+    if (confirm(`Delete staff member ${person.first} ${person.last}?`)) {
+      staff = staff.filter(s => s !== person);
+      persist();
+      renderStaff();
+    }
+    return;
+  }
+
+  editingId = id;
+  viewingOnly = action === "View";
+  document.getElementById("dialogTitle").textContent =
+    viewingOnly ? "Staff Details" : "Edit Staff";
+  document.getElementById("saveStaff").hidden = viewingOnly;
+
+  Object.keys(person).forEach(key => {
+    if (form.elements[key]) form.elements[key].value = person[key];
+  });
+  Array.from(form.elements).forEach(el => {
+    if (el.name) el.disabled = viewingOnly;
+  });
+  dialog.showModal();
+}
+
+document.getElementById("addStaff").addEventListener("click", () => {
+  editingId = null;
+  viewingOnly = false;
+  form.reset();
+  form.elements.id.value = String(Date.now()).slice(-6);
+  document.getElementById("dialogTitle").textContent = "Create Staff";
+  document.getElementById("saveStaff").hidden = false;
+  Array.from(form.elements).forEach(el => { if (el.name) el.disabled = false; });
+  dialog.showModal();
+});
+
+form.addEventListener("submit", event => {
+  event.preventDefault();
+  const item = Object.fromEntries(new FormData(form).entries());
+
+  if (editingId !== null) {
+    const index = staff.findIndex(s => s.id === editingId);
+    if (index !== -1) staff[index] = item;
+  } else {
+    if (staff.some(s => s.id === item.id)) {
+      alert("This staff ID already exists. Please use a unique ID.");
+      return;
+    }
+    staff.push(item);
+  }
+
+  persist();
+  dialog.close();
+  renderStaff();
+});
+
+document.getElementById("cancelDialog").addEventListener("click", () => dialog.close());
+search.addEventListener("input", renderStaff);
+roleFilter.addEventListener("change", renderStaff);
+statusFilter.addEventListener("change", renderStaff);
+
+document.getElementById("globalSearch").addEventListener("submit", event => {
+  event.preventDefault();
+  search.value = document.getElementById("globalQuery").value;
+  renderStaff();
+});
+
+document.querySelectorAll("[data-toggle]").forEach(button => {
+  button.addEventListener("click", () => {
+    const menu = document.getElementById(button.dataset.toggle);
+    menu.classList.toggle("open");
+  });
+});
+
+renderStaff();
+</script>
+</body>
+</html>
