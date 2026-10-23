@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMS | Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand-row">
+        <div class="brand-mark"><span></span><span></span><span></span></div>
+        <strong>SIMS</strong>
+        <button class="icon-button menu-toggle" id="menuToggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+      </div>
+
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#dashboard"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+        <button class="nav-link nav-parent" data-menu="reports"><i class="fa-solid fa-list"></i><span>Reports</span><i class="fa-solid fa-chevron-down chevron"></i></button>
+        <div class="sub-menu" id="reports">
+          <a href="#reports-summary">Summary</a><a href="#reports-students">Student reports</a><a href="#reports-staff">Staff reports</a>
+        </div>
+        <button class="nav-link nav-parent" data-menu="students"><i class="fa-solid fa-user-group"></i><span>Students</span><i class="fa-solid fa-chevron-down chevron"></i></button>
+        <div class="sub-menu" id="students">
+          <a href="#student-list">Student list</a><a href="#student-admissions">Admissions</a><a href="#student-attendance">Attendance</a>
+        </div>
+        <button class="nav-link nav-parent expanded" data-menu="staff"><i class="fa-solid fa-users"></i><span>Staff</span><i class="fa-solid fa-chevron-up chevron"></i></button>
+        <div class="sub-menu open" id="staff">
+          <a href="#staff-summary">Summary</a><a href="#staff-data">Staff data</a><a href="#staff-attendance">Attendance</a><a href="#create-staff">Create Staff</a>
+        </div>
+        <button class="nav-link nav-parent" data-menu="finance"><i class="fa-solid fa-wallet"></i><span>Finance module</span><i class="fa-solid fa-chevron-down chevron"></i></button>
+        <div class="sub-menu" id="finance">
+          <a href="#fee-collection">Fee collection</a><a href="#fee-dues">Fee dues</a><a href="#expenses">Expenses</a>
+        </div>
+        <button class="nav-link nav-parent" data-menu="configurations"><i class="fa-solid fa-gear"></i><span>Configurations</span><i class="fa-solid fa-chevron-down chevron"></i></button>
+        <div class="sub-menu" id="configurations">
+          <a href="#academic-year">Academic year</a><a href="#classes">Classes & rooms</a><a href="#subjects">Subjects</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="main-area" id="dashboard">
+      <header class="topbar">
+        <form class="search-form" id="searchForm">
+          <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input id="searchInput" type="search" placeholder="Search by name / email / mobile no." aria-label="Search students or staff">
+          <select id="searchScope" aria-label="Search category"><option value="students">In Students</option><option value="staff">In Staff</option><option value="all">All records</option></select>
+          <button type="submit" class="search-button">Search</button>
+        </form>
+        <button class="profile-button" id="profileButton"><span class="brand-mark small"><span></span><span></span><span></span></span><span>Dev 2</span><i class="fa-solid fa-chevron-down"></i></button>
+        <div class="profile-menu" id="profileMenu"><a href="#profile">My profile</a><a href="#settings">Settings</a><a href="#logout">Log out</a></div>
+      </header>
+
+      <section class="dashboard-content">
+        <h1>Welcome back,</h1>
+
+        <section class="stats-panel top-stats" aria-label="School overview">
+          <article class="stat-item"><i class="fa-solid fa-users stat-icon green"></i><div><span>Students</span><strong>47</strong></div></article>
+          <article class="stat-item"><i class="fa-solid fa-user-group stat-icon blue"></i><div><span>Staff</span><strong>37</strong></div></article>
+          <article class="stat-item"><i class="fa-solid fa-wallet stat-icon red"></i><div><span>Fee dues</span><strong>0</strong></div></article>
+          <article class="stat-item"><i class="fa-solid fa-wallet stat-icon green"></i><div><span>Fee received</span><strong>0</strong></div></article>
+          <article class="stat-item"><i class="fa-solid fa-wallet stat-icon red"></i><div><span>Expenditure</span><strong>0</strong></div></article>
+        </section>
+
+        <section class="academic-panel" id="academic-year">
+          <div>Academic year: <strong>2025 - 2026</strong></div>
+          <div class="progress-track"><div class="progress-fill"></div></div>
+        </section>
+
+        <section class="stats-panel school-stats" aria-label="Academic resources">
+          <article class="stat-item"><i class="fa-solid fa-chalkboard stat-icon green"></i><div><span>Classes</span><strong>10</strong></div></article>
+          <article class="stat-item"><i class="fa-solid fa-chalkboard-user stat-icon blue"></i><div><span>Class rooms</span><strong>10</strong></div></article>
+          <article class="stat-item"><i class="fa-solid fa-book-open stat-icon green"></i><div><span>Subjects</span><strong>80</strong></div></article>
+        </section>
+
+        <section class="status-grid">
+          <article class="status-card success-message">Principal account added.</article>
+          <article class="status-card">Subscription Status: <strong class="green-text">Active</strong></article>
+        </section>
+
+        <section class="empty-panel" aria-label="Additional dashboard information"></section>
+      </section>
+
+      <footer class="footer"><span>Copyright © 2026 All rights reserved.</span><span>Version 1.0.0</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/app.js"></script>
+</body>
+</html>
