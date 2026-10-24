@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Examination configuration</title>
+    <link rel="stylesheet" href = "style.css">
+</head>
+<body>
+
+
+    
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+        <h2>School Management </h2>
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <a href="../dashboard/dashboard.html">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Student Data </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Staff Data </a>
+            <a href="#"> Create Staff </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> fee received </a>
+            <a href="#"> expenditure</a>
+        </div>
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item ">
+
+            <a href="../dashboard/configurations.html">
+                Configurations
+            </a>
+
+        </div>
+       
+
+        <div class="logout-area">
+
+            <a href="#" class="logout-button"> Logout </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+<div class="main">
+
+    <div class="header">
+        <h3>Examinations Configurations</h3>
+        <div class="nav">
+            <a href="examination_creation.html"> New Examination</a>
+        </div>
+    </div>
+    
+     <table>
+            <tr>
+                <th>Code</th>
+                <th>Examination Name</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            <tr>
+                <td>1121</td>
+                <td>Unit 1</td>
+                <td>Active</td>
+                <td>Edit</td>
+            </tr>
+
+            <tr>
+                <td>1120</td>
+                <td>Fre Final</td>
+                <td>
+                    <select>
+                        <option>Active</option>
+                        <option>Inactive</option>
+                    </select>
+                </td>
+                <td>Update - Cancel</td>
+            </tr>
+        </table>
+</div>
+
+</body>
+</html>
