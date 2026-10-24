@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMS | Staff Role Mapping</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #f2f2f2;
+      color: #222;
+      font-family: Arial, sans-serif;
+    }
+
+    .page-content {
+      padding: 28px 16px;
+      min-height: calc(100vh - 130px);
+    }
+
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      gap: 15px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 500;
+    }
+
+    .subtitle { font-size: 14px; }
+
+    .breadcrumb {
+      color: #777;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .breadcrumb a {
+      color: #5182ff;
+      text-decoration: none;
+    }
+
+    .back-button {
+      border: 0;
+      background: white;
+      color: #555;
+      padding: 12px 15px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 17px;
+    }
+
+    .mapping-panel {
+      background: #fff;
+      border: 1px solid #e9e9e9;
+      padding: 24px 30px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 700px;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 1px solid #f0f0f0;
+      padding: 5px;
+      text-align: left;
+    }
+
+    th {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    td input, td select {
+      width: 100%;
+      height: 46px;
+      border: 1px solid #f1f1f1;
+      border-radius: 3px;
+      padding: 0 20px;
+      color: #555;
+      background: white;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    td input:disabled, td select:disabled {
+      background: #fff;
+      color: #555;
+      opacity: 1;
+    }
+
+    .edit-button, .save-button, .cancel-button {
+      border: 0;
+      background: #5182ff;
+      color: white;
+      padding: 9px 16px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 2px 4px #0002;
+    }
+
+    .cancel-button { background: #777; }
+
+    .pagination {
+      display: flex;
+      gap: 0;
+      margin-top: 8px;
+    }
+
+    .pagination button {
+      border: 1px solid #eee;
+      color: #5182ff;
+      background: white;
+      padding: 4px 7px;
+      cursor: pointer;
+    }
+
+    .pagination button.active {
+      background: #5182ff;
+      color: white;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 25px 16px;
+      color: #777;
+      border-top: 1px solid #e5e5e5;
+      font-size: 12px;
+    }
+
+    @media (max-width: 650px) {
+      .page-content { padding: 18px 8px; }
+      .mapping-panel { padding: 12px 8px; }
+      .heading { align-items: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="brand-row">
+      <div class="brand-mark"><span></span><span></span><span></span></div>
+      <strong>SIMS</strong>
+    </div>
+
+    <nav class="side-nav" aria-label="Main navigation">
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-house"></i><span>Dashboard</span>
+      </a>
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-list"></i><span>Reports</span>
+      </a>
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-user-group"></i><span>Students</span>
+      </a>
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-users"></i><span>Staff</span>
+      </a>
+      <a class="nav-link" href="index.html">
+        <i class="fa-solid fa-gear"></i><span>Configurations</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main-area">
+    <header class="topbar">
+      <form class="search-form" id="searchForm">
+        <span class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+        <input id="searchInput" type="search"
+               placeholder="Search by name / email / mobile no."
+               aria-label="Search staff">
+        <select aria-label="Search category">
+          <option>In Students</option>
+          <option selected>In Staff</option>
+          <option>All records</option>
+        </select>
+        <button class="search-button" type="submit">Search</button>
+      </form>
+
+      <button class="profile-button" type="button">
+        <span class="brand-mark small"><span></span><span></span><span></span></span>
+        <span>Dev 2</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </header>
+
+    <section class="page-content">
+      <div class="heading">
+        <div>
+          <h1>Staff - Role</h1>
+          <div class="subtitle">Configurations</div>
+          <div class="breadcrumb">
+            <i class="fa-solid fa-house"></i>
+            / Configurations /
+            <a href="staff-role-mapping.html">Staff role</a>
+          </div>
+        </div>
+
+        <button class="back-button" type="button"
+                onclick="location.href='index.html'"
+                aria-label="Back to configurations">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      </div>
+
+      <section class="mapping-panel">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:25%">Firstname</th>
+              <th style="width:21%">EmployeeID</th>
+              <th style="width:30%">Role Name</th>
+              <th style="width:14%">Action</th>
+            </tr>
+          </thead>
+          <tbody id="mappingBody"></tbody>
+        </table>
+
+        <div class="pagination" id="pagination"></div>
+      </section>
+    </section>
+
+    <footer class="footer">
+      <span>Copyright © 2026 All rights reserved.</span>
+      <span>Version 1.0.0</span>
+    </footer>
+  </main>
+</div>
+
+<script>
+  // Demonstration data based on the screenshot.
+  // Replace this list with actual staff records when connecting your data source.
+  const mappings = [
+    { first: "Prasad",    employeeId: 1,  role: "Administrator" },
+    { first: "praveen",   employeeId: 2,  role: "Accountant" },
+    { first: "Rakesh",    employeeId: 3,  role: "Administrator" },
+    { first: "Prashanth", employeeId: 4,  role: "Teacher" },
+    { first: "Ravi",      employeeId: 5,  role: "Clerk" },
+    { first: "Avinash",   employeeId: 6,  role: "Receptionist" },
+    { first: "suman",     employeeId: 7,  role: "Teacher" },
+    { first: "priyanka",  employeeId: 8,  role: "Teacher" },
+    { first: "sathish",   employeeId: 9,  role: "Teacher" },
+    { first: "venkatesh", employeeId: 10, role: "Teacher" },
+    { first: "charan",    employeeId: 11, role: "Teacher" },
+    { first: "balu",      employeeId: 12, role: "Teacher" },
+    { first: "kiran",     employeeId: 13, role: "Teacher" },
+    { first: "sandeep",   employeeId: 14, role: "Teacher" },
+    { first: "sharath",   employeeId: 15, role: "Principal" },
+    { first: "stalin",    employeeId: 16, role: "Receptionist" },
+    { first: "sudarshan", employeeId: 17, role: "Clerk" },
+    { first: "Vimal",     employeeId: 18, role: "Teacher" },
+    { first: "Atmayojiti",employeeId: 19, role: "Teacher" },
+    { first: "Bansii",    employeeId: 20, role: "Teacher" },
+    { first: "Atanuu",    employeeId: 21, role: "Teacher" },
+    { first: "Nirupam",   employeeId: 22, role: "Teacher" },
+    { first: "Snehi",     employeeId: 23, role: "Teacher" },
+    { first: "Pranett",   employeeId: 24, role: "Teacher" },
+    { first: "Abhrakasin",employeeId: 25, role: "Teacher" },
+    { first: "Hitendra",  employeeId: 26, role: "Teacher" },
+    { first: "Abhirup",   employeeId: 27, role: "Teacher" },
+    { first: "Vimal",     employeeId: 28, role: "No Role Assigned" },
+    { first: "Atmayojiti",employeeId: 29, role: "No Role Assigned" },
+    { first: "Bansii",    employeeId: 30, role: "No Role Assigned" },
+    { first: "Atanuu",    employeeId: 31, role: "No Role Assigned" },
+    { first: "Nirupam",   employeeId: 32, role: "No Role Assigned" },
+    { first: "Snehin",    employeeId: 33, role: "Teacher" },
+    { first: "Pranet",    employeeId: 34, role: "Teacher" },
+    { first: "Abhrakasin",employeeId: 35, role: "Teacher" },
+    { first: "Hitendra",  employeeId: 36, role: "Teacher" },
+    { first: "Abhirup",   employeeId: 37, role: "Teacher" }
+  ];
+
+  const roles = [
+    "Administrator", "Accountant", "Clerk",
+    "Receptionist", "Teacher", "Principal", "No Role Assigned"
+  ];
+
+  const pageSize = 10;
+  let currentPage = 1;
+  let searchTerm = "";
+
+  const mappingBody = document.getElementById("mappingBody");
+  const pagination = document.getElementById("pagination");
+  const searchInput = document.getElementById("searchInput");
+
+  function renderTable() {
+    const filtered = mappings.filter(item =>
+      (item.first + " " + item.employeeId + " " + item.role)
+        .toLowerCase().includes(searchTerm)
+    );
+
+    const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+    currentPage = Math.min(currentPage, totalPages);
+
+    const start = (currentPage - 1) * pageSize;
+    const pageItems = filtered.slice(start, start + pageSize);
+
+    mappingBody.replaceChildren();
+
+    pageItems.forEach(item => {
+      const row = document.createElement("tr");
+
+      const firstCell = row.insertCell();
+      const firstInput = document.createElement("input");
+      firstInput.value = item.first;
+      firstInput.disabled = true;
+      firstCell.appendChild(firstInput);
+
+      const idCell = row.insertCell();
+      const idInput = document.createElement("input");
+      idInput.value = item.employeeId;
+      idInput.disabled = true;
+      idCell.appendChild(idInput);
+
+      const roleCell = row.insertCell();
+      const roleSelect = document.createElement("select");
+      roleSelect.disabled = true;
+
+      roles.forEach(role => {
+        const option = document.createElement("option");
+        option.value = role;
+        option.textContent = role;
+        option.selected = role === item.role;
+        roleSelect.appendChild(option);
+      });
+
+      roleCell.appendChild(roleSelect);
+
+      const actionCell = row.insertCell();
+      const editButton = document.createElement("button");
+      editButton.className = "edit-button";
+      editButton.textContent = "Edit";
+
+      editButton.addEventListener("click", () => {
+        if (editButton.textContent === "Edit") {
+          firstInput.disabled = false;
+          roleSelect.disabled = false;
+          editButton.textContent = "Save";
+
+          const cancelButton = document.createElement("button");
+          cancelButton.className = "cancel-button";
+          cancelButton.textContent = "Cancel";
+          cancelButton.style.marginLeft = "5px";
+
+          cancelButton.addEventListener("click", renderTable);
+          actionCell.appendChild(cancelButton);
+        } else {
+          item.first = firstInput.value.trim() || item.first;
+          item.role = roleSelect.value;
+          item.employeeId = Number(idInput.value) || item.employeeId;
+          renderTable();
+        }
+      });
+
+      actionCell.appendChild(editButton);
+      mappingBody.appendChild(row);
+    });
+
+    if (pageItems.length === 0) {
+      const row = mappingBody.insertRow();
+      const cell = row.insertCell();
+      cell.colSpan = 4;
+      cell.textContent = "No staff-role mappings found.";
+    }
+
+    pagination.replaceChildren();
+
+    for (let page = 1; page <= totalPages; page++) {
+      const button = document.createElement("button");
+      button.textContent = page;
+      button.classList.toggle("active", page === currentPage);
+      button.addEventListener("click", () => {
+        currentPage = page;
+        renderTable();
+      });
+      pagination.appendChild(button);
+    }
+  }
+
+  document.getElementById("searchForm").addEventListener("submit", event => {
+    event.preventDefault();
+    searchTerm = searchInput.value.trim().toLowerCase();
+    currentPage = 1;
+    renderTable();
+  });
+
+  searchInput.addEventListener("input", () => {
+    searchTerm = searchInput.value.trim().toLowerCase();
+    currentPage = 1;
+    renderTable();
+  });
+
+  renderTable();
+</script>
+</body>
+</html>

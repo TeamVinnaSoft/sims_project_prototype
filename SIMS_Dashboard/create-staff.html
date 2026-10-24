@@ -1,0 +1,595 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Staff Account | SIMS</title>
+
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    color: #343a40;
+}
+
+.topbar {
+    height: 65px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    color: #2878c8;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.profile {
+    color: #444;
+    font-size: 14px;
+}
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 65px);
+}
+
+.sidebar {
+    width: 235px;
+    flex-shrink: 0;
+    background: #263445;
+    color: white;
+    padding: 20px 0;
+}
+
+.sidebar a {
+    display: block;
+    color: #dce3eb;
+    text-decoration: none;
+    padding: 12px 22px;
+    font-size: 14px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #347fc4;
+    color: white;
+}
+
+.sidebar .section {
+    padding: 14px 22px 5px;
+    color: #9eafc2;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.submenu a {
+    padding-left: 43px;
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+    padding: 25px;
+}
+
+.breadcrumb {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 500;
+}
+
+.back-btn {
+    padding: 9px 14px;
+    background: #6c757d;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.card {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px #00000012;
+    margin-bottom: 25px;
+}
+
+.card-header {
+    padding: 17px 20px;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+.employee-note {
+    padding: 12px 15px;
+    margin-bottom: 23px;
+    background: #eaf3fb;
+    border: 1px solid #cfe3f7;
+    border-radius: 4px;
+    color: #285c88;
+    font-size: 14px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+input, select {
+    width: 100%;
+    height: 40px;
+    padding: 9px 11px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    background: white;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 3px #007bff20;
+}
+
+.title-options {
+    display: flex;
+    gap: 23px;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 40px;
+}
+
+.title-options label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.title-options input {
+    width: auto;
+    height: auto;
+}
+
+.help-text {
+    margin-top: 7px;
+    color: #dc3545;
+    font-size: 12px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn {
+    border: none;
+    border-radius: 4px;
+    padding: 11px 17px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: #2878c8;
+    color: white;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.message {
+    display: none;
+    padding: 12px;
+    margin-bottom: 18px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.message.success {
+    display: block;
+    background: #d4edda;
+    color: #155724;
+}
+
+.message.error {
+    display: block;
+    background: #f8d7da;
+    color: #721c24;
+}
+
+footer {
+    padding: 20px 5px;
+    color: #777;
+    text-align: center;
+    font-size: 12px;
+}
+
+@media (max-width: 760px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main {
+        padding: 16px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="logo">SIMS</div>
+    <div class="profile">
+        <i class="fa-solid fa-user-circle"></i> Dev 2
+    </div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <a href="../index.html">
+            <i class="fa-solid fa-gauge"></i> Dashboard
+        </a>
+        <a href="../index.html#ui-reports">
+            <i class="fa-solid fa-chart-column"></i> Reports
+        </a>
+        <a href="../index.html#ui-student">
+            <i class="fa-solid fa-graduation-cap"></i> Students
+        </a>
+
+        <div class="section">Staff Management</div>
+
+        <div class="submenu">
+            <a href="summary.html">
+                <i class="fa-solid fa-chart-pie"></i> Summary
+            </a>
+            <a href="staff-data.html">
+                <i class="fa-solid fa-users"></i> Staff data
+            </a>
+            <a href="attendance.html">
+                <i class="fa-solid fa-calendar-check"></i> Attendance
+            </a>
+            <a href="create-staff.html" class="active">
+                <i class="fa-solid fa-user-plus"></i> Create Staff
+            </a>
+        </div>
+
+        <a href="../index.html#ui-finance">
+            <i class="fa-solid fa-wallet"></i> Finance module
+        </a>
+        <a href="../index.html#configurations">
+            <i class="fa-solid fa-gear"></i> Configurations
+        </a>
+    </aside>
+
+    <main class="main">
+
+        <div class="breadcrumb">
+            Configurations / Configurations / New Staff
+        </div>
+
+        <div class="page-heading">
+            <h2>New Staff</h2>
+            <a href="staff-data.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Go back
+            </a>
+        </div>
+
+        <section class="card">
+            <div class="card-header">
+                <i class="fa-solid fa-user-plus"></i>
+                Create Staff Account
+            </div>
+
+            <div class="card-body">
+
+                <div id="message" class="message" role="status"></div>
+
+                <div class="employee-note">
+                    <i class="fa-solid fa-circle-info"></i>
+                    Your recent employee ID: <strong id="employeeId">1014</strong>
+                </div>
+
+                <form id="staffForm">
+                    <div class="form-grid">
+
+                        <div class="form-group full">
+                            <label>Employee ID</label>
+                            <input type="text" id="employeeIdInput"
+                                   value="1014" readonly>
+                        </div>
+
+                        <div class="form-group full">
+                            <label>Title <span style="color:red">*</span></label>
+                            <div class="title-options">
+                                <label><input type="radio" name="title"
+                                              value="Mr" required> Mr</label>
+                                <label><input type="radio" name="title"
+                                              value="Mrs"> Mrs</label>
+                                <label><input type="radio" name="title"
+                                              value="Miss"> Miss</label>
+                                <label><input type="radio" name="title"
+                                              value="Dr"> Dr</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="firstName">Firstname *</label>
+                            <input id="firstName" name="firstName"
+                                   type="text" required maxlength="60"
+                                   autocomplete="given-name"
+                                   placeholder="Enter first name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Lastname *</label>
+                            <input id="lastName" name="lastName"
+                                   type="text" required maxlength="60"
+                                   autocomplete="family-name"
+                                   placeholder="Enter last name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="surname">Surname</label>
+                            <input id="surname" name="surname"
+                                   type="text" maxlength="60"
+                                   placeholder="Enter surname">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mobile">Mobile *</label>
+                            <input id="mobile" name="mobile"
+                                   type="tel" required
+                                   inputmode="numeric"
+                                   pattern="[0-9]{10}" maxlength="10"
+                                   placeholder="Enter 10-digit mobile number">
+                        </div>
+
+                        <div class="form-group full">
+                            <label for="email">Email ID *</label>
+                            <input id="email" name="email" type="email"
+                                   required autocomplete="email"
+                                   placeholder="Enter email address">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password *</label>
+                            <input id="password" name="password"
+                                   type="password" required minlength="8"
+                                   autocomplete="new-password"
+                                   placeholder="Minimum 8 characters">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">
+                                Confirm password *
+                            </label>
+                            <input id="confirmPassword"
+                                   name="confirmPassword"
+                                   type="password" required minlength="8"
+                                   autocomplete="new-password"
+                                   placeholder="Re-enter password">
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Create Staff
+                        </button>
+
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            Reset
+                        </button>
+
+                        <a href="staff-data.html"
+                           class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            Copyright © 2026 All rights reserved. Version 1.0.0
+        </footer>
+
+    </main>
+</div>
+
+<script>
+const form = document.getElementById("staffForm");
+const message = document.getElementById("message");
+const employeeIdInput = document.getElementById("employeeIdInput");
+const employeeIdLabel = document.getElementById("employeeId");
+
+function getStaffRecords() {
+    try {
+        const records = JSON.parse(
+            localStorage.getItem("simsStaffDirectory") || "[]"
+        );
+        return Array.isArray(records) ? records : [];
+    } catch {
+        return [];
+    }
+}
+
+function getNextEmployeeId() {
+    const records = getStaffRecords();
+    const ids = records
+        .map(staff => Number(staff.id))
+        .filter(id => Number.isFinite(id) && id > 0);
+
+    const highestId = Math.max(1013, ...ids);
+    return String(highestId + 1);
+}
+
+function setEmployeeId() {
+    const nextId = getNextEmployeeId();
+    employeeIdInput.value = nextId;
+    employeeIdLabel.textContent = nextId;
+}
+
+function showMessage(text, type) {
+    message.textContent = text;
+    message.className = "message " + type;
+}
+
+setEmployeeId();
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const surname = document.getElementById("surname").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+    const selectedTitle =
+        document.querySelector('input[name="title"]:checked');
+
+    if (!selectedTitle) {
+        showMessage("Please select a title.", "error");
+        return;
+    }
+
+    if (!/^[0-9]{10}$/.test(mobile)) {
+        showMessage("Enter a valid 10-digit mobile number.", "error");
+        return;
+    }
+
+    if (password.length < 8) {
+        showMessage("Password must contain at least 8 characters.", "error");
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        showMessage("Password and confirm password do not match.", "error");
+        return;
+    }
+
+    const records = getStaffRecords();
+
+    if (records.some(staff =>
+        String(staff.id) === employeeIdInput.value ||
+        String(staff.mobile || "") === mobile ||
+        String(staff.email || "").toLowerCase() === email.toLowerCase()
+    )) {
+        showMessage(
+            "A staff record with this ID, mobile number, or email already exists.",
+            "error"
+        );
+        return;
+    }
+
+    const newStaff = {
+        id: employeeIdInput.value,
+        title: selectedTitle.value,
+        firstName: firstName,
+        lastName: lastName,
+        surname: surname,
+        name: [firstName, lastName, surname].filter(Boolean).join(" "),
+        mobile: mobile,
+        email: email,
+        role: "Teacher",
+        status: "Active"
+    };
+
+    records.push(newStaff);
+
+    try {
+        localStorage.setItem("simsStaffDirectory", JSON.stringify(records));
+    } catch {
+        showMessage(
+            "Unable to save staff data in this browser. Check browser storage settings.",
+            "error"
+        );
+        return;
+    }
+
+    showMessage(
+        "Staff account details saved in this browser. Employee ID: " +
+        newStaff.id,
+        "success"
+    );
+
+    form.reset();
+    setEmployeeId();
+});
+</script>
+
+</body>
+</html>

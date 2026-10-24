@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Attendance | SIMS</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f3f3;color:#252525;font-size:14px}
+.topbar{height:60px;background:#fff;border-bottom:1px solid #e6e6e6;display:flex;align-items:center;padding:0 24px;gap:24px}
+.logo{width:220px;flex-shrink:0;font-size:25px;font-weight:bold;color:#4054c7}
+.logo-mark{color:#65b52b;margin-right:8px}
+.search{display:flex;flex:1;min-width:0;height:44px}
+.search input{flex:1;min-width:0;border:1px solid #eee;padding:0 14px}
+.search select{border:1px solid #eee;background:white;padding:0 8px}
+.search button{border:0;background:#4f80ff;color:white;padding:0 22px;cursor:pointer}
+.user{white-space:nowrap}
+.layout{display:flex;min-height:calc(100vh - 128px)}
+.sidebar{width:258px;flex-shrink:0;background:white;border-right:1px solid #e7e7e7}
+.nav-link{display:flex;align-items:center;gap:16px;min-height:48px;padding:0 22px;color:#222;text-decoration:none;border-bottom:1px solid #f0f0f0}
+.nav-link i:first-child{width:16px}
+.nav-link.active{color:#5682ff}
+.nav-parent{width:100%;background:white;border:0;text-align:left;font:inherit;cursor:pointer}
+.chevron{margin-left:auto;font-size:12px}
+.sub-menu{display:none;padding:5px 0 12px 60px}
+.sub-menu.open{display:block}
+.sub-menu a{display:block;padding:10px 0;text-decoration:none;color:#333}
+.sub-menu a::before{content:"•";margin-right:14px;color:#111}
+.sub-menu a.active,.sub-menu a:hover{color:#4f80ff}
+.main{flex:1;min-width:0;padding:28px 22px 40px}
+.heading-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+h1{font-size:30px;font-weight:500;margin:0 0 8px}
+.breadcrumb{color:#777;margin-bottom:28px}
+.breadcrumb a,.back{color:#4f80ff;text-decoration:none}
+.back{white-space:nowrap}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:24px}
+.card{background:white;border:1px solid #e8e8e8;padding:20px;display:flex;align-items:center;gap:15px;min-height:100px}
+.card-icon{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#edf2ff;color:#4f80ff;font-size:19px;flex-shrink:0}
+.card-icon.green{background:#e9f8ed;color:#28a65a}
+.card-icon.red{background:#fff0f0;color:#dc4545}
+.card-icon.orange{background:#fff3e4;color:#df8b25}
+.card-label{color:#777;margin-bottom:8px}
+.card strong{font-size:25px}
+.panel{background:white;border:1px solid #e7e7e7;margin-bottom:22px;padding:22px}
+.panel h2{font-size:18px;font-weight:600;margin:0 0 20px}
+.filters{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-weight:600;color:#555}
+.field input,.field select{height:40px;border:1px solid #ddd;border-radius:3px;padding:0 10px;min-width:160px;background:white}
+.btn{border:0;border-radius:3px;background:#4f80ff;color:white;padding:11px 16px;cursor:pointer}
+.btn:hover{filter:brightness(.95)}
+.btn.green{background:#28a65a}
+.btn.gray{background:#707780}
+.btn.orange{background:#df8b25}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;white-space:nowrap}
+th,td{padding:13px 12px;border:1px solid #eee;text-align:left}
+th{background:#fafafa;font-weight:600}
+tbody tr:hover{background:#f7f9ff}
+.status-select{padding:8px;border:1px solid #ddd;border-radius:3px;background:white}
+.note{color:#777;font-size:13px;line-height:1.6;margin-top:15px}
+.message{display:none;padding:12px;margin-top:15px;border-radius:4px;background:#e9f8ed;color:#20783e}
+.footer{display:flex;justify-content:space-between;padding:22px 20px;color:#777;border-top:1px solid #e5e5e5}
+@media(max-width:1050px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{width:200px}.logo{width:auto}.topbar{gap:12px}}
+@media(max-width:650px){.sidebar{width:145px}.nav-link{padding:0 10px;gap:8px}.sub-menu{padding-left:18px}.main{padding:18px 10px}.cards{grid-template-columns:1fr 1fr}.card{padding:12px;gap:8px}.card strong{font-size:20px}.search select,.user{display:none}.panel{padding:14px}.field input,.field select{min-width:130px}}
+</style>
+</head>
+
+<body>
+<header class="topbar">
+  <div class="logo"><span class="logo-mark">◢</span> SIMS</div>
+  <form class="search" id="globalSearch">
+    <input id="globalQuery" placeholder="Search by name / email / mobile no." aria-label="Search">
+    <select aria-label="Search category"><option>In Students</option><option selected>In Staff</option></select>
+    <button type="submit">Search</button>
+  </form>
+  <div class="user"><span class="logo-mark">◢</span> Dev 2 &nbsp;⌄</div>
+</header>
+
+<div class="layout">
+<aside class="sidebar">
+<nav>
+  <a class="nav-link" href="../index.html"><i class="fa-solid fa-house"></i> Dashboard</a>
+  <button class="nav-link nav-parent" data-toggle="reports"><i class="fa-solid fa-list"></i> Reports <i class="fa-solid fa-chevron-down chevron"></i></button>
+  <div class="sub-menu" id="reports"><a href="#">Summary</a><a href="#">Staff reports</a></div>
+  <button class="nav-link nav-parent" data-toggle="students"><i class="fa-solid fa-user-group"></i> Students <i class="fa-solid fa-chevron-down chevron"></i></button>
+  <div class="sub-menu" id="students"><a href="#">Student list</a><a href="#">Attendance</a></div>
+  <button class="nav-link nav-parent active" data-toggle="staff"><i class="fa-solid fa-users"></i> Staff <i class="fa-solid fa-chevron-up chevron"></i></button>
+  <div class="sub-menu open" id="staff">
+    <a href="summary.html">Summary</a>
+    <a href="staff-data.html">Staff data</a>
+    <a class="active" href="attendance.html">Attendance</a>
+    <a href="create-staff.html">Create Staff</a>
+  </div>
+  <button class="nav-link nav-parent" data-toggle="finance"><i class="fa-solid fa-wallet"></i> Finance module <i class="fa-solid fa-chevron-down chevron"></i></button>
+  <div class="sub-menu" id="finance"><a href="#">Fee collection</a><a href="#">Expenses</a></div>
+  <a class="nav-link" href="../index.html"><i class="fa-solid fa-gear"></i> Configurations</a>
+</nav>
+</aside>
+
+<main class="main">
+  <div class="heading-row">
+    <h1>Staff</h1>
+    <a class="back" href="summary.html"><i class="fa-solid fa-circle-arrow-left"></i> Go back</a>
+  </div>
+  <div class="breadcrumb"><a href="../index.html"><i class="fa-solid fa-house"></i></a> / Staff / Attendance</div>
+
+  <section class="cards">
+    <article class="card"><div class="card-icon"><i class="fa-solid fa-users"></i></div><div><div class="card-label">Total Staff</div><strong id="totalCount">0</strong></div></article>
+    <article class="card"><div class="card-icon green"><i class="fa-solid fa-user-check"></i></div><div><div class="card-label">Present</div><strong id="presentCount">0</strong></div></article>
+    <article class="card"><div class="card-icon red"><i class="fa-solid fa-user-xmark"></i></div><div><div class="card-label">Absent</div><strong id="absentCount">0</strong></div></article>
+    <article class="card"><div class="card-icon orange"><i class="fa-solid fa-clock"></i></div><div><div class="card-label">Late / Leave</div><strong id="otherCount">0</strong></div></article>
+  </section>
+
+  <section class="panel">
+    <h2><i class="fa-solid fa-calendar-check"></i> Staff Attendance</h2>
+    <div class="filters">
+      <div class="field"><label for="attendanceDate">Attendance date</label><input type="date" id="attendanceDate"></div>
+      <div class="field"><label for="staffSearch">Search staff</label><input type="search" id="staffSearch" placeholder="Name or staff ID"></div>
+      <div class="field"><label for="statusFilter">Filter status</label>
+        <select id="statusFilter"><option value="">All statuses</option><option>Present</option><option>Absent</option><option>Late</option><option>Leave</option></select>
+      </div>
+      <button class="btn" id="searchButton"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+      <button class="btn gray" id="resetButton"><i class="fa-solid fa-rotate-left"></i> Reset filters</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Attendance Records</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Staff ID</th><th>Staff Name</th><th>Role</th><th>Mobile</th><th>Attendance Status</th></tr></thead>
+        <tbody id="attendanceRows"></tbody>
+      </table>
+    </div>
+    <div class="note">Demo data: attendance records are stored in this browser only. Connect a database and add authentication before using this for official school attendance.</div>
+    <button class="btn green" id="saveButton"><i class="fa-solid fa-floppy-disk"></i> Save Attendance</button>
+    <button class="btn orange" id="markPresentButton"><i class="fa-solid fa-check"></i> Mark All Present</button>
+    <div class="message" id="message" role="status"></div>
+  </section>
+</main>
+</div>
+
+<footer class="footer"><span>Copyright © 2026 All rights reserved.</span><span>Version 1.0.0</span></footer>
+
+<script>
+const demoStaff = [
+ {id:"1",name:"Prasad Rao Mallela",role:"Administrator",mobile:"9123456789"},
+ {id:"2",name:"Praveen Kumar Ravuri",role:"Accountant",mobile:"9879879879"},
+ {id:"3",name:"Rakesh Sharma Duvvada",role:"Administrator",mobile:"9876987698"},
+ {id:"4",name:"Prashanth Kumar Manchi",role:"Teacher",mobile:"9876789987"},
+ {id:"5",name:"Ravi Kumar Maruthi",role:"Clerk",mobile:"9876556765"},
+ {id:"6",name:"Avinash Kumar Rajula",role:"Receptionist",mobile:"9889878787"},
+ {id:"7",name:"Suman Kumar Konda",role:"Teacher",mobile:"9098909989"},
+ {id:"8",name:"Priyanka Chopra Sonam",role:"Teacher",mobile:"9876654323"},
+ {id:"9",name:"Sathish Kumar Anthati",role:"Teacher",mobile:"8009007006"},
+ {id:"10",name:"Vekatesh Prasad Yadav",role:"Teacher",mobile:"8009007889"},
+ {id:"11",name:"Charan Kumar Challa",role:"Teacher",mobile:"7888766667"},
+ {id:"12",name:"Balu Yadav Goud",role:"Teacher",mobile:"6788766777"},
+ {id:"13",name:"Kiran Kumar Sadu",role:"Teacher",mobile:"8976778877"},
+ {id:"14",name:"Sandeep Kumar Manam",role:"Teacher",mobile:"9088988877"},
+ {id:"1011",name:"Sharath Prasad Venkata",role:"Principal",mobile:"7898778898"},
+ {id:"1012",name:"Stalin Reddy Gun",role:"Receptionist",mobile:"7867676767"},
+ {id:"1013",name:"Sudarshan Rao Konam",role:"Clerk",mobile:"6234567899"}
+];
+
+const dateInput = document.getElementById("attendanceDate");
+const staffSearch = document.getElementById("staffSearch");
+const statusFilter = document.getElementById("statusFilter");
+const attendanceRows = document.getElementById("attendanceRows");
+const message = document.getElementById("message");
+
+const today = new Date();
+dateInput.value = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+
+function storageKey() {
+  return "simsAttendance_" + dateInput.value;
+}
+
+function getRecords() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey()) || "{}");
+    return demoStaff.map(person => ({
+      ...person,
+      status: saved[person.id] || "Present"
+    }));
+  } catch {
+    return demoStaff.map(person => ({...person,status:"Present"}));
+  }
+}
+
+let records = getRecords();
+
+function updateCounts(list) {
+  document.getElementById("totalCount").textContent = list.length;
+  document.getElementById("presentCount").textContent = list.filter(p=>p.status==="Present").length;
+  document.getElementById("absentCount").textContent = list.filter(p=>p.status==="Absent").length;
+  document.getElementById("otherCount").textContent = list.filter(p=>p.status==="Late"||p.status==="Leave").length;
+}
+
+function render() {
+  const query = staffSearch.value.trim().toLowerCase();
+  const status = statusFilter.value;
+  const filtered = records.filter(person =>
+    (person.name+" "+person.id+" "+person.role+" "+person.mobile).toLowerCase().includes(query) &&
+    (!status || person.status===status)
+  );
+
+  attendanceRows.replaceChildren();
+
+  filtered.forEach(person => {
+    const tr = document.createElement("tr");
+    [person.id,person.name,person.role,person.mobile].forEach(value => {
+      const td = document.createElement("td");
+      td.textContent = value;
+      tr.appendChild(td);
+    });
+
+    const statusCell = document.createElement("td");
+    const select = document.createElement("select");
+    select.className = "status-select";
+    ["Present","Absent","Late","Leave"].forEach(value => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = value;
+      option.selected = value === person.status;
+      select.appendChild(option);
+    });
+    select.addEventListener("change", () => {
+      person.status = select.value;
+      updateCounts(records);
+    });
+    statusCell.appendChild(select);
+    tr.appendChild(statusCell);
+    attendanceRows.appendChild(tr);
+  });
+
+  updateCounts(records);
+}
+
+function showMessage(text) {
+  message.textContent = text;
+  message.style.display = "block";
+}
+
+document.getElementById("saveButton").addEventListener("click", () => {
+  const data = {};
+  records.forEach(person => data[person.id] = person.status);
+  localStorage.setItem(storageKey(), JSON.stringify(data));
+  showMessage("Attendance saved in this browser for " + dateInput.value + ".");
+});
+
+document.getElementById("markPresentButton").addEventListener("click", () => {
+  records.forEach(person => person.status = "Present");
+  render();
+  showMessage("All staff marked Present. Click Save Attendance to keep the changes.");
+});
+
+document.getElementById("searchButton").addEventListener("click", render);
+staffSearch.addEventListener("input", render);
+statusFilter.addEventListener("change", render);
+
+document.getElementById("resetButton").addEventListener("click", () => {
+  staffSearch.value = "";
+  statusFilter.value = "";
+  render();
+});
+
+dateInput.addEventListener("change", () => {
+  records = getRecords();
+  message.style.display = "none";
+  render();
+});
+
+document.getElementById("globalSearch").addEventListener("submit", event => {
+  event.preventDefault();
+  staffSearch.value = document.getElementById("globalQuery").value;
+  render();
+});
+
+document.querySelectorAll("[data-toggle]").forEach(button => {
+  button.addEventListener("click", () => {
+    document.getElementById(button.dataset.toggle).classList.toggle("open");
+  });
+});
+
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Summary | SIMS</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #222;
+            background: #f2f2f2;
+        }
+
+        .topbar {
+            height: 60px;
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+            gap: 25px;
+        }
+
+        .logo {
+            width: 232px;
+            flex-shrink: 0;
+            font-size: 25px;
+            font-weight: bold;
+            color: #4054c7;
+        }
+
+        .logo-mark {
+            color: #66b82b;
+            margin-right: 8px;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            height: 50px;
+            min-width: 0;
+        }
+
+        .search input {
+            flex: 1;
+            min-width: 0;
+            height: 48px;
+            border: 1px solid #eee;
+            padding: 0 22px;
+            font-size: 14px;
+        }
+
+        .search select {
+            height: 48px;
+            border: 1px solid #eee;
+            background: #fff;
+            color: #777;
+            padding: 0 10px;
+        }
+
+        .search button {
+            height: 48px;
+            border: none;
+            background: #4f80ff;
+            color: white;
+            padding: 0 28px;
+            cursor: pointer;
+        }
+
+        .user {
+            white-space: nowrap;
+            margin-left: 25px;
+        }
+
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 140px);
+        }
+
+        .sidebar {
+            width: 282px;
+            flex-shrink: 0;
+            background: white;
+            border-right: 1px solid #e6e6e6;
+        }
+
+        .nav-item {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .nav-link {
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 0 24px;
+            text-decoration: none;
+            color: #111;
+            font-size: 14px;
+        }
+
+        .nav-link i:first-child {
+            width: 16px;
+        }
+
+        .nav-link:hover,
+        .nav-link.selected {
+            color: #5682ff;
+        }
+
+        .nav-link .arrow {
+            margin-left: auto;
+            font-size: 12px;
+        }
+
+        .submenu {
+            list-style: none;
+            margin: 0;
+            padding: 5px 0 12px 62px;
+        }
+
+        .submenu a {
+            display: block;
+            padding: 10px 0;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .submenu a::before {
+            content: "•";
+            margin-right: 15px;
+            color: #111;
+        }
+
+        .submenu a:hover,
+        .submenu a.active {
+            color: #4f80ff;
+        }
+
+        .main {
+            flex: 1;
+            min-width: 0;
+            padding: 34px 20px 40px;
+        }
+
+        .page-heading {
+            margin: 0 0 5px;
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        .page-subheading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 34px;
+            font-size: 14px;
+        }
+
+        .breadcrumb {
+            color: #777;
+        }
+
+        .breadcrumb a,
+        .go-back {
+            color: #4f80ff;
+            text-decoration: none;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .summary-card {
+            background: #fff;
+            border: 1px solid #e9e9e9;
+            padding: 30px 32px 26px;
+            min-height: 560px;
+        }
+
+        .summary-card h2 {
+            font-size: 16px;
+            margin: 0 0 32px;
+            font-weight: 600;
+        }
+
+        .table-caption {
+            color: #777;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid #eee;
+            text-align: left;
+            padding: 20px 16px;
+            font-size: 14px;
+        }
+
+        th {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .footer {
+            min-height: 68px;
+            border-top: 1px solid #e5e5e5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            color: #777;
+            font-size: 13px;
+            background: #f2f2f2;
+        }
+
+        @media (max-width: 1000px) {
+            .sidebar {
+                width: 220px;
+            }
+
+            .logo {
+                width: auto;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-card {
+                min-height: auto;
+            }
+
+            .topbar {
+                gap: 12px;
+                padding: 0 12px;
+            }
+
+            .search select {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sidebar {
+                width: 155px;
+            }
+
+            .nav-link {
+                padding: 0 12px;
+                gap: 8px;
+            }
+
+            .submenu {
+                padding-left: 20px;
+            }
+
+            .main {
+                padding: 20px 12px;
+            }
+
+            .summary-card {
+                padding: 20px 12px;
+                overflow-x: auto;
+            }
+
+            .page-heading {
+                font-size: 26px;
+            }
+
+            .user {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="logo">
+            <span class="logo-mark">◢</span> SIMS
+        </div>
+
+        <div class="search">
+            <input id="globalSearch"
+                   type="search"
+                   placeholder="Search by name / email / mobile no.">
+
+            <select id="searchCategory" aria-label="Search category">
+                <option>In Students</option>
+                <option>In Staff</option>
+            </select>
+
+            <button id="searchButton" type="button">Search</button>
+        </div>
+
+        <div class="user">
+            <span class="logo-mark">◢</span>
+            Dev 2 &nbsp; <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <nav>
+                <div class="nav-item">
+                    <a class="nav-link" href="../index.html">
+                        <i class="fa-solid fa-house"></i> Dashboard
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link" href="#" data-placeholder="Reports">
+                        <i class="fa-solid fa-list"></i> Reports
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link" href="#" data-placeholder="Students">
+                        <i class="fa-solid fa-users"></i> Students
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link selected" href="#staff-submenu"
+                       id="staffToggle" aria-expanded="true">
+                        <i class="fa-solid fa-user-group"></i> Staff
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+                    </a>
+
+                    <ul class="submenu" id="staffSubmenu">
+                        <li><a class="active" href="summary.html">Summary</a></li>
+                        <li><a href="staff-data.html">Staff data</a></li>
+                        <li><a href="attendance.html">Attendance</a></li>
+                        <li><a href="create-staff.html">Create Staff</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link" href="#" data-placeholder="Finance module">
+                        <i class="fa-solid fa-wallet"></i> Finance module
+                        <i class="fa-solid fa-chevron-down arrow"></i>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a class="nav-link" href="#" data-placeholder="Configurations">
+                        <i class="fa-solid fa-gear"></i> Configurations
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main">
+            <h1 class="page-heading">Staff</h1>
+
+            <div class="page-subheading">
+                <div>
+                    Summary
+                    <span class="breadcrumb">
+                        &nbsp;&nbsp; <i class="fa-solid fa-house"></i>
+                        / Staff / <a href="summary.html">Summary</a>
+                    </span>
+                </div>
+
+                <a class="go-back" href="../index.html">
+                    <i class="fa-solid fa-circle-arrow-left"></i> Go back
+                </a>
+            </div>
+
+            <section class="summary-grid">
+                <article class="summary-card">
+                    <h2>TOTAL STAFF</h2>
+                    <div class="table-caption">By Status</div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Active Staff</td>
+                                <td id="activeCount">37</td>
+                            </tr>
+                            <tr>
+                                <td>Inactive Staff</td>
+                                <td id="inactiveCount">0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+
+                <article class="summary-card">
+                    <h2>TOTAL STAFF</h2>
+                    <div class="table-caption">By Role</div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Accountant</td><td>1</td></tr>
+                            <tr><td>Administrator</td><td>2</td></tr>
+                            <tr><td>Clerk</td><td>2</td></tr>
+                            <tr><td>Receptionist</td><td>2</td></tr>
+                            <tr><td>Sports</td><td>1</td></tr>
+                            <tr><td>Teacher</td><td>24</td></tr>
+                        </tbody>
+                    </table>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <span>Copyright © 2026 All rights reserved.</span>
+        <span>Version 1.0.0</span>
+    </footer>
+
+    <script>
+        const staffToggle = document.getElementById("staffToggle");
+        const staffSubmenu = document.getElementById("staffSubmenu");
+
+        staffToggle.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const expanded =
+                staffToggle.getAttribute("aria-expanded") === "true";
+
+            staffToggle.setAttribute("aria-expanded", String(!expanded));
+            staffSubmenu.hidden = expanded;
+        });
+
+        document.querySelectorAll("[data-placeholder]").forEach(link => {
+            link.addEventListener("click", event => {
+                event.preventDefault();
+                alert(link.dataset.placeholder + " page is not connected yet.");
+            });
+        });
+
+        document.getElementById("searchButton").addEventListener("click", () => {
+            const query = document.getElementById("globalSearch").value.trim();
+
+            if (!query) {
+                alert("Please enter a name, email, or mobile number to search.");
+                return;
+            }
+
+            alert("Search functionality will be connected to staff records next.");
+        });
+    </script>
+</body>
+</html>

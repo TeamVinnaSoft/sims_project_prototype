@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMS | Configurations</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    .config-content {
+      background: #fff;
+      margin: 20px;
+      padding: 24px;
+      min-height: 650px;
+    }
+
+    .config-content h1 {
+      font-size: 14px;
+      color: #555;
+      margin: 0 0 48px;
+      text-transform: uppercase;
+    }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px 5.5%;
+      padding: 0 3%;
+    }
+
+    .config-card {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 18px;
+      color: #5683ff;
+      background: white;
+      border: 1px solid #8eafff;
+      border-radius: 3px;
+      text-decoration: none;
+      font-size: 14px;
+      box-sizing: border-box;
+      transition: background .2s, box-shadow .2s;
+    }
+
+    .config-card i {
+      font-size: 26px;
+      width: 32px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .config-card:hover {
+      background: #f4f7ff;
+      box-shadow: 0 2px 6px #00000012;
+    }
+
+    .config-footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 25px 20px;
+      color: #666;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .config-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 0;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .config-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .config-content {
+        margin: 10px;
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <aside class="sidebar">
+      <div class="brand-row">
+        <div class="brand-mark">
+          <span></span><span></span><span></span>
+        </div>
+        <strong>SIMS</strong>
+      </div>
+
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link" href="../index.html">
+          <i class="fa-solid fa-house"></i>
+          <span>Dashboard</span>
+        </a>
+
+        <a class="nav-link" href="../index.html#reports">
+          <i class="fa-solid fa-list"></i>
+          <span>Reports</span>
+        </a>
+
+        <a class="nav-link" href="../index.html#students">
+          <i class="fa-solid fa-user-group"></i>
+          <span>Students</span>
+        </a>
+
+        <a class="nav-link" href="../index.html#staff">
+          <i class="fa-solid fa-users"></i>
+          <span>Staff</span>
+        </a>
+
+        <a class="nav-link active" href="index.html">
+          <i class="fa-solid fa-gear"></i>
+          <span>Configurations</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <form class="search-form" onsubmit="return false">
+          <span class="search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+
+          <input type="search"
+                 placeholder="Search by name / email / mobile no."
+                 aria-label="Search">
+
+          <select aria-label="Search category">
+            <option>In Students</option>
+            <option>In Staff</option>
+            <option>All records</option>
+          </select>
+
+          <button type="submit" class="search-button">Search</button>
+        </form>
+
+        <button class="profile-button" type="button">
+          <span class="brand-mark small">
+            <span></span><span></span><span></span>
+          </span>
+          <span>Dev 2</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+      </header>
+
+      <section class="config-content">
+        <h1>Configurations</h1>
+
+        <div class="config-grid">
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>School branding</span>
+          </a>
+
+          <a class="config-card" href="staff-role-mapping.html">
+            <i class="fa-solid fa-sitemap"></i>
+            <span>Staff Role Mapping</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>Bulk data upload</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-table-cells"></i>
+            <span>Software features selection</span>
+          </a>
+
+          <a class="config-card" href="class-teacher-mapping.html">
+            <i class="fa-solid fa-sitemap"></i>
+            <span>Class Teacher Mapping</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+            <span>Data download</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>Academic Year</span>
+          </a>
+
+          <a class="config-card" href="subject-teacher-mapping.html">
+            <i class="fa-solid fa-sitemap"></i>
+            <span>Subject Teacher Mapping</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-brands fa-android"></i>
+            <span>Apps</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-clock"></i>
+            <span>School Timing</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-calendar"></i>
+            <span>Academic Calendar</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-globe"></i>
+            <span>Website</span>
+          </a>
+
+          <a class="config-card" href="sub-mapping.html">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Classes &amp; Subjects</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-hot-air-balloon"></i>
+            <span>Holiday list</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-envelope"></i>
+            <span>e-mail Server</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-chalkboard"></i>
+            <span>Classrooms</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-list"></i>
+            <span>Lesson Planner</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-comment-sms"></i>
+            <span>SMS Gateway</span>
+          </a>
+
+          <a class="config-card" href="roles.html">
+            <i class="fa-solid fa-user-gear"></i>
+            <span>Roles</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-video"></i>
+            <span>Online Class</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span>WhatsApp</span>
+          </a>
+
+          <a class="config-card" href="staff-list.html">
+            <i class="fa-solid fa-user-plus"></i>
+            <span>Staff</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-clipboard-check"></i>
+            <span>Examinations</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Payment gateway</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-crown"></i>
+            <span>Principal Account</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-bars"></i>
+            <span>Parent panel menu</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-money-bill"></i>
+            <span>Payroll</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-bars-staggered"></i>
+            <span>Staff panel menu</span>
+          </a>
+
+          <a class="config-card" href="#">
+            <i class="fa-solid fa-money-check-dollar"></i>
+            <span>Fee Module</span>
+          </a>
+
+        </div>
+      </section>
+
+      <footer class="footer config-footer">
+        <span>Copyright © 2026 All rights reserved.</span>
+        <span>Version 1.0.0</span>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
