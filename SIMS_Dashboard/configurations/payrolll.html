@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMS | Staff Payroll</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            color: #343a40;
+        }
+
+        .topbar {
+            height: 60px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #414bd8;
+        }
+
+        .search {
+            width: 55%;
+            padding: 11px;
+            border: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 60px);
+        }
+
+        .sidebar {
+            width: 230px;
+            flex-shrink: 0;
+            background: white;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 16px 20px;
+            color: #252525;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            color: #507eff;
+            background: #f5f7ff;
+        }
+
+        .sidebar i {
+            width: 25px;
+        }
+
+        .main {
+            flex: 1;
+            min-width: 0;
+            padding: 28px 22px;
+        }
+
+        .heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 0 0 8px;
+            color: #111;
+        }
+
+        .breadcrumb {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: #507eff;
+            text-decoration: none;
+        }
+
+        .btn {
+            background: #507eff;
+            color: white;
+            border: none;
+            padding: 11px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 13px;
+        }
+
+        .btn:hover {
+            background: #3769e8;
+        }
+
+        .back {
+            background: white;
+            color: #507eff;
+            padding: 12px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .summary-card {
+            background: white;
+            border: 1px solid #e8e8e8;
+            padding: 20px;
+            border-radius: 3px;
+        }
+
+        .summary-card p {
+            margin: 0 0 12px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .summary-card strong {
+            font-size: 25px;
+        }
+
+        .blue {
+            color: #507eff;
+        }
+
+        .green {
+            color: #68bd16;
+        }
+
+        .orange {
+            color: #ed9c24;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid #e5e5e5;
+            padding: 22px;
+            margin-bottom: 20px;
+        }
+
+        .panel h2 {
+            margin: 0 0 20px;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .filters input,
+        .filters select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 13px;
+            background: white;
+        }
+
+        .filters input {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 13px;
+        }
+
+        th, td {
+            border: 1px solid #eee;
+            padding: 13px 10px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        th {
+            background: #fff;
+            color: #222;
+            font-weight: 600;
+        }
+
+        tbody tr:hover {
+            background: #f8faff;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            color: white;
+            font-size: 12px;
+            border-radius: 2px;
+        }
+
+        .paid {
+            background: #68bd16;
+        }
+
+        .pending {
+            background: #f0a329;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 24px 0 0;
+            color: #777;
+            font-size: 12px;
+        }
+
+        .empty {
+            display: none;
+            text-align: center;
+            padding: 25px;
+            color: #777;
+        }
+
+        @media (max-width: 850px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .search {
+                display: none;
+            }
+
+            .main {
+                padding: 18px 12px;
+            }
+
+            .panel {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="logo">🔺 SIMS</div>
+    <input class="search" type="search"
+           placeholder="Search by name / email / mobile no.">
+    <div><i class="fa-solid fa-user-circle"></i> Dev 2</div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <a href="../index.html">
+            <i class="fa-solid fa-house"></i> Dashboard
+        </a>
+
+        <a href="../index.html#reports">
+            <i class="fa-solid fa-list"></i> Reports
+        </a>
+
+        <a href="../index.html#students">
+            <i class="fa-solid fa-user-group"></i> Students
+        </a>
+
+        <a href="../index.html#staff">
+            <i class="fa-solid fa-users"></i> Staff
+        </a>
+
+        <a href="../index.html#finance">
+            <i class="fa-solid fa-wallet"></i> Finance module
+        </a>
+
+        <a href="../index.html#configurations" class="active">
+            <i class="fa-solid fa-gear"></i> Configurations
+        </a>
+    </aside>
+
+    <main class="main">
+
+        <div class="heading">
+            <div>
+                <h1>Staff Payroll</h1>
+                <div class="breadcrumb">
+                    <a href="../index.html">Home</a>
+                    / Configurations / Payroll
+                </div>
+            </div>
+
+            <a class="back" href="../index.html#configurations"
+               title="Go back">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+        </div>
+
+        <section class="summary">
+            <div class="summary-card">
+                <p><i class="fa-solid fa-users blue"></i> Total Staff</p>
+                <strong id="totalStaff">10</strong>
+            </div>
+
+            <div class="summary-card">
+                <p><i class="fa-solid fa-circle-check green"></i> Paid</p>
+                <strong class="green" id="paidCount">7</strong>
+            </div>
+
+            <div class="summary-card">
+                <p><i class="fa-solid fa-clock orange"></i> Pending</p>
+                <strong class="orange" id="pendingCount">3</strong>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>STAFF PAYROLL DETAILS</h2>
+
+            <div class="filters">
+                <input type="search" id="staffSearch"
+                       placeholder="Search employee name or ID">
+
+                <select id="monthFilter" aria-label="Payroll month">
+                    <option value="October 2026">October 2026</option>
+                    <option value="September 2026">September 2026</option>
+                    <option value="August 2026">August 2026</option>
+                </select>
+
+                <select id="statusFilter" aria-label="Payment status">
+                    <option value="All">All statuses</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Pending">Pending</option>
+                </select>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>Staff Name</th>
+                            <th>Role Name</th>
+                            <th>Basic Salary</th>
+                            <th>Allowances</th>
+                            <th>Deductions</th>
+                            <th>Net Salary</th>
+                            <th>Month</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="payrollBody"></tbody>
+                </table>
+
+                <div class="empty" id="emptyMessage">
+                    No payroll records found.
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <span>Copyright © 2026 All rights reserved.</span>
+            <span>Version 1.0.0</span>
+        </footer>
+
+    </main>
+</div>
+
+<script>
+    // Sample data for demonstration only.
+    const payrollRecords = [
+        { id: 1, name: "Prasad Rao", role: "Administrator",
+          basic: 35000, allowance: 5000, deduction: 1000, status: "Paid" },
+
+        { id: 2, name: "Praveen Kumar", role: "Accountant",
+          basic: 28000, allowance: 3000, deduction: 500, status: "Paid" },
+
+        { id: 3, name: "Rakesh Sharma", role: "Administrator",
+          basic: 32000, allowance: 4000, deduction: 1000, status: "Pending" },
+
+        { id: 4, name: "Prashanth Kumar", role: "Teacher",
+          basic: 30000, allowance: 3500, deduction: 500, status: "Paid" },
+
+        { id: 5, name: "Ravi Kumar", role: "Clerk",
+          basic: 25000, allowance: 2500, deduction: 500, status: "Pending" },
+
+        { id: 6, name: "Avinash Kumar", role: "Receptionist",
+          basic: 27000, allowance: 2000, deduction: 500, status: "Paid" },
+
+        { id: 7, name: "Suman Kumar", role: "Teacher",
+          basic: 30000, allowance: 3000, deduction: 500, status: "Paid" },
+
+        { id: 8, name: "Priyanka Chopra", role: "Teacher",
+          basic: 30000, allowance: 3000, deduction: 500, status: "Pending" },
+
+        { id: 9, name: "Sathish Kumar", role: "Teacher",
+          basic: 29000, allowance: 2500, deduction: 500, status: "Paid" },
+
+        { id: 10, name: "Venkatesh Prasad", role: "Teacher",
+          basic: 30000, allowance: 3000, deduction: 500, status: "Paid" }
+    ];
+
+    const payrollBody = document.getElementById("payrollBody");
+    const staffSearch = document.getElementById("staffSearch");
+    const statusFilter = document.getElementById("statusFilter");
+    const monthFilter = document.getElementById("monthFilter");
+    const emptyMessage = document.getElementById("emptyMessage");
+
+    function formatCurrency(amount) {
+        return "₹" + amount.toLocaleString("en-IN");
+    }
+
+    function renderPayroll() {
+        const searchText = staffSearch.value.trim().toLowerCase();
+        const selectedStatus = statusFilter.value;
+        const selectedMonth = monthFilter.value;
+
+        const filteredRecords = payrollRecords.filter(staff => {
+            const matchesSearch =
+                String(staff.id).includes(searchText) ||
+                staff.name.toLowerCase().includes(searchText) ||
+                staff.role.toLowerCase().includes(searchText);
+
+            const matchesStatus =
+                selectedStatus === "All" ||
+                staff.status === selectedStatus;
+
+            return matchesSearch && matchesStatus;
+        });
+
+        payrollBody.innerHTML = "";
+
+        filteredRecords.forEach(staff => {
+            const netSalary =
+                staff.basic + staff.allowance - staff.deduction;
+
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${staff.id}</td>
+                <td>${staff.name}</td>
+                <td>${staff.role}</td>
+                <td>${formatCurrency(staff.basic)}</td>
+                <td>${formatCurrency(staff.allowance)}</td>
+                <td>${formatCurrency(staff.deduction)}</td>
+                <td>${formatCurrency(netSalary)}</td>
+                <td>${selectedMonth}</td>
+                <td>
+                    <span class="status ${staff.status === "Paid" ? "paid" : "pending"}">
+                        ${staff.status}
+                    </span>
+                </td>
+                <td>
+                    ${
+                        staff.status === "Pending"
+                        ? `<button class="btn" data-action="pay" data-id="${staff.id}">
+                               Mark Paid
+                           </button>`
+                        : `<button class="btn" data-action="view" data-id="${staff.id}">
+                               View
+                           </button>`
+                    }
+                </td>
+            `;
+
+            payrollBody.appendChild(row);
+        });
+
+        emptyMessage.style.display =
+            filteredRecords.length === 0 ? "block" : "none";
+
+        document.getElementById("totalStaff").textContent =
+            payrollRecords.length;
+
+        document.getElementById("paidCount").textContent =
+            payrollRecords.filter(s => s.status === "Paid").length;
+
+        document.getElementById("pendingCount").textContent =
+            payrollRecords.filter(s => s.status === "Pending").length;
+    }
+
+    staffSearch.addEventListener("input", renderPayroll);
+    statusFilter.addEventListener("change", renderPayroll);
+    monthFilter.addEventListener("change", renderPayroll);
+
+    payrollBody.addEventListener("click", function(event) {
+        const button = event.target.closest("button[data-action]");
+
+        if (!button) return;
+
+        const staff = payrollRecords.find(
+            s => s.id === Number(button.dataset.id)
+        );
+
+        if (!staff) return;
+
+        if (button.dataset.action === "pay") {
+            const confirmPayment = confirm(
+                "Mark the sample payroll record for " +
+                staff.name + " as paid?"
+            );
+
+            if (confirmPayment) {
+                staff.status = "Paid";
+                renderPayroll();
+            }
+        } else {
+            const netSalary =
+                staff.basic + staff.allowance - staff.deduction;
+
+            alert(
+                "Employee: " + staff.name +
+                "\nRole: " + staff.role +
+                "\nBasic Salary: " + formatCurrency(staff.basic) +
+                "\nAllowances: " + formatCurrency(staff.allowance) +
+                "\nDeductions: " + formatCurrency(staff.deduction) +
+                "\nNet Salary: " + formatCurrency(netSalary)
+            );
+        }
+    });
+
+    renderPayroll();
+</script>
+
+</body>
+</html>

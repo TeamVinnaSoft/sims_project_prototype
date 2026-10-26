@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMS Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f3f3f3;color:#111;font-size:14px}
+button,input,select{font:inherit}
+.topbar{position:fixed;top:0;left:0;right:0;height:60px;background:#fff;display:flex;align-items:center;border-bottom:1px solid #e7e7e7;z-index:1000}
+.brand{width:258px;min-width:258px;height:60px;display:flex;align-items:center;padding:0 24px;gap:12px;border-right:1px solid #eee}
+.brand-name{color:#4557b8;font-size:23px;font-weight:bold}
+.brand-mark{width:28px;height:26px;position:relative;flex-shrink:0}
+.brand-mark span{position:absolute;width:20px;height:7px;transform:skewY(-18deg)}
+.brand-mark span:nth-child(1){background:#64b52b;top:2px;left:4px}
+.brand-mark span:nth-child(2){background:#4273d7;top:10px;left:0}
+.brand-mark span:nth-child(3){background:#f5bd21;top:18px;left:5px}
+.menu-toggle{margin-left:auto;border:0;background:transparent;cursor:pointer;font-size:21px;padding:8px}
+.search-area{flex:1;display:flex;align-items:center;height:48px;margin-left:32px;min-width:0}
+.search-icon{background:#e9ecef;color:#999;height:48px;width:40px;display:grid;place-items:center}
+.search-area input{flex:1;min-width:0;height:48px;border:1px solid #eee;padding:0 22px;outline:none}
+.search-area select{width:116px;height:48px;border:1px solid #eee;background:#fff;color:#aaa;padding:0 8px}
+.search-btn{height:48px;padding:0 25px;background:#4e7efa;color:#fff;border:0;cursor:pointer;box-shadow:0 2px 5px #ccc}
+.profile-dropdown{position:relative;margin:0 25px 0 30px}
+.profile-btn{display:flex;align-items:center;gap:13px;background:#fff;border:0;cursor:pointer;padding:10px;color:#222}
+.profile-menu{display:none;position:absolute;right:-5px;top:49px;width:204px;background:#fff;box-shadow:0 7px 20px #0002;padding:8px 0;z-index:1200}
+.profile-menu.show{display:block}
+.profile-menu a{display:flex;align-items:center;gap:10px;height:46px;padding:0 22px;color:#222;text-decoration:none}
+.profile-menu a:hover{background:#f3f6fc}
+.profile-icon{color:#5684f5;width:14px;text-align:center;font-weight:bold}
+.sidebar{position:fixed;top:60px;bottom:0;left:0;width:258px;background:#fff;border-right:1px solid #e8e8e8;overflow-y:auto;z-index:900;transition:transform .25s}
+.nav-link{width:100%;min-height:44px;display:flex;align-items:center;gap:18px;padding:0 21px;border:0;border-bottom:1px solid #f1f1f1;background:#fff;color:#111;text-decoration:none;text-align:left;cursor:pointer}
+.nav-link:hover{background:#f7f8fa}
+.nav-link.active{color:#4f80f7}
+.nav-icon{width:17px;font-size:17px;text-align:center}
+.nav-label{flex:1}
+.nav-chevron{font-size:15px;transition:transform .2s}
+.nav-group.open .nav-chevron{transform:rotate(180deg)}
+.submenu{display:none;background:#fafafa}
+.nav-group.open .submenu{display:block}
+.submenu a{display:block;padding:12px 20px 12px 57px;text-decoration:none;color:#444;border-bottom:1px solid #f0f0f0;font-size:13px}
+.submenu a:hover{background:#edf2ff;color:#4e7efa}
+.main{margin-left:258px;padding-top:60px;min-height:100vh;transition:margin-left .25s}
+.content{padding:31px 17px 33px}
+.welcome{font-size:29px;font-weight:600;margin:0 0 35px}
+.stats-card{display:grid;background:#fff;border:1px solid #eaeaea;min-height:180px;align-items:center;margin-bottom:30px}
+.stats-card.five{grid-template-columns:repeat(5,minmax(0,1fr))}
+.stats-card.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stat{min-height:80px;display:flex;align-items:center;justify-content:center;gap:18px;border-right:1px solid #f3f3f3}
+.stat:last-child{border-right:0}
+.stat-icon{font-size:34px;font-weight:bold;line-height:1}
+.green{color:#70bd16}.blue{color:#5685ff}.red{color:#ff4b55}
+.stat-label{color:#777;margin-bottom:4px;font-size:13px}
+.stat-number{font-size:16px;font-weight:600}
+.academic-card{background:#fff;border:1px solid #eaeaea;padding:25px 30px 23px;margin-bottom:30px}
+.academic-title{margin-bottom:12px}
+.academic-title strong{color:#72bd19}
+.progress-track{width:100%;height:8px;background:#e6f0d9;border-radius:5px;overflow:hidden}
+.progress-bar{width:100%;height:100%;background:#70bd16;border-radius:5px}
+.status-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:30px}
+.status-card{min-height:103px;display:flex;align-items:center;padding:30px;background:#fff;border:1px solid #eaeaea}
+.status-success{color:#248d2a}
+.status-active{color:#70bd16;font-weight:bold}
+.empty-card{height:75px;background:#fff;border:1px solid #eaeaea}
+.footer{min-height:75px;border-top:1px solid #e7e7e7;display:flex;align-items:center;justify-content:space-between;padding:20px 17px;color:#777;font-size:13px}
+.footer-version{color:#111}
+.page-view{display:none}
+.page-view.active{display:block}
+.module-card{background:#fff;border:1px solid #e7e7e7;padding:25px;margin-bottom:20px}
+.module-card h2{margin-bottom:18px;font-size:21px}
+.module-card p{color:#666;line-height:1.7}
+.action-button{background:#4e7efa;color:#fff;border:0;border-radius:3px;padding:10px 16px;cursor:pointer}
+.notice{margin-top:15px;color:#27852b}
+body.sidebar-collapsed .sidebar{transform:translateX(-100%)}
+body.sidebar-collapsed .main{margin-left:0}
+
+@media(max-width:1100px){
+.brand{width:210px;min-width:210px}
+.sidebar{width:210px}
+.main{margin-left:210px}
+.search-area{margin-left:12px}
+.profile-dropdown{margin:0 8px}
+.stat{gap:9px}
+.stat-icon{font-size:29px}
+}
+@media(max-width:850px){
+.stats-card.five{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats-card{min-height:145px}
+.stat{min-height:95px}
+.search-area select{display:none}
+}
+@media(max-width:720px){
+.brand{width:150px;min-width:150px;padding:0 12px}
+.brand-name{font-size:19px}
+.search-area{margin:0 8px}
+.search-icon{display:none}
+.search-area input{padding:0 8px}
+.search-btn{padding:0 10px}
+.profile-dropdown{margin:0 3px}
+.profile-btn{gap:5px;padding:8px 3px}
+.profile-symbol{display:none}
+.sidebar{transform:translateX(-100%)}
+body.mobile-sidebar-open .sidebar{transform:translateX(0);box-shadow:3px 0 10px #0002}
+.main{margin-left:0}
+.content{padding:22px 12px}
+.welcome{font-size:24px}
+.stats-card.three{grid-template-columns:repeat(2,minmax(0,1fr))}
+.status-grid{grid-template-columns:1fr;gap:15px}
+.academic-card{padding:20px}
+.module-card{overflow-x:auto}
+}
+@media(max-width:480px){
+.brand{width:105px;min-width:105px;gap:4px;padding:0 6px}
+.brand-name{font-size:16px}
+.brand-mark{transform:scale(.75)}
+.search-area input{width:50px;font-size:11px}
+.search-btn{font-size:11px;padding:0 6px}
+.profile-btn{font-size:12px}
+.stats-card.five,.stats-card.three{grid-template-columns:1fr}
+.stat{justify-content:flex-start;padding-left:25%}
+.status-card{padding:22px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark"><span></span><span></span><span></span></div>
+    <span class="brand-name">SIMS</span>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+  </div>
+
+  <form class="search-area" id="searchForm">
+    <span class="search-icon">⌕</span>
+    <input type="search" id="globalSearch"
+      placeholder="Search by name / email / mobile no.">
+    <select id="searchScope" aria-label="Search category">
+      <option value="students">In Students</option>
+      <option value="staff">In Staff</option>
+    </select>
+    <button type="submit" class="search-btn">Search</button>
+  </form>
+
+  <div class="profile-dropdown">
+    <button class="profile-btn" id="profileBtn" type="button"
+      aria-expanded="false" aria-controls="profileMenu">
+      <div class="brand-mark profile-symbol"><span></span><span></span><span></span></div>
+      <strong>Dev 2</strong><span class="profile-arrow">⌄</span>
+    </button>
+
+    <nav class="profile-menu" id="profileMenu">
+      <a href="#my-school" data-page="my-school"><span class="profile-icon">◆</span>My School</a>
+      <a href="#billing" data-page="billing"><span class="profile-icon">₹</span>Subscription &amp; Billing</a>
+      <a href="#tickets" data-page="tickets"><span class="profile-icon">▣</span>Support Tickets</a>
+      <a href="privacy-policy.html">
+      <span class="profile-icon">▤</span>Privacy Policy
+        </a>
+      <a href="help.html">
+        <span class="profile-icon">ⓘ</span>Help
+    </a>
+      <a href="login.html" id="logoutLink"><span class="profile-icon">⇥</span>Logout</a>
+    </nav>
+  </div>
+</header>
+
+<aside class="sidebar">
+  <a href="#dashboard" class="nav-link active" data-view="dashboard">
+    <span class="nav-icon">◆</span><span class="nav-label">Dashboard</span>
+  </a>
+
+  <div class="nav-group">
+    <button class="nav-link group-toggle">
+      <span class="nav-icon">▦</span><span class="nav-label">Reports</span><span class="nav-chevron">⌄</span>
+    </button>
+    <div class="submenu">
+      <a href="#reports" data-view="reports">Reports Overview</a>
+    </div>
+  </div>
+
+  <div class="nav-group">
+    <button class="nav-link group-toggle">
+      <span class="nav-icon">♙</span><span class="nav-label">Students</span><span class="nav-chevron">⌄</span>
+    </button>
+    <div class="submenu">
+      <a href="#student-summary" data-view="student-summary">Summary</a>
+      <a href="#student-data" data-view="student-data">Student Data</a>
+      <a href="#student-attendance" data-view="student-attendance">Attendance</a>
+    </div>
+  </div>
+
+  <div class="nav-group">
+    <button class="nav-link group-toggle">
+      <span class="nav-icon">♟</span><span class="nav-label">Staff</span><span class="nav-chevron">⌄</span>
+    </button>
+    <div class="submenu">
+      <a href="#staff-summary" data-view="staff-summary">Summary</a>
+      <a href="#staff-data" data-view="staff-data">Staff Data</a>
+      <a href="#staff-attendance" data-view="staff-attendance">Attendance</a>
+      <a href="#create-staff" data-view="create-staff">Create Staff</a>
+    </div>
+  </div>
+
+  <div class="nav-group">
+    <button class="nav-link group-toggle">
+      <span class="nav-icon">▣</span><span class="nav-label">Finance module</span><span class="nav-chevron">⌄</span>
+    </button>
+    <div class="submenu">
+      <a href="#fee-dues" data-view="fee-dues">Fee Dues</a>
+      <a href="#fee-received" data-view="fee-received">Fee Received</a>
+      <a href="#expenditure" data-view="expenditure">Expenditure</a>
+    </div>
+  </div>
+
+  <!-- Configurations: normal clickable item, no dropdown -->
+  <a href="#configurations" class="nav-link" data-view="configurations">
+    <span class="nav-icon">⚙</span>
+    <span class="nav-label">Configurations</span>
+  </a>
+</aside>
+
+<main class="main">
+  <div class="content">
+
+    <section class="page-view active" id="view-dashboard">
+      <h1 class="welcome">Welcome back,</h1>
+
+      <div class="stats-card five">
+        <div class="stat">
+          <span class="stat-icon green">♧</span>
+          <div><div class="stat-label">Students</div><div class="stat-number">47</div></div>
+        </div>
+        <div class="stat">
+          <span class="stat-icon blue">♟</span>
+          <div><div class="stat-label">Staff</div><div class="stat-number">37</div></div>
+        </div>
+        <div class="stat">
+          <span class="stat-icon red">▣</span>
+          <div><div class="stat-label">Fee dues</div><div class="stat-number">0</div></div>
+        </div>
+        <div class="stat">
+          <span class="stat-icon green">▣</span>
+          <div><div class="stat-label">Fee received</div><div class="stat-number">0</div></div>
+        </div>
+        <div class="stat">
+          <span class="stat-icon red">▣</span>
+          <div><div class="stat-label">Expenditure</div><div class="stat-number">0</div></div>
+        </div>
+      </div>
+
+      <div class="academic-card">
+        <div class="academic-title">Academic year: <strong>2025 - 2026</strong></div>
+        <div class="progress-track"><div class="progress-bar"></div></div>
+      </div>
+
+      <div class="stats-card three">
+        <div class="stat">
+          <span class="stat-icon green">⚑</span>
+          <div><div class="stat-label">Classes</div><div class="stat-number">10</div></div>
+        </div>
+        <div class="stat">
+          <span class="stat-icon blue">⚑</span>
+          <div><div class="stat-label">Class rooms</div><div class="stat-number">10</div></div>
+        </div>
+        <div class="stat">
+          <span class="stat-icon green">◧</span>
+          <div><div class="stat-label">Subjects</div><div class="stat-number">80</div></div>
+        </div>
+      </div>
+
+      <div class="status-grid">
+        <div class="status-card"><span class="status-success">Principal account added.</span></div>
+        <div class="status-card">Subscription Status: <span class="status-active">&nbsp;Active</span></div>
+      </div>
+
+      <div class="empty-card"></div>
+    </section>
+
+    <section class="page-view" id="view-other">
+      <div class="module-card">
+        <h2 id="moduleTitle">Module</h2>
+        <p id="moduleDescription">This module is part of the SIMS dashboard prototype.</p>
+        <div id="moduleContent"></div>
+        <p class="notice" id="moduleNotice"></p>
+      </div>
+    </section>
+
+    <section class="page-view" id="view-search">
+      <div class="module-card">
+        <h2 id="searchTitle">Search Results</h2>
+        <p id="searchMessage"></p>
+        <div id="searchResults"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="footer">
+    <span>Copyright © 2026 All rights reserved.</span>
+    <span class="footer-version">Version 1.0.0</span>
+  </footer>
+</main>
+
+<script>
+const profileBtn = document.getElementById("profileBtn");
+const profileMenu = document.getElementById("profileMenu");
+
+function closeProfileMenu() {
+  profileMenu.classList.remove("show");
+  profileBtn.setAttribute("aria-expanded", "false");
+}
+
+profileBtn.addEventListener("click", function(event) {
+  event.stopPropagation();
+  const isOpen = profileMenu.classList.toggle("show");
+  profileBtn.setAttribute("aria-expanded", String(isOpen));
+});
+
+document.addEventListener("click", function(event) {
+  if (!event.target.closest(".profile-dropdown")) {
+    closeProfileMenu();
+  }
+});
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") closeProfileMenu();
+});
+
+document.getElementById("menuToggle").addEventListener("click", function() {
+  if (window.innerWidth <= 720) {
+    document.body.classList.toggle("mobile-sidebar-open");
+  } else {
+    document.body.classList.toggle("sidebar-collapsed");
+  }
+});
+
+/* Dropdowns for other sidebar modules only */
+document.querySelectorAll(".group-toggle").forEach(function(button) {
+  button.addEventListener("click", function() {
+    button.closest(".nav-group").classList.toggle("open");
+  });
+});
+
+const dashboardView = document.getElementById("view-dashboard");
+const otherView = document.getElementById("view-other");
+const searchView = document.getElementById("view-search");
+
+function showDashboard() {
+  dashboardView.classList.add("active");
+  otherView.classList.remove("active");
+  searchView.classList.remove("active");
+
+  document.querySelectorAll(".nav-link").forEach(function(link) {
+    link.classList.remove("active");
+  });
+
+  document.querySelector('[data-view="dashboard"]').classList.add("active");
+
+  if (window.innerWidth <= 720) {
+    document.body.classList.remove("mobile-sidebar-open");
+  }
+}
+
+function showModule(view, label) {
+  if (view === "dashboard") {
+    showDashboard();
+    return;
+  }
+
+  dashboardView.classList.remove("active");
+  searchView.classList.remove("active");
+  otherView.classList.add("active");
+
+  document.getElementById("moduleTitle").textContent = label;
+  document.getElementById("moduleDescription").textContent =
+    view === "configurations"
+      ? "Welcome to Configurations."
+      : "You are viewing the " + label + " module in the SIMS dashboard prototype.";
+
+  document.getElementById("moduleContent").innerHTML = "";
+  document.getElementById("moduleNotice").textContent = "";
+
+  document.querySelectorAll(".nav-link").forEach(function(link) {
+    link.classList.remove("active");
+  });
+
+  const selectedLink = document.querySelector('[data-view="' + view + '"]');
+  if (selectedLink) selectedLink.classList.add("active");
+
+  if (view === "create-staff") {
+    document.getElementById("moduleContent").innerHTML =
+      '<form id="staffForm">' +
+      '<p>First name<br><input name="firstName" required></p><br>' +
+      '<p>Last name<br><input name="lastName" required></p><br>' +
+      '<p>Mobile number<br><input name="mobile" type="tel" required></p><br>' +
+      '<p>Role<br><select name="role">' +
+      '<option>Teacher</option><option>Administrator</option>' +
+      '<option>Accountant</option><option>Clerk</option>' +
+      '<option>Receptionist</option></select></p><br>' +
+      '<button class="action-button">Add Staff</button></form>' +
+      '<div id="staffOutput"></div>';
+
+    document.getElementById("staffForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const data = new FormData(event.target);
+      document.getElementById("staffOutput").textContent =
+        "Demo staff captured: " + data.get("firstName") + " " +
+        data.get("lastName") + " — " + data.get("role");
+    });
+  }
+
+  if (window.innerWidth <= 720) {
+    document.body.classList.remove("mobile-sidebar-open");
+  }
+}
+
+/* Sidebar navigation */
+document.querySelectorAll("[data-view]").forEach(function(link) {
+  link.addEventListener("click", function(event) {
+    event.preventDefault();
+    showModule(link.dataset.view, link.textContent.trim());
+  });
+});
+
+/* Dev 2 dropdown items */
+profileMenu.querySelectorAll("[data-page]").forEach(function(link) {
+  link.addEventListener("click", function(event) {
+    event.preventDefault();
+    closeProfileMenu();
+    showModule(link.dataset.page, link.textContent.trim());
+  });
+});
+
+document.getElementById("logoutLink").addEventListener("click", function(event) {
+  event.preventDefault();
+  closeProfileMenu();
+
+  if (confirm("Do you want to log out of this demo?")) {
+    alert("Demo logout selected. Connect this to your authentication system when available.");
+  }
+});
+
+/* Demo search */
+document.getElementById("searchForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const query = document.getElementById("globalSearch").value.trim();
+  const scope = document.getElementById("searchScope").value;
+
+  dashboardView.classList.remove("active");
+  otherView.classList.remove("active");
+  searchView.classList.add("active");
+
+  document.getElementById("searchTitle").textContent =
+    scope === "students" ? "Student Search Results" : "Staff Search Results";
+
+  document.getElementById("searchResults").innerHTML = "";
+
+  document.getElementById("searchMessage").textContent = query
+    ? 'Demo search for "' + query + '". Connect a database to retrieve real ' + scope + ' records.'
+    : "Please enter a name, email or mobile number to search.";
+});
+</script>
+//logout confirmation
+<script>
+document.getElementById("logoutLink").addEventListener("click", function(event) {
+    event.preventDefault();
+
+    const confirmLogout = confirm("Are you sure you want to logout?");
+
+    if (confirmLogout) {
+        window.location.href = "login.html";
+    }
+});
+</script>
+
+</body>
+</html>

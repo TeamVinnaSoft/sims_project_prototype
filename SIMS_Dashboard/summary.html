@@ -2,481 +2,421 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Summary | SIMS</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMS | Staff Summary</title>
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            color: #222;
-            background: #f2f2f2;
-        }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      color: #252525;
+    }
 
-        .topbar {
-            height: 60px;
-            background: #fff;
-            border-bottom: 1px solid #e5e5e5;
-            display: flex;
-            align-items: center;
-            padding: 0 25px;
-            gap: 25px;
-        }
+    .summary-content {
+      padding: 28px 20px;
+      min-height: calc(100vh - 130px);
+    }
 
-        .logo {
-            width: 232px;
-            flex-shrink: 0;
-            font-size: 25px;
-            font-weight: bold;
-            color: #4054c7;
-        }
+    .page-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 36px;
+    }
 
-        .logo-mark {
-            color: #66b82b;
-            margin-right: 8px;
-        }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      font-weight: 500;
+    }
 
-        .search {
-            display: flex;
-            align-items: center;
-            flex: 1;
-            height: 50px;
-            min-width: 0;
-        }
+    .subtitle {
+      font-size: 15px;
+      margin-bottom: 9px;
+    }
 
-        .search input {
-            flex: 1;
-            min-width: 0;
-            height: 48px;
-            border: 1px solid #eee;
-            padding: 0 22px;
-            font-size: 14px;
-        }
+    .breadcrumb {
+      font-size: 14px;
+      color: #777;
+    }
 
-        .search select {
-            height: 48px;
-            border: 1px solid #eee;
-            background: #fff;
-            color: #777;
-            padding: 0 10px;
-        }
+    .breadcrumb a,
+    .go-back {
+      color: #5182ff;
+      text-decoration: none;
+    }
 
-        .search button {
-            height: 48px;
-            border: none;
-            background: #4f80ff;
-            color: white;
-            padding: 0 28px;
-            cursor: pointer;
-        }
+    .go-back {
+      white-space: nowrap;
+      font-size: 15px;
+    }
 
-        .user {
-            white-space: nowrap;
-            margin-left: 25px;
-        }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
 
-        .layout {
-            display: flex;
-            min-height: calc(100vh - 140px);
-        }
+    .summary-card {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      padding: 30px 32px;
+      min-height: 560px;
+    }
 
-        .sidebar {
-            width: 282px;
-            flex-shrink: 0;
-            background: white;
-            border-right: 1px solid #e6e6e6;
-        }
+    .summary-card h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 30px;
+    }
 
-        .nav-item {
-            border-bottom: 1px solid #f0f0f0;
-        }
+    .section-label {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 12px;
+    }
 
-        .nav-link {
-            min-height: 48px;
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            padding: 0 24px;
-            text-decoration: none;
-            color: #111;
-            font-size: 14px;
-        }
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
 
-        .nav-link i:first-child {
-            width: 16px;
-        }
+    .summary-table th,
+    .summary-table td {
+      border: 1px solid #f0f0f0;
+      padding: 20px 16px;
+      text-align: left;
+      font-size: 15px;
+      overflow-wrap: anywhere;
+    }
 
-        .nav-link:hover,
-        .nav-link.selected {
-            color: #5682ff;
-        }
+    .summary-table th {
+      font-size: 16px;
+      font-weight: 600;
+    }
 
-        .nav-link .arrow {
-            margin-left: auto;
-            font-size: 12px;
-        }
+    .summary-table th:first-child {
+      width: 65%;
+    }
 
-        .submenu {
-            list-style: none;
-            margin: 0;
-            padding: 5px 0 12px 62px;
-        }
+    .summary-table th:last-child {
+      width: 35%;
+    }
 
-        .submenu a {
-            display: block;
-            padding: 10px 0;
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-        }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 25px 20px;
+      border-top: 1px solid #e5e5e5;
+      color: #777;
+      font-size: 12px;
+    }
 
-        .submenu a::before {
-            content: "•";
-            margin-right: 15px;
-            color: #111;
-        }
+    @media (max-width: 900px) {
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
 
-        .submenu a:hover,
-        .submenu a.active {
-            color: #4f80ff;
-        }
+      .summary-card {
+        min-height: auto;
+      }
+    }
 
-        .main {
-            flex: 1;
-            min-width: 0;
-            padding: 34px 20px 40px;
-        }
+    @media (max-width: 600px) {
+      .summary-content {
+        padding: 18px 10px;
+      }
 
-        .page-heading {
-            margin: 0 0 5px;
-            font-size: 32px;
-            font-weight: 600;
-        }
+      .summary-card {
+        padding: 20px 12px;
+      }
 
-        .page-subheading {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 34px;
-            font-size: 14px;
-        }
-
-        .breadcrumb {
-            color: #777;
-        }
-
-        .breadcrumb a,
-        .go-back {
-            color: #4f80ff;
-            text-decoration: none;
-        }
-
-        .summary-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 22px;
-        }
-
-        .summary-card {
-            background: #fff;
-            border: 1px solid #e9e9e9;
-            padding: 30px 32px 26px;
-            min-height: 560px;
-        }
-
-        .summary-card h2 {
-            font-size: 16px;
-            margin: 0 0 32px;
-            font-weight: 600;
-        }
-
-        .table-caption {
-            color: #777;
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
-
-        th, td {
-            border: 1px solid #eee;
-            text-align: left;
-            padding: 20px 16px;
-            font-size: 14px;
-        }
-
-        th {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .footer {
-            min-height: 68px;
-            border-top: 1px solid #e5e5e5;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-            color: #777;
-            font-size: 13px;
-            background: #f2f2f2;
-        }
-
-        @media (max-width: 1000px) {
-            .sidebar {
-                width: 220px;
-            }
-
-            .logo {
-                width: auto;
-            }
-
-            .summary-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .summary-card {
-                min-height: auto;
-            }
-
-            .topbar {
-                gap: 12px;
-                padding: 0 12px;
-            }
-
-            .search select {
-                display: none;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .sidebar {
-                width: 155px;
-            }
-
-            .nav-link {
-                padding: 0 12px;
-                gap: 8px;
-            }
-
-            .submenu {
-                padding-left: 20px;
-            }
-
-            .main {
-                padding: 20px 12px;
-            }
-
-            .summary-card {
-                padding: 20px 12px;
-                overflow-x: auto;
-            }
-
-            .page-heading {
-                font-size: 26px;
-            }
-
-            .user {
-                display: none;
-            }
-        }
-    </style>
+      .summary-table th,
+      .summary-table td {
+        padding: 14px 9px;
+        font-size: 14px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <header class="topbar">
-        <div class="logo">
-            <span class="logo-mark">◢</span> SIMS
-        </div>
+<div class="app-shell">
 
-        <div class="search">
-            <input id="globalSearch"
-                   type="search"
-                   placeholder="Search by name / email / mobile no.">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand-row">
+      <div class="brand-mark">
+        <span></span><span></span><span></span>
+      </div>
+      <strong>SIMS</strong>
 
-            <select id="searchCategory" aria-label="Search category">
-                <option>In Students</option>
-                <option>In Staff</option>
-            </select>
-
-            <button id="searchButton" type="button">Search</button>
-        </div>
-
-        <div class="user">
-            <span class="logo-mark">◢</span>
-            Dev 2 &nbsp; <i class="fa-solid fa-chevron-down"></i>
-        </div>
-    </header>
-
-    <div class="layout">
-        <aside class="sidebar">
-            <nav>
-                <div class="nav-item">
-                    <a class="nav-link" href="../index.html">
-                        <i class="fa-solid fa-house"></i> Dashboard
-                    </a>
-                </div>
-
-                <div class="nav-item">
-                    <a class="nav-link" href="#" data-placeholder="Reports">
-                        <i class="fa-solid fa-list"></i> Reports
-                        <i class="fa-solid fa-chevron-down arrow"></i>
-                    </a>
-                </div>
-
-                <div class="nav-item">
-                    <a class="nav-link" href="#" data-placeholder="Students">
-                        <i class="fa-solid fa-users"></i> Students
-                        <i class="fa-solid fa-chevron-down arrow"></i>
-                    </a>
-                </div>
-
-                <div class="nav-item">
-                    <a class="nav-link selected" href="#staff-submenu"
-                       id="staffToggle" aria-expanded="true">
-                        <i class="fa-solid fa-user-group"></i> Staff
-                        <i class="fa-solid fa-chevron-down arrow"></i>
-                    </a>
-
-                    <ul class="submenu" id="staffSubmenu">
-                        <li><a class="active" href="summary.html">Summary</a></li>
-                        <li><a href="staff-data.html">Staff data</a></li>
-                        <li><a href="attendance.html">Attendance</a></li>
-                        <li><a href="create-staff.html">Create Staff</a></li>
-                    </ul>
-                </div>
-
-                <div class="nav-item">
-                    <a class="nav-link" href="#" data-placeholder="Finance module">
-                        <i class="fa-solid fa-wallet"></i> Finance module
-                        <i class="fa-solid fa-chevron-down arrow"></i>
-                    </a>
-                </div>
-
-                <div class="nav-item">
-                    <a class="nav-link" href="#" data-placeholder="Configurations">
-                        <i class="fa-solid fa-gear"></i> Configurations
-                    </a>
-                </div>
-            </nav>
-        </aside>
-
-        <main class="main">
-            <h1 class="page-heading">Staff</h1>
-
-            <div class="page-subheading">
-                <div>
-                    Summary
-                    <span class="breadcrumb">
-                        &nbsp;&nbsp; <i class="fa-solid fa-house"></i>
-                        / Staff / <a href="summary.html">Summary</a>
-                    </span>
-                </div>
-
-                <a class="go-back" href="../index.html">
-                    <i class="fa-solid fa-circle-arrow-left"></i> Go back
-                </a>
-            </div>
-
-            <section class="summary-grid">
-                <article class="summary-card">
-                    <h2>TOTAL STAFF</h2>
-                    <div class="table-caption">By Status</div>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Status</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Active Staff</td>
-                                <td id="activeCount">37</td>
-                            </tr>
-                            <tr>
-                                <td>Inactive Staff</td>
-                                <td id="inactiveCount">0</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </article>
-
-                <article class="summary-card">
-                    <h2>TOTAL STAFF</h2>
-                    <div class="table-caption">By Role</div>
-
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Role</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Accountant</td><td>1</td></tr>
-                            <tr><td>Administrator</td><td>2</td></tr>
-                            <tr><td>Clerk</td><td>2</td></tr>
-                            <tr><td>Receptionist</td><td>2</td></tr>
-                            <tr><td>Sports</td><td>1</td></tr>
-                            <tr><td>Teacher</td><td>24</td></tr>
-                        </tbody>
-                    </table>
-                </article>
-            </section>
-        </main>
+      <button class="icon-button menu-toggle" id="menuToggle"
+              type="button" aria-label="Toggle sidebar">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </div>
 
+    <nav class="side-nav" aria-label="Main navigation">
+
+      <a class="nav-link" href="index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <button class="nav-link nav-parent" type="button"
+              data-menu="reports">
+        <i class="fa-solid fa-list"></i>
+        <span>Reports</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </button>
+      <div class="sub-menu" id="reports">
+        <a href="index.html">Reports</a>
+      </div>
+
+      <button class="nav-link nav-parent" type="button"
+              data-menu="students">
+        <i class="fa-solid fa-user-group"></i>
+        <span>Students</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </button>
+      <div class="sub-menu" id="students">
+        <a href="index.html">Student list</a>
+        <a href="index.html">Admissions</a>
+        <a href="index.html">Attendance</a>
+      </div>
+
+      <button class="nav-link nav-parent expanded active"
+              type="button" data-menu="staff">
+        <i class="fa-solid fa-users"></i>
+        <span>Staff</span>
+        <i class="fa-solid fa-chevron-up chevron"></i>
+      </button>
+
+      <div class="sub-menu open" id="staff">
+        <a class="active" href="summary.html">Summary</a>
+        <a href="staff-data.html">Staff data</a>
+        <a href="attendence.html">Attendance</a>
+        <a href="create-staff.html">Create Staff</a>
+      </div>
+
+      <button class="nav-link nav-parent" type="button"
+              data-menu="finance">
+        <i class="fa-solid fa-wallet"></i>
+        <span>Finance module</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </button>
+      <div class="sub-menu" id="finance">
+        <a href="index.html">Fee collection</a>
+        <a href="index.html">Fee dues</a>
+        <a href="index.html">Expenses</a>
+      </div>
+
+      <a class="nav-link" href="index.html">
+        <i class="fa-solid fa-gear"></i>
+        <span>Configurations</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main area -->
+  <main class="main-area">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <form class="search-form" id="searchForm">
+        <span class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search by name / email / mobile no."
+          aria-label="Search staff">
+
+        <select id="searchScope" aria-label="Search category">
+          <option>In Students</option>
+          <option selected>In Staff</option>
+          <option>All records</option>
+        </select>
+
+        <button type="submit" class="search-button">Search</button>
+      </form>
+
+      <button class="profile-button" type="button">
+        <span class="brand-mark small">
+          <span></span><span></span><span></span>
+        </span>
+        <span>Dev 2</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </header>
+
+    <!-- Staff Summary -->
+    <section class="summary-content">
+
+      <div class="page-heading">
+        <div>
+          <h1>Staff</h1>
+          <div class="subtitle">Summary</div>
+
+          <div class="breadcrumb">
+            <i class="fa-solid fa-house"></i>
+            / Staff /
+            <a href="summary.html">Summary</a>
+          </div>
+        </div>
+
+        <a class="go-back" href="index.html">
+          <i class="fa-solid fa-circle-arrow-left"></i>
+          Go back
+        </a>
+      </div>
+
+      <div class="summary-grid">
+
+        <!-- Total staff by status -->
+        <section class="summary-card">
+          <h2>TOTAL STAFF</h2>
+
+          <div class="section-label">By Status</div>
+
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Active Staff</td>
+                <td>37</td>
+              </tr>
+              <tr>
+                <td>Inactive Staff</td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Total staff by role -->
+        <section class="summary-card">
+          <h2>TOTAL STAFF</h2>
+
+          <div class="section-label">By Role</div>
+
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Accountant</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Administrator</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Clerk</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Receptionist</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>spoarts</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Teacher</td>
+                <td>24</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+    </section>
+
     <footer class="footer">
-        <span>Copyright © 2026 All rights reserved.</span>
-        <span>Version 1.0.0</span>
+      <span>Copyright © 2026 All rights reserved.</span>
+      <span>Version 1.0.0</span>
     </footer>
 
-    <script>
-        const staffToggle = document.getElementById("staffToggle");
-        const staffSubmenu = document.getElementById("staffSubmenu");
+  </main>
+</div>
 
-        staffToggle.addEventListener("click", function (event) {
-            event.preventDefault();
+<script src="js/app.js"></script>
 
-            const expanded =
-                staffToggle.getAttribute("aria-expanded") === "true";
+<script>
+  // Toggle the Staff, Students, Reports and Finance submenus.
+  document.querySelectorAll(".nav-parent").forEach(button => {
+    button.addEventListener("click", () => {
+      const menuId = button.dataset.menu;
+      const menu = document.getElementById(menuId);
 
-            staffToggle.setAttribute("aria-expanded", String(!expanded));
-            staffSubmenu.hidden = expanded;
-        });
+      if (!menu) return;
 
-        document.querySelectorAll("[data-placeholder]").forEach(link => {
-            link.addEventListener("click", event => {
-                event.preventDefault();
-                alert(link.dataset.placeholder + " page is not connected yet.");
-            });
-        });
+      const willOpen = !menu.classList.contains("open");
 
-        document.getElementById("searchButton").addEventListener("click", () => {
-            const query = document.getElementById("globalSearch").value.trim();
+      menu.classList.toggle("open", willOpen);
+      button.classList.toggle("expanded", willOpen);
 
-            if (!query) {
-                alert("Please enter a name, email, or mobile number to search.");
-                return;
-            }
+      const chevron = button.querySelector(".chevron");
+      if (chevron) {
+        chevron.classList.toggle("fa-chevron-up", willOpen);
+        chevron.classList.toggle("fa-chevron-down", !willOpen);
+      }
+    });
+  });
 
-            alert("Search functionality will be connected to staff records next.");
-        });
-    </script>
+  // Search staff summary rows.
+  document.getElementById("searchForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const query = document.getElementById("searchInput")
+      .value.trim().toLowerCase();
+
+    document.querySelectorAll(".summary-table tbody tr").forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(query)
+        ? ""
+        : "none";
+    });
+  });
+
+  // Reset summary table filtering when the search field is cleared.
+  document.getElementById("searchInput").addEventListener("input", event => {
+    if (event.target.value.trim() === "") {
+      document.querySelectorAll(".summary-table tbody tr").forEach(row => {
+        row.style.display = "";
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
