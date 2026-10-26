@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time tableConfiguration</title>
+    <link rel="stylesheet" href = "style.css">
+</head>
+<body>
+
+    
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Staff Data</a>
+            <a href="#">Create Staff</a>
+            <a href="#">Attendance</a>
+        </div>
+
+        
+
+        <div class="menu-item"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Fee Received</a>
+            <a href="#">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+<div class="main">
+    <div class="topbar"> 
+        <h3>Class timings and subjects hours</h3>
+    </div><br>
+    <div class="input-group">
+        <label>Class:</label>
+        <select>
+            <option>Select Class</option>
+            <option> 1st class</option>
+            <option> 2nd class</option>
+            <option> 3nd class</option>
+            <option> 4th class</option>
+            <option> 5th class</option>
+            <option> 6th class</option>
+            <option> 7th class</option>
+            <option> 8th class</option>
+            <option> 9th class</option>
+            <option> 10th class</option>
+        </select>
+    </div><br>
+
+
+        <table>
+            <tr>
+                <th>Hour name</th>
+                <th>Subject</th>
+                <th>Subject Teacher</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Action</th>
+            </tr>
+
+            <tr>
+                <td>
+                    <select>
+                        <option>Select hour</option>
+                        <option>1st Hour 08:00 - 08:55 </option>
+                        <option>2nd Hour 08:55 - 09:50</option>
+                        <option>3rd Hour 10:00 - 10:55</option>
+                        <option>4th Hour 10:55 - 11:50</option>
+                        <option>5th Hour 01:00 - 01:55</option>
+                        <option>6th Hour 01:55 - 02:50</option>
+                        <option>7th Hour 03:00 - 04:00</option>
+                    </select> 
+                </td>
+                <td>
+                    <select>
+                        <option>Select subject</option>
+                        <option>Telugu </option>
+                        <option>Hindi </option>
+                        <option>English</option>
+                        <option>Mathematics </option>
+                        <option>Secience </option>
+                        <option>Social </option>
+                    </select> 
+                </td>
+                    <td>
+                    <select>
+                        <option>Select Teacher</option>
+                        <option>Ram </option>
+                        <option>Ramya </option>
+                        <option>Gopi</option>
+                    </select> 
+                </td>
+
+                <td><input type="checkbox" unchecked></td>
+                <td><input type="checkbox" unchecked></td>
+                <td><input type="checkbox" unchecked></td>
+                <td><input type="checkbox" unchecked></td>
+                <td><input type="checkbox" unchecked></td>
+                <td><input type="checkbox" unchecked></td>
+                <td><span class="status">Update</span></td>
+            </tr>  
+             
+        </table>
+</div>
+</body>
+</html>

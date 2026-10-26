@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Class wise periods</title>
+    <link rel="stylesheet" href = "style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Staff Data</a>
+            <a href="#">Create Staff</a>
+            <a href="#">Attendance</a>
+        </div>
+
+        
+
+        <div class="menu-item"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Fee Received</a>
+            <a href="#">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+<div class="main">
+    <div class="topbar"> 
+        <h3>Class Wise Timetable <h3>
+        <div class="nav">
+            <label>Class:</label>
+        <select>
+            <option>Select Class</option>
+            <option> 1st class</option>
+            <option> 2nd class</option>
+            <option> 3nd class</option>
+            <option> 4th class</option>
+            <option> 5th class</option>
+            <option> 6th class</option>
+            <option> 7th class</option>
+            <option> 8th class</option>
+            <option> 9th class</option>
+            <option> 10th class</option>
+        </select>
+
+        </div>
+    </div><br>
+     <p> selected class/ Timings</p>
+        <table>
+            <tr>
+                <th>Hour Name</th>
+                <th>Period Type</th>
+                <th>Subject</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Stastus</th>
+                <th>Actiom</th>
+            </tr>
+
+            <tr>
+                <td>1st Hour</td>
+                <td>Class</td>
+                <td>English</td>
+                <td>08:00</td>
+                <td>08:55</td>
+                <td><span class="status">Active</span></td>
+                <td>
+                    <a href="#">
+                        <button class="view-btn"> Edit</button>
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>2nd Hour</td>
+                <td>Class</td>
+                <td>Mathas</td>
+                <td>08:55</td>
+                <td>09:50</td>
+                <td><span class="status">Active</span></td>
+                <td>
+                    <a href="#">
+                        <button class="view-btn"> Edit</button>
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Break</td>
+                <td>small break</td>
+                <td>Break</td>
+                <td>09:50</td>
+                <td>10:00</td>
+                <td><span class="status">Active</span></td>
+                <td>
+                    <a href="#">
+                        <button class="view-btn"> Edit</button>
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>3rd Hour</td>
+                <td>Class</td>
+                <td>social</td>
+                <td>10:00</td>
+                <td>10:55</td>
+                <td><span class="status">Active</span></td>
+                <td>
+                    <a href="#">
+                        <button class="view-btn"> Edit</button>
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>4th Hour</td>
+                <td>Class</td>
+                <td>No subject Assigned</td>
+                <td>08:55</td>
+                <td>09:50</td>
+                <td><span class="status-inactive">Inactive</span></td>
+                <td>
+                    <a href="period_mapping.html">
+                        <button class="view-btn-assign">Assign</button>
+                    </a>
+                </td>
+            </tr>
+        </table>
+</div>
+</body>
+</html>

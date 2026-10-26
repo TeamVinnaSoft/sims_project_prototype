@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Class Timings creation</title>
+    <link rel="stylesheet" href = "style.css">
+</head>
+<body>
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Staff Data</a>
+            <a href="#">Create Staff</a>
+            <a href="#">Attendance</a>
+        </div>
+
+        
+
+        <div class="menu-item"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Fee Received</a>
+            <a href="#">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+<div class="main">
+    <div class="topbar"> 
+        <h3>New Class Timings</h3>
+        
+    </div><br>
+
+    <form>
+        <div class="input-group">
+            <label>Type:</label>
+            <select>
+                <option>Break</option>
+                <option>Class</option>
+                <option>Assembly</option>
+            </select>
+        </div><br>
+
+        <div class="input-group">
+            <label>Hour Name:</label>
+            <input type="text" placeholder="Hour name">
+        </div><br>
+
+         <div class="input-group">
+            <label>Start Time:</label>
+            <input type="time" placeholder="start time">
+        </div><br>
+
+        <div>
+            <label>End Time:</label>
+            <input type="time" placeholder="End time">
+        </div><br>
+   
+    </form>
+        <a href="class_timing.html">
+           <button class="view-btn" type="submit"> Add Class Timings</button>
+        </a>
+
+        <a href="class_timings_creation.html">
+           <button class="view-btn-cancel" type="submit">Cancel</button>
+        </a>
+</div>
+
+</body>
+</html>
