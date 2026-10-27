@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fee Module</title>
+    <link rel="stylesheet" href = "style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Staff Data</a>
+            <a href="#">Create Staff</a>
+            <a href="#">Attendance</a>
+        </div>
+
+        
+
+        <div class="menu-item"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Fee Received</a>
+            <a href="#">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+    <div class="main">
+        <div class="topbar"> 
+            <h3>Fee  | Configuration</h3>
+        </div>
+
+         <!-- Management Dashboard -->
+        <section class="summary-grid" id="dashboard">
+
+            <div class="summary-card">
+                <div class="summary-icon blue">▤</div>
+                <div>
+                    <p>Total Components</p>
+                    <h2>04</h2>
+                    <small>Fee components</small>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon purple">%</div>
+                <div>
+                    <p>Total Concessions</p>
+                    <h2>02</h2>
+                    <small>Configured concessions</small>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon orange">◷</div>
+                <div>
+                    <p>Pending Approvals</p>
+                    <h2>03</h2>
+                    <small>Awaiting principal</small>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Fee Components and Concessions -->
+        <section class="configuration-grid">
+
+            <!-- Components List -->
+            <div class="card">
+                <div class="card-heading">
+                    <div>
+                        <h3>FEE COMPONENTS LIST</h3>
+                        <p>Manage fee components</p>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <a href="fee_components.html" class="btn primary">
+                        Configure Components
+                    </a>
+
+                    <a href="map_concession.html" class="btn secondary">
+                        Map Concessions
+                    </a>
+                </div>
+
+                <p class="description">
+                    Create, update, activate and deactivate fee components.
+                </p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Component Code</th>
+                                <th>Component Name</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>FC001</td>
+                                <td>Tuition Fee</td>
+                                <td><span class="status active">Active</span></td>
+                                <td><a href="fee_components.html">Edit</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>FC002</td>
+                                <td>Transport Fee</td>
+                                <td><span class="status active">Active</span></td>
+                                <td><a href="fee_components.html">Edit</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>FC003</td>
+                                <td>Library Fee</td>
+                                <td><span class="status inactive">Inactive</span></td>
+                                <td><a href="fee_components.html">Edit</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- Concessions List -->
+            <div class="card">
+                <div class="card-heading">
+                    <div>
+                        <h3>FEE CONCESSIONS LIST</h3>
+                        <p>Manage student concessions</p>
+                    </div>
+                    
+                </div>
+
+                <div class="button-group">
+                    <a href="fee_concession.html" class="btn primary">
+                        Configure Concessions
+                    </a>
+                </div>
+
+                <p class="description">
+                    Configure fixed or percentage-based fee concessions.
+                </p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Concession Name</th>
+                                <th>Value</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>FCN01</td>
+                                <td>Scholarship</td>
+                                <td>20%</td>
+                                <td><span class="status active">Active</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>FCN02</td>
+                                <td>Sibling</td>
+                                <td>₹2,000</td>
+                                <td><span class="status active">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+</html>
