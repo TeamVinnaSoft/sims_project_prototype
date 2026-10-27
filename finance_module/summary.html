@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Finance Module</title>
+    <link rel="stylesheet" href = "summary.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Staff Data</a>
+            <a href="#">Create Staff</a>
+            <a href="#">Attendance</a>
+        </div>
+
+        
+
+        <div class="menu-item active"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="summary.html">Summary</a>
+            <a href="fee_received.html">Fee Received</a>
+            <a href="expenditure.html">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+    <div class="main">
+        <div class="topbar"> 
+            <h3>Fee  | Configuration</h3>
+        </div>
+
+        <div class="page-heading">
+            <div>
+                <h1>Finance Summary</h1>
+                <p>Home / Finance / Summary</p>
+            </div>
+        </div>
+
+            <section class="summary-cards">
+
+            <div class="summary-card blue-card">
+                <div class="card-heading">
+                    <span>Total Fee Demand</span>
+                    <span class="card-icon">₹</span>
+                </div>
+                <h2>₹25,00,000</h2>
+                <p>Total fees payable by students</p>
+            </div>
+
+            <div class="summary-card green-card">
+                <div class="card-heading">
+                    <span>Fee Received</span>
+                    <span class="card-icon">↙️</span>
+                </div>
+                <h2>₹18,50,000</h2>
+                <p>Successfully collected fees</p>
+            </div>
+
+            <div class="summary-card orange-card">
+                <div class="card-heading">
+                    <span>Pending Fees</span>
+                    <span class="card-icon">◷</span>
+                </div>
+                <h2>₹6,50,000</h2>
+                <p>Outstanding fee amount</p>
+            </div>
+
+            <div class="summary-card red-card">
+                <div class="card-heading">
+                    <span>Total Expenditure</span>
+                    <span class="card-icon">↗️</span>
+                </div>
+                <h2>₹5,25,000</h2>
+                <p>Total recorded school expenses</p>
+            </div>
+
+        </section>
+
+
+        <section class="summary-layout">
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3>Fee Collection Overview</h3>
+                    <span class="label">Current Overview</span>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Fee Collection</span>
+                            <strong>74%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill blue-fill"
+                                 style="width:74%"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Pending Fees</span>
+                            <strong>26%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill orange-fill"
+                                 style="width:26%"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>Expenditure / Fee Received</span>
+                            <strong>28.38%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill red-fill"
+                                 style="width:28.38%"></div>
+                        </div>
+                    </div>
+
+                    <div class="balance-box">
+                        <span>Net Balance</span>
+                        <h2>₹13,25,000</h2>
+                        <small>Fee received − total expenditure</small>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h3>Financial Highlights</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="highlight-item">
+                        <span class="highlight-icon">✓</span>
+                        <div>
+                            <h4>Fee Collection</h4>
+                            <p>₹18,50,000 collected against
+                               ₹25,00,000 fee demand.</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight-item">
+                        <span class="highlight-icon orange">!</span>
+                        <div>
+                            <h4>Outstanding Fees</h4>
+                            <p>₹6,50,000 remains outstanding.</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight-item">
+                        <span class="highlight-icon red">₹</span>
+                        <div>
+                            <h4>School Expenditure</h4>
+                            <p>₹5,25,000 recorded as expenses.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="panel table-panel">
+            <div class="panel-heading">
+                <div>
+                    <h3>Recent Fee Transactions</h3>
+                    <p>Latest fee payment records</p>
+                </div>
+                <a href="fee-received.html" class="view-link">
+                    View All →
+                </a>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Receipt No.</th>
+                            <th>Student Name</th>
+                            <th>Class</th>
+                            <th>Date</th>
+                            <th>Payment Mode</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>REC-1001</td>
+                            <td>Rahul Kumar</td>
+                            <td>Class 8</td>
+                            <td>26-10-2026</td>
+                            <td>UPI</td>
+                            <td>₹15,000</td>
+                            <td><span class="status paid">Paid</span></td>
+                        </tr>
+                        <tr>
+                            <td>REC-1002</td>
+                            <td>Priya Sharma</td>
+                            <td>Class 9</td>
+                            <td>25-10-2026</td>
+                            <td>Bank Transfer</td>
+                            <td>₹18,000</td>
+                            <td><span class="status paid">Paid</span></td>
+                        </tr>
+                        <tr>
+                            <td>REC-1003</td>
+                            <td>Arjun Reddy</td>
+                            <td>Class 7</td>
+                            <td>24-10-2026</td>
+                            <td>Cash</td>
+                            <td>₹8,000</td>
+                            <td><span class="status pending">Pending</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel table-panel">
+            <div class="panel-heading">
+                <div>
+                    <h3>Recent Expenditure</h3>
+                    <p>Latest school expense records</p>
+                </div>
+                <a href="expenditure.html" class="view-link">
+                    View All →
+                </a>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Expense ID</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Payment Mode</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>EXP-1001</td>
+                            <td>Utilities</td>
+                            <td>Electricity Bill</td>
+                            <td>25-10-2026</td>
+                            <td>Bank Transfer</td>
+                            <td>₹12,500</td>
+                        </tr>
+                        <tr>
+                            <td>EXP-1002</td>
+                            <td>Stationery</td>
+                            <td>Books and Supplies</td>
+                            <td>23-10-2026</td>
+                            <td>UPI</td>
+                            <td>₹8,500</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+       
+    </div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+
+
+
+</body>
+</html>
