@@ -1,0 +1,891 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMS - Privacy Policy</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f3f3f3;
+            color: #222;
+            font-size: 14px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* HEADER */
+        .topbar {
+            height: 60px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            z-index: 100;
+        }
+
+        .brand {
+            width: 296px;
+            min-width: 296px;
+            height: 60px;
+            padding: 0 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-right: 1px solid #eee;
+        }
+
+        .brand-name {
+            color: #4657bd;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo {
+            width: 28px;
+            height: 26px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .logo span {
+            position: absolute;
+            width: 20px;
+            height: 7px;
+            transform: skewY(-18deg);
+        }
+
+        .logo span:nth-child(1) {
+            background: #64b52b;
+            top: 2px;
+            left: 4px;
+        }
+
+        .logo span:nth-child(2) {
+            background: #4273d7;
+            top: 10px;
+            left: 0;
+        }
+
+        .logo span:nth-child(3) {
+            background: #f5bd21;
+            top: 18px;
+            left: 5px;
+        }
+
+        .menu-icon {
+            margin-left: auto;
+            font-size: 22px;
+            color: #333;
+        }
+
+        /* SEARCH */
+        .search-area {
+            flex: 1;
+            min-width: 0;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            margin-left: 32px;
+        }
+
+        .search-icon {
+            width: 40px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            background: #e9ecef;
+            color: #999;
+        }
+
+        .search-area input {
+            flex: 1;
+            min-width: 0;
+            height: 48px;
+            padding: 0 20px;
+            border: 1px solid #eee;
+            outline: none;
+        }
+
+        .search-area select {
+            width: 115px;
+            height: 48px;
+            border: 1px solid #eee;
+            background: white;
+            color: #aaa;
+            padding: 0 8px;
+        }
+
+        .search-btn {
+            height: 48px;
+            padding: 0 25px;
+            border: none;
+            background: #4e7efa;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* PROFILE DROPDOWN */
+        .profile {
+            position: relative;
+            margin: 0 25px 0 28px;
+        }
+
+        .profile-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .profile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 210px;
+            background: #fff;
+            box-shadow: 0 5px 20px #0002;
+            padding: 8px 0;
+            z-index: 200;
+        }
+
+        .profile:hover .profile-menu,
+        .profile:focus-within .profile-menu {
+            display: block;
+        }
+
+        .profile-menu a {
+            display: block;
+            padding: 15px 20px;
+            color: #222;
+        }
+
+        .profile-menu a:hover {
+            background: #f3f6fc;
+        }
+
+        .profile-menu span {
+            color: #5684f5;
+            margin-right: 10px;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+            left: 0;
+            width: 296px;
+            background: white;
+            border-right: 1px solid #e8e8e8;
+            overflow-y: auto;
+        }
+
+        .nav-link {
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 0 24px;
+            border-bottom: 1px solid #f1f1f1;
+            color: #111;
+        }
+
+        .nav-link:hover {
+            background: #f7f8fa;
+        }
+
+        .nav-icon {
+            width: 18px;
+            font-size: 17px;
+            text-align: center;
+        }
+
+        .nav-group {
+            position: relative;
+        }
+
+        .nav-chevron {
+            margin-left: auto;
+        }
+
+        .submenu {
+            display: none;
+            background: #fafafa;
+        }
+
+        .nav-group:hover .submenu,
+        .nav-group:focus-within .submenu {
+            display: block;
+        }
+
+        .submenu a {
+            display: block;
+            padding: 12px 20px 12px 60px;
+            border-bottom: 1px solid #eee;
+            color: #444;
+        }
+
+        .submenu a:hover {
+            color: #4e7efa;
+            background: #edf2ff;
+        }
+
+        /* MAIN PAGE */
+        .main {
+            margin-left: 296px;
+            padding-top: 60px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            flex: 1;
+            padding: 30px 20px 35px;
+        }
+
+        .page-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .page-heading h1 {
+            font-size: 30px;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .back-link {
+            color: #2585ef;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* INTRODUCTION CARD */
+        .intro-card {
+            background: white;
+            border: 1px solid #e7e7e7;
+            padding: 28px 30px;
+            margin-bottom: 22px;
+        }
+
+        .eyebrow {
+            color: #4e7efa;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .intro-card h2 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .intro-card p {
+            color: #626970;
+            line-height: 1.8;
+        }
+
+        .updated {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        /* POLICY CONTENT */
+        .policy-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 250px;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .policy-sections {
+            display: grid;
+            gap: 16px;
+        }
+
+        .policy-card {
+            background: white;
+            border: 1px solid #e7e7e7;
+            padding: 23px 25px;
+        }
+
+        .policy-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .number {
+            width: 31px;
+            height: 31px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 7px;
+            background: #edf3ff;
+            color: #4e7efa;
+            font-size: 13px;
+        }
+
+        .policy-card p {
+            color: #60666e;
+            line-height: 1.8;
+            margin-bottom: 10px;
+        }
+
+        .policy-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .policy-card ul {
+            padding-left: 20px;
+            color: #60666e;
+            line-height: 1.9;
+        }
+
+        /* RIGHT-SIDE CARDS */
+        .right-column {
+            display: grid;
+            gap: 16px;
+        }
+
+        .aside-card {
+            background: white;
+            border: 1px solid #e7e7e7;
+            padding: 22px;
+        }
+
+        .aside-card h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .aside-card p {
+            font-size: 13px;
+            color: #646b73;
+            line-height: 1.8;
+        }
+
+        .quick-link {
+            display: block;
+            padding: 11px 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #4e7efa;
+            font-size: 13px;
+        }
+
+        .quick-link:last-child {
+            border-bottom: none;
+        }
+
+        .quick-link:hover {
+            color: #244eb2;
+            text-decoration: underline;
+        }
+
+        .callout {
+            background: #f0f6ff;
+            border: 1px solid #dce8ff;
+            padding: 18px;
+        }
+
+        .callout strong {
+            display: block;
+            margin-bottom: 9px;
+            color: #2d5db4;
+        }
+
+        .callout p {
+            font-size: 13px;
+            line-height: 1.7;
+            color: #536783;
+        }
+
+        /* FOOTER */
+        .footer {
+            min-height: 75px;
+            border-top: 1px solid #e7e7e7;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .footer-version {
+            color: #111;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1100px) {
+            .brand {
+                width: 210px;
+                min-width: 210px;
+            }
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+            }
+
+            .search-area {
+                margin-left: 10px;
+            }
+
+            .profile {
+                margin: 0 8px;
+            }
+
+            .policy-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .right-column {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 700px) {
+            .brand {
+                width: 110px;
+                min-width: 110px;
+                padding: 0 8px;
+                gap: 5px;
+            }
+
+            .brand-name {
+                font-size: 18px;
+            }
+
+            .search-area {
+                margin: 0 5px;
+            }
+
+            .search-icon,
+            .search-area select {
+                display: none;
+            }
+
+            .search-area input {
+                padding: 0 7px;
+                font-size: 11px;
+            }
+
+            .search-btn {
+                padding: 0 9px;
+            }
+
+            .profile {
+                margin: 0 4px;
+            }
+
+            .profile-label {
+                gap: 5px;
+                padding: 5px;
+                font-size: 12px;
+            }
+
+            .profile-label .logo {
+                display: none;
+            }
+
+            .sidebar {
+                width: 245px;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .content {
+                padding: 24px 12px;
+            }
+
+            .page-heading h1 {
+                font-size: 25px;
+            }
+
+            .intro-card,
+            .policy-card {
+                padding: 20px;
+            }
+
+            .right-column {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                padding: 18px 12px;
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP HEADER -->
+    <header class="topbar">
+
+        <div class="brand">
+            <div class="logo">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <span class="brand-name">SIMS</span>
+            <span class="menu-icon">☰</span>
+        </div>
+
+        <form class="search-area" action="#">
+            <span class="search-icon">⌕</span>
+
+            <input
+                type="search"
+                placeholder="Search by name / email / mobile no."
+                aria-label="Search by name, email or mobile number"
+            >
+
+            <select aria-label="Search category">
+                <option>In Students</option>
+                <option>In Staff</option>
+            </select>
+
+            <button class="search-btn" type="submit">Search</button>
+        </form>
+
+        <!-- DEV 2 PROFILE DROPDOWN -->
+        <div class="profile">
+            <div class="profile-label" tabindex="0">
+                <div class="logo">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <strong>Dev 2</strong>
+                <span>⌄</span>
+            </div>
+
+            <nav class="profile-menu">
+                <a href="../index.html"><span>◆</span>My School</a>
+                <a href="#billing"><span>₹</span>Subscription &amp; Billing</a>
+                <a href="#tickets"><span>▣</span>Support Tickets</a>
+                <a href="privacy-policy.html"><span>▤</span>Privacy Policy</a>
+                <a href="#help"><span>ⓘ</span>Help</a>
+                <a href="#logout"><span>⇥</span>Logout</a>
+            </nav>
+        </div>
+
+    </header>
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+
+        <a href="../index.html" class="nav-link">
+            <span class="nav-icon">◆</span>
+            Dashboard
+        </a>
+
+        <div class="nav-group">
+            <a href="../index.html#reports" class="nav-link">
+                <span class="nav-icon">▦</span>
+                Reports
+                <span class="nav-chevron">⌄</span>
+            </a>
+
+            <div class="submenu">
+                <a href="../index.html#reports">Reports Overview</a>
+            </div>
+        </div>
+
+        <div class="nav-group">
+            <a href="../index.html#students" class="nav-link">
+                <span class="nav-icon">♙</span>
+                Students
+                <span class="nav-chevron">⌄</span>
+            </a>
+
+            <div class="submenu">
+                <a href="../index.html#student-summary">Summary</a>
+                <a href="../index.html#student-data">Student Data</a>
+                <a href="../index.html#student-attendance">Attendance</a>
+            </div>
+        </div>
+
+        <div class="nav-group">
+            <a href="../index.html#staff" class="nav-link">
+                <span class="nav-icon">♟</span>
+                Staff
+                <span class="nav-chevron">⌄</span>
+            </a>
+
+            <div class="submenu">
+                <a href="../index.html#staff-summary">Summary</a>
+                <a href="../index.html#staff-data">Staff Data</a>
+                <a href="../index.html#staff-attendance">Attendance</a>
+                <a href="../index.html#create-staff">Create Staff</a>
+            </div>
+        </div>
+
+        <div class="nav-group">
+            <a href="../index.html#finance" class="nav-link">
+                <span class="nav-icon">▣</span>
+                Finance module
+                <span class="nav-chevron">⌄</span>
+            </a>
+
+            <div class="submenu">
+                <a href="../index.html#fee-dues">Fee Dues</a>
+                <a href="../index.html#fee-received">Fee Received</a>
+                <a href="../index.html#expenditure">Expenditure</a>
+            </div>
+        </div>
+
+        <!-- CONFIGURATIONS HAS NO DROPDOWN -->
+        <a href="../index.html#configurations" class="nav-link">
+            <span class="nav-icon">⚙</span>
+            Configurations
+        </a>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <div class="content">
+
+            <div class="page-heading">
+                <h1>Privacy Policy</h1>
+                <a href="../index.html" class="back-link">⊕ Go back</a>
+            </div>
+
+            <!-- INTRODUCTION -->
+            <section class="intro-card">
+                <div class="eyebrow">SIMS · Privacy and data protection</div>
+
+                <h2>Your privacy matters to us</h2>
+
+                <p>
+                    This page explains the general principles for handling
+                    information in the School Information Management System
+                    (SIMS). It describes how information may be collected,
+                    used, protected and managed when authorised users access
+                    the system.
+                </p>
+
+                <div class="updated">
+                    Prototype policy page — please have your organisation
+                    review this content before publishing it as an official policy.
+                </div>
+            </section>
+
+            <div class="policy-layout">
+
+                <!-- PRIVACY POLICY SECTIONS -->
+                <div class="policy-sections">
+
+                    <section class="policy-card" id="information">
+                        <h3>
+                            <span class="number">01</span>
+                            Information We May Collect
+                        </h3>
+
+                        <p>
+                            Depending on the features enabled by the school,
+                            SIMS may contain student and staff names, contact
+                            details, class information, subject details,
+                            attendance records, fee records and account information.
+                        </p>
+
+                        <p>
+                            Information should be collected only when it is
+                            needed for an identified school or administrative purpose.
+                        </p>
+                    </section>
+
+                    <section class="policy-card" id="usage">
+                        <h3>
+                            <span class="number">02</span>
+                            How We Use Information
+                        </h3>
+
+                        <p>Information may be used to support school administration and to:</p>
+
+                        <ul>
+                            <li>Maintain student and staff records.</li>
+                            <li>Manage attendance, classes and subjects.</li>
+                            <li>Track fee-related information and prepare reports.</li>
+                            <li>Provide authorised users with relevant dashboard features.</li>
+                        </ul>
+                    </section>
+
+                    <section class="policy-card" id="security">
+                        <h3>
+                            <span class="number">03</span>
+                            Data Security
+                        </h3>
+
+                        <p>
+                            Access to school information should be limited to
+                            authorised users. Appropriate safeguards may include
+                            secure passwords, role-based permissions, protected
+                            backups and removing access when a user no longer needs it.
+                        </p>
+
+                        <p>
+                            No online system can guarantee absolute security.
+                            Users should keep their login details private and
+                            report suspected unauthorised access to the school administrator.
+                        </p>
+                    </section>
+
+                    <section class="policy-card" id="sharing">
+                        <h3>
+                            <span class="number">04</span>
+                            Sharing of Information
+                        </h3>
+
+                        <p>
+                            Personal information should be accessed or shared
+                            only by authorised people for legitimate school
+                            purposes, or when required by applicable law or an
+                            approved school process.
+                        </p>
+                    </section>
+
+                    <section class="policy-card" id="retention">
+                        <h3>
+                            <span class="number">05</span>
+                            Data Retention and Accuracy
+                        </h3>
+
+                        <p>
+                            School records should be retained according to the
+                            school's approved procedures and applicable
+                            recordkeeping requirements. If a record is incorrect,
+                            contact an authorised administrator to request a correction.
+                        </p>
+                    </section>
+
+                    <section class="policy-card" id="rights">
+                        <h3>
+                            <span class="number">06</span>
+                            Questions and Requests
+                        </h3>
+
+                        <p>
+                            For questions about information stored in SIMS,
+                            or to request access to or correction of a record,
+                            contact your school administrator or the person
+                            responsible for data protection.
+                        </p>
+
+                        <p>
+                            Requests should be handled according to the school's
+                            procedures and applicable laws.
+                        </p>
+                    </section>
+
+                </div>
+
+                <!-- RIGHT-SIDE INFORMATION -->
+                <aside class="right-column">
+
+                    <section class="aside-card">
+                        <h3>On This Page</h3>
+
+                        <a href="#information" class="quick-link">
+                            Information we collect
+                        </a>
+
+                        <a href="#usage" class="quick-link">
+                            How information is used
+                        </a>
+
+                        <a href="#security" class="quick-link">
+                            Data security
+                        </a>
+
+                        <a href="#sharing" class="quick-link">
+                            Information sharing
+                        </a>
+
+                        <a href="#retention" class="quick-link">
+                            Data retention
+                        </a>
+
+                        <a href="#rights" class="quick-link">
+                            Questions and requests
+                        </a>
+                    </section>
+
+                    <section class="aside-card">
+                        <h3>Need Assistance?</h3>
+
+                        <p>
+                            For questions about school records or account access,
+                            contact your school's authorised SIMS administrator.
+                        </p>
+                    </section>
+
+                    <section class="callout">
+                        <strong>Protect Your Account</strong>
+
+                        <p>
+                            Keep your login details private and sign out when
+                            using a shared computer.
+                        </p>
+                    </section>
+
+                </aside>
+
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <span>Copyright © 2026 All rights reserved.</span>
+            <span class="footer-version">Version 1.0.0</span>
+        </footer>
+
+    </main>
+
+</body>
+</html>

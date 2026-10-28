@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Configuration | SIMS</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
+            color: #343a40;
+        }
+
+        .topbar {
+            height: 65px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #414bd8;
+        }
+
+        .layout { display: flex; min-height: calc(100vh - 65px); }
+
+        .sidebar {
+            width: 225px;
+            flex-shrink: 0;
+            background: white;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 16px 20px;
+            color: #252525;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            color: #507eff;
+            background: #f7f9ff;
+        }
+
+        .sidebar i { width: 22px; }
+
+        .main {
+            flex: 1;
+            min-width: 0;
+            padding: 30px;
+        }
+
+        .breadcrumb {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        h1 { font-size: 23px; font-weight: 500; margin: 0; }
+
+        .back {
+            background: #507eff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            padding: 25px;
+            min-height: 300px;
+        }
+
+        .card h2 {
+            font-size: 17px;
+            font-weight: 500;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .action {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 250px;
+            min-height: 65px;
+            padding: 15px;
+            border: 1px solid #507eff;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #507eff;
+        }
+
+        .action:hover { background: #f4f7ff; }
+
+        .action i { font-size: 22px; }
+
+        footer {
+            padding: 25px;
+            color: #777;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .layout { flex-direction: column; }
+            .sidebar { width: 100%; }
+            .main { padding: 18px; }
+            .action { width: 100%; }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="logo">SIMS</div>
+    <div><i class="fa-solid fa-user-circle"></i> Dev 2</div>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <a href="../index.html">
+            <i class="fa-solid fa-house"></i> Dashboard
+        </a>
+        <a href="../index.html#ui-reports">
+            <i class="fa-solid fa-list"></i> Reports
+        </a>
+        <a href="../index.html#ui-student">
+            <i class="fa-solid fa-users"></i> Students
+        </a>
+        <a href="../index.html#ui-staff">
+            <i class="fa-solid fa-user-group"></i> Staff
+        </a>
+        <a href="../index.html#ui-finance">
+            <i class="fa-solid fa-wallet"></i> Finance module
+        </a>
+        <a href="../index.html#configurations" class="active">
+            <i class="fa-solid fa-gear"></i> Configurations
+        </a>
+    </aside>
+
+    <main class="main">
+
+        <div class="breadcrumb">
+            Configurations / Staff
+        </div>
+
+        <div class="heading">
+            <h1>Staff</h1>
+            <a class="back" href="../index.html#configurations">
+                <i class="fa-solid fa-arrow-left"></i> Go back
+            </a>
+        </div>
+
+        <section class="card">
+            <h2>Staff Configuration</h2>
+
+            <p class="description">
+                Manage staff information and open the staff management
+                pages from the options below.
+            </p>
+
+            <div class="actions">
+                <a class="action" href="../staff/summary.html">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    Staff Summary
+                </a>
+
+                <a class="action" href="../staff/staff-data.html">
+                    <i class="fa-solid fa-users"></i>
+                    Staff Data
+                </a>
+
+                <a class="action" href="../staff/attendance.html">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    Staff Attendance
+                </a>
+
+                <a class="action" href="../staff/create-staff.html">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Create Staff
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            Copyright © 2026 All rights reserved. Version 1.0.0
+        </footer>
+
+    </main>
+</div>
+
+</body>
+</html>

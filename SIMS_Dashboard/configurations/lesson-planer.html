@@ -1,0 +1,619 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMS | Lesson Planner</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            color: #222;
+        }
+
+        /* Top navigation */
+        .topbar {
+            height: 68px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            color: #414bd8;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        /* Page layout */
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 130px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 295px;
+            flex-shrink: 0;
+            background: white;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 17px 25px;
+            color: #222;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+            font-size: 15px;
+        }
+
+        .sidebar a i {
+            width: 25px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            color: #507eff;
+            background: #f5f8ff;
+        }
+
+        /* Main content */
+        .main {
+            flex: 1;
+            min-width: 0;
+            padding: 30px 22px;
+        }
+
+        .page-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+            font-weight: 500;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .breadcrumb a {
+            color: #507eff;
+            text-decoration: none;
+        }
+
+        .button {
+            display: inline-block;
+            background: #507eff;
+            color: white;
+            padding: 11px 16px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #3868e8;
+        }
+
+        /* Content panel */
+        .panel {
+            background: white;
+            border: 1px solid #e5e5e5;
+            padding: 25px;
+            margin-bottom: 22px;
+        }
+
+        .panel h2 {
+            font-size: 18px;
+            margin: 0 0 22px;
+            font-weight: 600;
+        }
+
+        /* Search and filters */
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .filters input,
+        .filters select {
+            min-height: 42px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            font-size: 14px;
+        }
+
+        .filters input {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        /* Table */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th,
+        td {
+            padding: 14px 12px;
+            text-align: left;
+            border: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        th {
+            background: #fafafa;
+            font-weight: 600;
+        }
+
+        tbody tr:hover {
+            background: #f8faff;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            color: white;
+            background: #72bf19;
+            border-radius: 2px;
+            font-size: 12px;
+        }
+
+        .pending {
+            background: #f0a323;
+        }
+
+        .completed {
+            background: #28a56a;
+        }
+
+        .edit-button {
+            display: inline-block;
+            padding: 8px 13px;
+            background: #507eff;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        /* Add lesson form - visual only */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 27px 22px;
+            color: #777;
+            font-size: 13px;
+            border-top: 1px solid #e5e5e5;
+            background: #f2f2f2;
+        }
+
+        @media (max-width: 850px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .main {
+                padding: 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="topbar">
+        <div class="logo">🔺 SIMS</div>
+
+        <div class="user">
+            <i class="fa-solid fa-user-circle"></i>
+            <span>Dev 2</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <div class="layout">
+
+        <aside class="sidebar">
+            <a href="../index.html">
+                <i class="fa-solid fa-house"></i> Dashboard
+            </a>
+
+            <a href="../index.html#reports">
+                <i class="fa-solid fa-list"></i> Reports
+            </a>
+
+            <a href="../index.html#students">
+                <i class="fa-solid fa-user-group"></i> Students
+            </a>
+
+            <a href="../index.html#staff">
+                <i class="fa-solid fa-users"></i> Staff
+            </a>
+
+            <a href="../index.html#finance">
+                <i class="fa-solid fa-wallet"></i> Finance module
+            </a>
+
+            <a href="../index.html#configurations" class="active">
+                <i class="fa-solid fa-gear"></i> Configurations
+            </a>
+        </aside>
+
+        <main class="main">
+
+            <div class="page-heading">
+                <div>
+                    <h1>Lesson Planner</h1>
+
+                    <div class="breadcrumb">
+                        Configurations /
+                        <a href="lesson-planner.html">Lesson Planner</a>
+                    </div>
+                </div>
+
+                <a class="button" href="../index.html#configurations"
+                   title="Go back">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+
+            <!-- Lesson plans table -->
+            <section class="panel">
+                <h2>LESSON PLANNER</h2>
+
+                <div class="filters">
+                    <input type="search"
+                           placeholder="Search subject, teacher or topic..."
+                           aria-label="Search lesson plans">
+
+                    <select aria-label="Filter by class">
+                        <option>All Classes</option>
+                        <option>1st Class</option>
+                        <option>2nd Class</option>
+                        <option>3rd Class</option>
+                        <option>4th Class</option>
+                        <option>5th Class</option>
+                        <option>6th Class</option>
+                        <option>7th Class</option>
+                        <option>8th Class</option>
+                        <option>9th Class</option>
+                        <option>10th Class</option>
+                    </select>
+
+                    <select aria-label="Filter by status">
+                        <option>All Statuses</option>
+                        <option>Planned</option>
+                        <option>Pending</option>
+                        <option>Completed</option>
+                    </select>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Class</th>
+                                <th>Subject</th>
+                                <th>Lesson / Topic</th>
+                                <th>Teacher</th>
+                                <th>Date</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>1st Class</td>
+                                <td>English</td>
+                                <td>Alphabet and Words</td>
+                                <td>Balu</td>
+                                <td>27-Oct-2026</td>
+                                <td>40 min</td>
+                                <td><span class="status">Planned</span></td>
+                                <td><a href="#add-lesson" class="edit-button">Edit</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>2</td>
+                                <td>2nd Class</td>
+                                <td>Mathematics</td>
+                                <td>Addition and Subtraction</td>
+                                <td>Vekatesh</td>
+                                <td>27-Oct-2026</td>
+                                <td>45 min</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td><a href="#add-lesson" class="edit-button">Edit</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>3</td>
+                                <td>3rd Class</td>
+                                <td>Science</td>
+                                <td>Plants Around Us</td>
+                                <td>Priyanka</td>
+                                <td>28-Oct-2026</td>
+                                <td>40 min</td>
+                                <td><span class="status completed">Completed</span></td>
+                                <td><a href="#add-lesson" class="edit-button">Edit</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>4</td>
+                                <td>4th Class</td>
+                                <td>English</td>
+                                <td>Nouns and Pronouns</td>
+                                <td>Sandeep</td>
+                                <td>28-Oct-2026</td>
+                                <td>45 min</td>
+                                <td><span class="status">Planned</span></td>
+                                <td><a href="#add-lesson" class="edit-button">Edit</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>5</td>
+                                <td>5th Class</td>
+                                <td>Social Studies</td>
+                                <td>Maps and Directions</td>
+                                <td>Kiran</td>
+                                <td>29-Oct-2026</td>
+                                <td>40 min</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td><a href="#add-lesson" class="edit-button">Edit</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>6</td>
+                                <td>6th Class</td>
+                                <td>Mathematics</td>
+                                <td>Fractions</td>
+                                <td>Balu</td>
+                                <td>29-Oct-2026</td>
+                                <td>45 min</td>
+                                <td><span class="status">Planned</span></td>
+                                <td><a href="#add-lesson" class="edit-button">Edit</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>7</td>
+                                <td>7th Class</td>
+                                <td>Science</td>
+                                <td>Heat and Temperature</td>
+                                <td>Charan</td>
+                                <td>30-Oct-2026</td>
+                                <td>45 min</td>
+                                <td><span class="status">Planned</span></td>
+                                <td><a href="#add-lesson" class="edit-button">Edit</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>8</td>
+                                <td>8th Class</td>
+                                <td>English</td>
+                                <td>Writing Skills</td>
+                                <td>Sathish</td>
+                                <td>30-Oct-2026</td>
+                                <td>40 min</td>
+                                <td><span class="status completed">Completed</span></td>
+                                <td><a href="#add-lesson" class="edit-button">Edit</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>9</td>
+                                <td>9th Class</td>
+                                <td>Mathematics</td>
+                                <td>Linear Equations</td>
+                                <td>Suman</td>
+                                <td>31-Oct-2026</td>
+                                <td>50 min</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td><a href="#add-lesson" class="edit-button">Edit</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>10</td>
+                                <td>10th Class</td>
+                                <td>Science</td>
+                                <td>Electricity</td>
+                                <td>Ravi</td>
+                                <td>02-Nov-2026</td>
+                                <td>50 min</td>
+                                <td><span class="status">Planned</span></td>
+                                <td><a href="#add-lesson" class="edit-button">Edit</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Add lesson plan form: design only -->
+            <section class="panel" id="add-lesson">
+                <h2>ADD LESSON PLAN</h2>
+
+                <form>
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="className">Class</label>
+                            <select id="className" required>
+                                <option value="">Select class</option>
+                                <option>1st Class</option>
+                                <option>2nd Class</option>
+                                <option>3rd Class</option>
+                                <option>4th Class</option>
+                                <option>5th Class</option>
+                                <option>6th Class</option>
+                                <option>7th Class</option>
+                                <option>8th Class</option>
+                                <option>9th Class</option>
+                                <option>10th Class</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" required>
+                                <option value="">Select subject</option>
+                                <option>English</option>
+                                <option>Mathematics</option>
+                                <option>Science</option>
+                                <option>Social Studies</option>
+                                <option>Telugu</option>
+                                <option>Hindi</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="topic">Lesson / Topic</label>
+                            <input id="topic" type="text"
+                                   placeholder="Enter lesson topic" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="teacher">Teacher</label>
+                            <input id="teacher" type="text"
+                                   placeholder="Enter teacher name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="date">Planned Date</label>
+                            <input id="date" type="date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="duration">Duration</label>
+                            <select id="duration">
+                                <option>30 minutes</option>
+                                <option selected>40 minutes</option>
+                                <option>45 minutes</option>
+                                <option>50 minutes</option>
+                                <option>60 minutes</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status">
+                                <option>Planned</option>
+                                <option>Pending</option>
+                                <option>Completed</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notes">Notes</label>
+                            <textarea id="notes"
+                                      placeholder="Learning objectives or notes"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="button" type="button">
+                            Add Lesson Plan
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+        </main>
+    </div>
+
+    <footer>
+        <span>Copyright © 2026 All rights reserved.</span>
+        <span>Version 1.0.0</span>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMS | Class Teacher Mapping</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f2f2f2;
+      color: #222;
+      font-family: Arial, sans-serif;
+    }
+
+    .page-content {
+      padding: 28px 18px;
+      min-height: calc(100vh - 130px);
+    }
+
+    .heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 36px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 500;
+      margin: 0 0 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+    }
+
+    .breadcrumb {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    .breadcrumb a {
+      color: #5182ff;
+      text-decoration: none;
+    }
+
+    .back-button {
+      background: #fff;
+      border: 0;
+      border-radius: 4px;
+      padding: 13px 15px;
+      font-size: 17px;
+      color: #555;
+      cursor: pointer;
+    }
+
+    .mapping-panel {
+      background: #fff;
+      border: 1px solid #e9e9e9;
+      padding: 24px 30px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 650px;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 1px solid #f0f0f0;
+      padding: 5px;
+    }
+
+    th {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    td input,
+    td select {
+      width: 100%;
+      height: 48px;
+      padding: 0 22px;
+      border: 1px solid #f1f1f1;
+      border-radius: 3px;
+      background: white;
+      color: #555;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    td input:disabled,
+    td select:disabled {
+      opacity: 1;
+      background: white;
+      color: #555;
+    }
+
+    .edit-button,
+    .save-button,
+    .cancel-button {
+      border: none;
+      border-radius: 3px;
+      padding: 9px 16px;
+      color: white;
+      background: #5182ff;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 2px 4px #0002;
+    }
+
+    .cancel-button {
+      background: #777;
+      margin-left: 5px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 25px 18px;
+      border-top: 1px solid #e5e5e5;
+      color: #777;
+      font-size: 12px;
+    }
+
+    @media (max-width: 650px) {
+      .page-content {
+        padding: 18px 8px;
+      }
+
+      .mapping-panel {
+        padding: 12px 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="app-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand-row">
+      <div class="brand-mark">
+        <span></span><span></span><span></span>
+      </div>
+      <strong>SIMS</strong>
+    </div>
+
+    <nav class="side-nav" aria-label="Main navigation">
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-list"></i>
+        <span>Reports</span>
+      </a>
+
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-user-group"></i>
+        <span>Students</span>
+      </a>
+
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-users"></i>
+        <span>Staff</span>
+      </a>
+
+      <a class="nav-link" href="index.html">
+        <i class="fa-solid fa-gear"></i>
+        <span>Configurations</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main page -->
+  <main class="main-area">
+
+    <!-- Top search bar -->
+    <header class="topbar">
+      <form class="search-form" id="searchForm">
+        <span class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search by class or teacher name"
+          aria-label="Search class teacher mappings">
+
+        <select aria-label="Search category">
+          <option>In Students</option>
+          <option selected>In Staff</option>
+          <option>All records</option>
+        </select>
+
+        <button type="submit" class="search-button">Search</button>
+      </form>
+
+      <button class="profile-button" type="button">
+        <span class="brand-mark small">
+          <span></span><span></span><span></span>
+        </span>
+        <span>Dev 2</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </header>
+
+    <section class="page-content">
+
+      <!-- Page heading -->
+      <div class="heading">
+        <div>
+          <h1>Class Teacher</h1>
+          <div class="subtitle">Configurations</div>
+
+          <div class="breadcrumb">
+            <i class="fa-solid fa-house"></i>
+            / Configurations /
+            <a href="class-teacher-mapping.html">
+              Class Teacher mapping
+            </a>
+          </div>
+        </div>
+
+        <button
+          class="back-button"
+          type="button"
+          onclick="window.location.href='index.html'"
+          aria-label="Back to configurations">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+      </div>
+
+      <!-- Mapping table -->
+      <section class="mapping-panel">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:40%">Class room</th>
+              <th style="width:37%">Class Teacher</th>
+              <th style="width:13%">Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="mappingBody"></tbody>
+        </table>
+      </section>
+
+    </section>
+
+    <footer class="footer">
+      <span>Copyright © 2026 All rights reserved.</span>
+      <span>Version 1.0.0</span>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // Sample data based on your screenshot.
+  const mappings = [
+    { classroom: "1st Class", teacher: "balu" },
+    { classroom: "2nd Class", teacher: "vekatesh" },
+    { classroom: "3rd Class", teacher: "priyanka" },
+    { classroom: "4th Class", teacher: "sandeep" },
+    { classroom: "5th Class", teacher: "kiran" },
+    { classroom: "6th Class", teacher: "balu" },
+    { classroom: "7th Class", teacher: "charan" },
+    { classroom: "8th Class", teacher: "sathish" },
+    { classroom: "9th Class", teacher: "suman" },
+    { classroom: "10th Class", teacher: "Ravi" }
+  ];
+
+  // Example teacher names for the edit dropdown.
+  const teachers = [
+    "balu",
+    "vekatesh",
+    "priyanka",
+    "sandeep",
+    "kiran",
+    "charan",
+    "sathish",
+    "suman",
+    "Ravi",
+    "Prasad",
+    "praveen",
+    "Rakesh",
+    "Prashanth"
+  ];
+
+  const mappingBody = document.getElementById("mappingBody");
+  const searchInput = document.getElementById("searchInput");
+
+  let searchTerm = "";
+
+  function renderTable() {
+    mappingBody.replaceChildren();
+
+    const filteredMappings = mappings.filter(item =>
+      (item.classroom + " " + item.teacher)
+        .toLowerCase()
+        .includes(searchTerm)
+    );
+
+    if (filteredMappings.length === 0) {
+      const row = mappingBody.insertRow();
+      const cell = row.insertCell();
+      cell.colSpan = 3;
+      cell.textContent = "No class teacher mappings found.";
+      return;
+    }
+
+    filteredMappings.forEach(item => {
+      const row = mappingBody.insertRow();
+
+      // Classroom column
+      const classroomCell = row.insertCell();
+      const classroomInput = document.createElement("input");
+      classroomInput.value = item.classroom;
+      classroomInput.disabled = true;
+      classroomCell.appendChild(classroomInput);
+
+      // Class teacher column
+      const teacherCell = row.insertCell();
+      const teacherSelect = document.createElement("select");
+      teacherSelect.disabled = true;
+
+      teachers.forEach(name => {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        option.selected = name === item.teacher;
+        teacherSelect.appendChild(option);
+      });
+
+      teacherCell.appendChild(teacherSelect);
+
+      // Action column
+      const actionCell = row.insertCell();
+      const editButton = document.createElement("button");
+
+      editButton.className = "edit-button";
+      editButton.textContent = "Edit";
+
+      editButton.addEventListener("click", () => {
+        if (editButton.textContent === "Edit") {
+          classroomInput.disabled = false;
+          teacherSelect.disabled = false;
+          editButton.textContent = "Save";
+
+          const cancelButton = document.createElement("button");
+          cancelButton.className = "cancel-button";
+          cancelButton.textContent = "Cancel";
+
+          cancelButton.addEventListener("click", renderTable);
+          actionCell.appendChild(cancelButton);
+        } else {
+          item.classroom =
+            classroomInput.value.trim() || item.classroom;
+
+          item.teacher = teacherSelect.value;
+
+          renderTable();
+        }
+      });
+
+      actionCell.appendChild(editButton);
+      mappingBody.appendChild(row);
+    });
+  }
+
+  document.getElementById("searchForm").addEventListener("submit", event => {
+    event.preventDefault();
+    searchTerm = searchInput.value.trim().toLowerCase();
+    renderTable();
+  });
+
+  searchInput.addEventListener("input", () => {
+    searchTerm = searchInput.value.trim().toLowerCase();
+    renderTable();
+  });
+
+  renderTable();
+</script>
+
+</body>
+</html>
