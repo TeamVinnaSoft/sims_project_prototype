@@ -1,0 +1,625 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Help Topics - SIMS</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f3f3;
+    color: #111;
+    font-size: 14px;
+}
+
+/* HEADER */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 55px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e7e7e7;
+    z-index: 100;
+}
+
+.brand {
+    width: 238px;
+    min-width: 238px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 25px;
+    border-right: 1px solid #eee;
+}
+
+.brand-mark {
+    color: #64b52b;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.brand-name {
+    color: #4557b8;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.menu-toggle {
+    margin-left: auto;
+    margin-right: 25px;
+    font-size: 21px;
+    color: #555;
+}
+
+.search-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    height: 44px;
+    margin: 0 25px;
+    min-width: 0;
+}
+
+.search-icon {
+    background: #e9ecef;
+    color: #aaa;
+    height: 44px;
+    padding: 13px;
+}
+
+.search-area input {
+    flex: 1;
+    min-width: 0;
+    height: 44px;
+    border: 1px solid #eee;
+    padding: 0 20px;
+    outline: none;
+}
+
+.search-scope {
+    height: 44px;
+    padding: 0 12px;
+    color: #aaa;
+    background: #fff;
+    border: 1px solid #eee;
+    white-space: nowrap;
+}
+
+.search-button {
+    height: 44px;
+    padding: 0 25px;
+    color: white;
+    background: #4e7efa;
+    border: none;
+    white-space: nowrap;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 25px;
+    white-space: nowrap;
+}
+
+.profile-mark {
+    color: #64b52b;
+    font-size: 25px;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    width: 238px;
+    background: #fff;
+    border-right: 1px solid #eee;
+    overflow-y: auto;
+}
+
+.sidebar a {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    text-decoration: none;
+    color: #111;
+}
+
+.sidebar a:hover {
+    background: #f5f7fb;
+    color: #4e7efa;
+}
+
+.sidebar-icon {
+    width: 16px;
+    text-align: center;
+    font-size: 15px;
+}
+
+/* MAIN CONTENT */
+.main {
+    margin-left: 238px;
+    padding-top: 55px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 16px 25px;
+}
+
+.page-heading h1 {
+    font-size: 27px;
+    font-weight: 600;
+}
+
+.go-back {
+    text-decoration: none;
+    color: #1680f9;
+    font-size: 14px;
+}
+
+.go-back:hover {
+    text-decoration: underline;
+}
+
+/* WHITE FAQ PANEL */
+.help-panel {
+    background: #fff;
+    margin: 0 25px 30px;
+    padding: 72px 9% 55px;
+    flex: 1;
+    min-height: 700px;
+}
+
+/* INTRODUCTION */
+.intro {
+    max-width: 650px;
+    margin: 0 auto 12px;
+    text-align: center;
+    color: #888;
+    font-size: 22px;
+    font-weight: 300;
+}
+
+.intro-description {
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 45px;
+}
+
+.intro-divider {
+    width: 300px;
+    max-width: 80%;
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 0 auto 43px;
+}
+
+/* FAQ SECTIONS */
+.faq-section {
+    max-width: 860px;
+    margin: 0 auto 45px;
+}
+
+.faq-section h2 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 21px;
+    font-weight: 600;
+    margin-bottom: 28px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.section-icon {
+    font-size: 18px;
+    color: #333;
+}
+
+/* HTML-ONLY ACCORDION */
+.faq {
+    border-bottom: 1px solid #eee;
+}
+
+.faq summary {
+    min-height: 77px;
+    padding: 23px 15px;
+    color: #1678f5;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    line-height: 1.5;
+}
+
+.faq summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq summary::after {
+    content: "+";
+    color: #333;
+    font-size: 19px;
+    font-weight: normal;
+    flex-shrink: 0;
+}
+
+.faq[open] summary::after {
+    content: "−";
+}
+
+.faq summary:hover {
+    color: #075ec7;
+}
+
+.faq-answer {
+    padding: 0 15px 23px;
+    color: #666;
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+/* FOOTER */
+.footer {
+    min-height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 20px 16px;
+    color: #777;
+    border-top: 1px solid #e7e7e7;
+    font-size: 13px;
+}
+
+.footer-version {
+    color: #111;
+    white-space: nowrap;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 950px) {
+    .brand {
+        width: 180px;
+        min-width: 180px;
+        padding: 0 15px;
+    }
+
+    .search-area {
+        margin: 0 10px;
+    }
+
+    .profile {
+        padding: 0 10px;
+    }
+
+    .sidebar {
+        width: 180px;
+    }
+
+    .main {
+        margin-left: 180px;
+    }
+
+    .help-panel {
+        margin: 0 15px 25px;
+        padding: 50px 5%;
+    }
+}
+
+@media (max-width: 650px) {
+    .topbar {
+        height: 55px;
+    }
+
+    .brand {
+        width: auto;
+        min-width: auto;
+        padding: 0 10px;
+        gap: 5px;
+    }
+
+    .brand-name {
+        font-size: 18px;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+
+    .search-area {
+        margin: 0 7px;
+    }
+
+    .search-icon,
+    .search-scope {
+        display: none;
+    }
+
+    .search-area input {
+        padding: 0 8px;
+        font-size: 11px;
+    }
+
+    .search-button {
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    .profile {
+        padding: 0 7px;
+        gap: 4px;
+        font-size: 12px;
+    }
+
+    .profile-mark {
+        display: none;
+    }
+
+    .sidebar {
+        width: 145px;
+    }
+
+    .sidebar a {
+        gap: 8px;
+        padding: 12px 10px;
+        font-size: 12px;
+    }
+
+    .main {
+        margin-left: 145px;
+    }
+
+    .page-heading {
+        padding: 24px 12px 20px;
+        gap: 10px;
+    }
+
+    .page-heading h1 {
+        font-size: 22px;
+    }
+
+    .go-back {
+        font-size: 12px;
+    }
+
+    .help-panel {
+        margin: 0 8px 20px;
+        padding: 35px 12px;
+        min-height: auto;
+    }
+
+    .intro {
+        font-size: 19px;
+        line-height: 1.4;
+    }
+
+    .intro-description {
+        font-size: 12px;
+        margin-bottom: 35px;
+    }
+
+    .faq-section h2 {
+        font-size: 18px;
+        padding-bottom: 20px;
+    }
+
+    .faq summary {
+        padding: 20px 8px;
+        font-size: 12px;
+    }
+
+    .faq-answer {
+        padding: 0 8px 20px;
+        font-size: 12px;
+    }
+
+    .footer {
+        padding: 18px 10px;
+        font-size: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="topbar">
+
+    <div class="brand">
+        <span class="brand-mark">◢</span>
+        <span class="brand-name">SIMS</span>
+    </div>
+
+    <span class="menu-toggle">☰</span>
+
+    <form class="search-area" action="#" method="get">
+        <span class="search-icon">⌕</span>
+
+        <input
+            type="search"
+            name="search"
+            placeholder="Search by name / email / mobile no."
+            aria-label="Search"
+        >
+
+        <span class="search-scope">In Students</span>
+
+        <button class="search-button" type="submit">
+            Search
+        </button>
+    </form>
+
+    <div class="profile">
+        <span class="profile-mark">◢</span>
+        <strong>Dev 2</strong>
+        <span>⌄</span>
+    </div>
+
+</header>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <a href="index.html">
+        <span class="sidebar-icon">◆</span>
+        <span>Dashboard</span>
+    </a>
+
+    <a href="index.html">
+        <span class="sidebar-icon">▦</span>
+        <span>Reports</span>
+        <span>⌄</span>
+    </a>
+
+    <a href="index.html">
+        <span class="sidebar-icon">♙</span>
+        <span>Students</span>
+        <span>⌄</span>
+    </a>
+
+    <a href="index.html">
+        <span class="sidebar-icon">♟</span>
+        <span>Staff</span>
+        <span>⌄</span>
+    </a>
+
+    <a href="index.html">
+        <span class="sidebar-icon">▣</span>
+        <span>Finance module</span>
+        <span>⌄</span>
+    </a>
+
+    <a href="index.html">
+        <span class="sidebar-icon">⚙</span>
+        <span>Configurations</span>
+    </a>
+
+</aside>
+
+<!-- MAIN PAGE -->
+<main class="main">
+
+    <div class="page-heading">
+        <h1>Help topics</h1>
+
+        <a href="index.html" class="go-back">
+            ⊕ Go back
+        </a>
+    </div>
+
+    <!-- HELP CONTENT -->
+    <div class="help-panel">
+
+        <p class="intro">
+            Welcome to our FAQ page, your one-stop resource for
+            answers to commonly asked questions.
+        </p>
+
+        <p class="intro-description">
+            Whether you're looking to learn more about the software,
+            this page has clear and concise information<br>
+            about our School software.
+        </p>
+
+        <hr class="intro-divider">
+
+        <!-- ACCOUNT FAQ -->
+        <section class="faq-section">
+
+            <h2>
+                <span class="section-icon">♙</span>
+                Your Account
+            </h2>
+
+            <details class="faq">
+                <summary>What is an account?</summary>
+
+                <p class="faq-answer">
+                    An account gives an authorized user access to the
+                    SIMS dashboard and the school management features
+                    assigned to them.
+                </p>
+            </details>
+
+            <details class="faq">
+                <summary>How do I secure my account?</summary>
+
+                <p class="faq-answer">
+                    Use a strong, unique password, keep your login
+                    details private, and log out when using a shared
+                    computer. Never share your password with others.
+                </p>
+            </details>
+
+            <details class="faq">
+                <summary>What should I do if I forget my password?</summary>
+
+                <p class="faq-answer">
+                    Contact your school's authorized administrator
+                    to request assistance with resetting your password.
+                </p>
+            </details>
+
+        </section>
+
+        <!-- FEATURES FAQ -->
+        <section class="faq-section">
+
+            <h2>
+                <span class="section-icon">▣</span>
+                Features related
+            </h2>
+
+            <details class="faq">
+                <summary>How can I activate some features?</summary>
+
+                <p class="faq-answer">
+                    Contact your school administrator to check whether
+                    the feature is available and whether your account
+                    has permission to use it.
+                </p>
+            </details>
+
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <span>Copyright © 2026 All rights reserved.</span>
+        <span class="footer-version">Version 1.0.0</span>
+    </footer>
+
+</main>
+
+</body>
+</html>

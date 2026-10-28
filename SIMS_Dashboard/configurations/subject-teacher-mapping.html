@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMS | Subject Teacher Mapping</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      color: #222;
+    }
+
+    .page-content {
+      padding: 28px 20px;
+      min-height: calc(100vh - 130px);
+    }
+
+    .page-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 35px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 500;
+      margin: 0 0 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .breadcrumb {
+      font-size: 14px;
+      color: #777;
+    }
+
+    .breadcrumb a,
+    .go-back {
+      color: #4388f7;
+      text-decoration: none;
+    }
+
+    .go-back {
+      white-space: nowrap;
+      font-size: 15px;
+    }
+
+    .mapping-panel {
+      background: #fff;
+      border: 1px solid #e9e9e9;
+      padding: 25px 32px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 700px;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th,
+    td {
+      border: 1px solid #f0f0f0;
+      padding: 5px;
+      height: 46px;
+    }
+
+    th {
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    td {
+      font-size: 14px;
+    }
+
+    .status-cell {
+      padding: 5px;
+    }
+
+    .status-track {
+      width: 100%;
+      height: 9px;
+      background: #e8e8e8;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .status-fill {
+      height: 100%;
+      width: 100%;
+      background: #72bd16;
+      border-radius: 5px;
+      transition: width 0.2s ease;
+    }
+
+    .map-button,
+    .save-button,
+    .close-button {
+      border: none;
+      border-radius: 3px;
+      padding: 9px 13px;
+      color: white;
+      background: #5182ff;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px #0002;
+      white-space: nowrap;
+    }
+
+    .map-button:hover,
+    .save-button:hover {
+      background: #376ce9;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 25px 20px;
+      border-top: 1px solid #e5e5e5;
+      color: #777;
+      font-size: 12px;
+    }
+
+    /* Mapping dialog */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgb(0 0 0 / 40%);
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 100%;
+      max-width: 480px;
+      max-height: 85vh;
+      overflow-y: auto;
+      background: #fff;
+      border-radius: 6px;
+      padding: 24px;
+      box-shadow: 0 5px 20px #0003;
+    }
+
+    .modal-content h2 {
+      margin: 0 0 8px;
+      font-size: 21px;
+    }
+
+    .modal-description {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .teacher-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 4px;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }
+
+    .teacher-option input {
+      width: 16px;
+      height: 16px;
+      accent-color: #5182ff;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .close-button {
+      background: #777;
+    }
+
+    @media (max-width: 650px) {
+      .page-content {
+        padding: 18px 8px;
+      }
+
+      .mapping-panel {
+        padding: 12px 8px;
+      }
+
+      .page-heading {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="app-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand-row">
+      <div class="brand-mark">
+        <span></span><span></span><span></span>
+      </div>
+      <strong>SIMS</strong>
+      <button class="icon-button menu-toggle" id="menuToggle"
+              type="button" aria-label="Toggle sidebar">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <nav class="side-nav" aria-label="Main navigation">
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-list"></i>
+        <span>Reports</span>
+      </a>
+
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-user-group"></i>
+        <span>Students</span>
+      </a>
+
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-users"></i>
+        <span>Staff</span>
+      </a>
+
+      <a class="nav-link" href="../index.html">
+        <i class="fa-solid fa-wallet"></i>
+        <span>Finance module</span>
+      </a>
+
+      <a class="nav-link active" href="index.html">
+        <i class="fa-solid fa-gear"></i>
+        <span>Configurations</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main-area">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <form class="search-form" id="searchForm">
+        <span class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search by name / email / mobile no."
+          aria-label="Search mappings">
+
+        <select aria-label="Search category">
+          <option selected>In Students</option>
+          <option>In Staff</option>
+          <option>All records</option>
+        </select>
+
+        <button type="submit" class="search-button">Search</button>
+      </form>
+
+      <button class="profile-button" type="button">
+        <span class="brand-mark small">
+          <span></span><span></span><span></span>
+        </span>
+        <span>Dev 2</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </header>
+
+    <section class="page-content">
+
+      <!-- Page heading -->
+      <div class="page-heading">
+        <div>
+          <h1>Subject - Teacher</h1>
+          <div class="subtitle">Configurations</div>
+
+          <div class="breadcrumb">
+            <i class="fa-solid fa-house"></i>
+            / Configurations /
+            <a href="subject-teacher-mapping.html">
+              Subject teacher mapping
+            </a>
+          </div>
+        </div>
+
+        <a class="go-back" href="index.html">
+          <i class="fa-solid fa-circle-arrow-left"></i>
+          Go back
+        </a>
+      </div>
+
+      <!-- Mapping table -->
+      <section class="mapping-panel">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:20%">Class Name</th>
+              <th style="width:15%">Subjects</th>
+              <th style="width:28%">Mapped Teachers</th>
+              <th style="width:15%">Status</th>
+              <th style="width:22%">Action</th>
+            </tr>
+          </thead>
+
+          <tbody id="mappingBody"></tbody>
+        </table>
+      </section>
+
+    </section>
+
+    <footer class="footer">
+      <span>Copyright © 2026 All rights reserved.</span>
+      <span>Version 1.0.0</span>
+    </footer>
+  </main>
+</div>
+
+<!-- Map Teachers dialog -->
+<div class="modal" id="mappingModal" role="dialog"
+     aria-modal="true" aria-labelledby="modalTitle">
+
+  <div class="modal-content">
+    <h2 id="modalTitle">Map Teachers</h2>
+    <p class="modal-description" id="modalDescription">
+      Select the teachers assigned to this class.
+    </p>
+
+    <div id="teacherOptions"></div>
+
+    <div class="modal-actions">
+      <button type="button" class="close-button" id="cancelMapping">
+        Cancel
+      </button>
+      <button type="button" class="save-button" id="saveMapping">
+        Save Mapping
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Sample data matching the supplied screenshot.
+  const classes = Array.from({ length: 10 }, (_, index) => ({
+    className: [
+      "1st Class", "2nd Class", "3rd Class", "4th Class",
+      "5th Class", "6th Class", "7th Class", "8th Class",
+      "9th Class", "10th Class"
+    ][index],
+    subjects: 8,
+    teachers: [
+      "balu", "vekatesh", "priyanka", "sandeep",
+      "kiran", "charan", "sathish", "suman",
+      "Ravi", "Prasad"
+    ].slice(0, 8)
+  }));
+
+  // Example teacher list for the mapping dialog.
+  const availableTeachers = [
+    "balu", "vekatesh", "priyanka", "sandeep",
+    "kiran", "charan", "sathish", "suman",
+    "Ravi", "Prasad", "praveen", "Rakesh",
+    "Prashanth", "Avinash", "Vimal"
+  ];
+
+  const mappingBody = document.getElementById("mappingBody");
+  const modal = document.getElementById("mappingModal");
+  const teacherOptions = document.getElementById("teacherOptions");
+  const modalDescription = document.getElementById("modalDescription");
+
+  let selectedClassIndex = null;
+
+  function renderTable(searchTerm = "") {
+    mappingBody.replaceChildren();
+
+    const filteredClasses = classes
+      .map((item, index) => ({ item, index }))
+      .filter(({ item }) =>
+        item.className.toLowerCase().includes(searchTerm) ||
+        item.teachers.some(name => name.toLowerCase().includes(searchTerm))
+      );
+
+    if (filteredClasses.length === 0) {
+      const row = mappingBody.insertRow();
+      const cell = row.insertCell();
+      cell.colSpan = 5;
+      cell.textContent = "No class mappings found.";
+      return;
+    }
+
+    filteredClasses.forEach(({ item, index }) => {
+      const row = mappingBody.insertRow();
+
+      row.insertCell().textContent = item.className;
+      row.insertCell().textContent = item.subjects;
+      row.insertCell().textContent = item.teachers.length;
+
+      const statusCell = row.insertCell();
+      statusCell.className = "status-cell";
+
+      const track = document.createElement("div");
+      track.className = "status-track";
+
+      const fill = document.createElement("div");
+      fill.className = "status-fill";
+      fill.style.width =
+        Math.min(100, item.teachers.length / item.subjects * 100) + "%";
+
+      if (item.teachers.length < item.subjects) {
+        fill.style.background = "#f0ad4e";
+      }
+
+      track.appendChild(fill);
+      statusCell.appendChild(track);
+
+      const actionCell = row.insertCell();
+      const mapButton = document.createElement("button");
+      mapButton.className = "map-button";
+      mapButton.type = "button";
+      mapButton.textContent = "Map Teachers";
+
+      mapButton.addEventListener("click", () => openMapping(index));
+
+      actionCell.appendChild(mapButton);
+    });
+  }
+
+  function openMapping(index) {
+    selectedClassIndex = index;
+    const item = classes[index];
+
+    modalDescription.textContent =
+      "Select teachers for " + item.className +
+      ". Current mapped teachers: " + item.teachers.length + ".";
+
+    teacherOptions.replaceChildren();
+
+    availableTeachers.forEach(name => {
+      const label = document.createElement("label");
+      label.className = "teacher-option";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.value = name;
+      checkbox.checked = item.teachers.includes(name);
+
+      const text = document.createElement("span");
+      text.textContent = name;
+
+      label.appendChild(checkbox);
+      label.appendChild(text);
+      teacherOptions.appendChild(label);
+    });
+
+    modal.classList.add("show");
+  }
+
+  function closeMapping() {
+    modal.classList.remove("show");
+    selectedClassIndex = null;
+  }
+
+  document.getElementById("saveMapping").addEventListener("click", () => {
+    if (selectedClassIndex === null) return;
+
+    const selected = Array.from(
+      teacherOptions.querySelectorAll('input[type="checkbox"]:checked')
+    ).map(checkbox => checkbox.value);
+
+    classes[selectedClassIndex].teachers = selected;
+
+    closeMapping();
+    renderTable(document.getElementById("searchInput")
+      .value.trim().toLowerCase());
+  });
+
+  document.getElementById("cancelMapping")
+    .addEventListener("click", closeMapping);
+
+  modal.addEventListener("click", event => {
+    if (event.target === modal) closeMapping();
+  });
+
+  document.getElementById("searchForm").addEventListener("submit", event => {
+    event.preventDefault();
+    renderTable(document.getElementById("searchInput")
+      .value.trim().toLowerCase());
+  });
+
+  document.getElementById("searchInput").addEventListener("input", event => {
+    renderTable(event.target.value.trim().toLowerCase());
+  });
+
+  // Support the sidebar toggle if the shared dashboard script is available.
+  const menuToggle = document.getElementById("menuToggle");
+  if (menuToggle) {
+    menuToggle.addEventListener("click", () => {
+      document.getElementById("sidebar")?.classList.toggle("collapsed");
+    });
+  }
+
+  renderTable();
+</script>
+</body>
+</html>

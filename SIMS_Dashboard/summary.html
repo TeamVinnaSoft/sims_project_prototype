@@ -1,0 +1,422 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMS | Staff Summary</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      color: #252525;
+    }
+
+    .summary-content {
+      padding: 28px 20px;
+      min-height: calc(100vh - 130px);
+    }
+
+    .page-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 36px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      font-weight: 500;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      margin-bottom: 9px;
+    }
+
+    .breadcrumb {
+      font-size: 14px;
+      color: #777;
+    }
+
+    .breadcrumb a,
+    .go-back {
+      color: #5182ff;
+      text-decoration: none;
+    }
+
+    .go-back {
+      white-space: nowrap;
+      font-size: 15px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .summary-card {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      padding: 30px 32px;
+      min-height: 560px;
+    }
+
+    .summary-card h2 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 30px;
+    }
+
+    .section-label {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 12px;
+    }
+
+    .summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .summary-table th,
+    .summary-table td {
+      border: 1px solid #f0f0f0;
+      padding: 20px 16px;
+      text-align: left;
+      font-size: 15px;
+      overflow-wrap: anywhere;
+    }
+
+    .summary-table th {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .summary-table th:first-child {
+      width: 65%;
+    }
+
+    .summary-table th:last-child {
+      width: 35%;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 25px 20px;
+      border-top: 1px solid #e5e5e5;
+      color: #777;
+      font-size: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .summary-card {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .summary-content {
+        padding: 18px 10px;
+      }
+
+      .summary-card {
+        padding: 20px 12px;
+      }
+
+      .summary-table th,
+      .summary-table td {
+        padding: 14px 9px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="app-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand-row">
+      <div class="brand-mark">
+        <span></span><span></span><span></span>
+      </div>
+      <strong>SIMS</strong>
+
+      <button class="icon-button menu-toggle" id="menuToggle"
+              type="button" aria-label="Toggle sidebar">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+
+    <nav class="side-nav" aria-label="Main navigation">
+
+      <a class="nav-link" href="index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </a>
+
+      <button class="nav-link nav-parent" type="button"
+              data-menu="reports">
+        <i class="fa-solid fa-list"></i>
+        <span>Reports</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </button>
+      <div class="sub-menu" id="reports">
+        <a href="index.html">Reports</a>
+      </div>
+
+      <button class="nav-link nav-parent" type="button"
+              data-menu="students">
+        <i class="fa-solid fa-user-group"></i>
+        <span>Students</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </button>
+      <div class="sub-menu" id="students">
+        <a href="index.html">Student list</a>
+        <a href="index.html">Admissions</a>
+        <a href="index.html">Attendance</a>
+      </div>
+
+      <button class="nav-link nav-parent expanded active"
+              type="button" data-menu="staff">
+        <i class="fa-solid fa-users"></i>
+        <span>Staff</span>
+        <i class="fa-solid fa-chevron-up chevron"></i>
+      </button>
+
+      <div class="sub-menu open" id="staff">
+        <a class="active" href="summary.html">Summary</a>
+        <a href="staff-data.html">Staff data</a>
+        <a href="attendence.html">Attendance</a>
+        <a href="create-staff.html">Create Staff</a>
+      </div>
+
+      <button class="nav-link nav-parent" type="button"
+              data-menu="finance">
+        <i class="fa-solid fa-wallet"></i>
+        <span>Finance module</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+      </button>
+      <div class="sub-menu" id="finance">
+        <a href="index.html">Fee collection</a>
+        <a href="index.html">Fee dues</a>
+        <a href="index.html">Expenses</a>
+      </div>
+
+      <a class="nav-link" href="index.html">
+        <i class="fa-solid fa-gear"></i>
+        <span>Configurations</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main area -->
+  <main class="main-area">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <form class="search-form" id="searchForm">
+        <span class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search by name / email / mobile no."
+          aria-label="Search staff">
+
+        <select id="searchScope" aria-label="Search category">
+          <option>In Students</option>
+          <option selected>In Staff</option>
+          <option>All records</option>
+        </select>
+
+        <button type="submit" class="search-button">Search</button>
+      </form>
+
+      <button class="profile-button" type="button">
+        <span class="brand-mark small">
+          <span></span><span></span><span></span>
+        </span>
+        <span>Dev 2</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </header>
+
+    <!-- Staff Summary -->
+    <section class="summary-content">
+
+      <div class="page-heading">
+        <div>
+          <h1>Staff</h1>
+          <div class="subtitle">Summary</div>
+
+          <div class="breadcrumb">
+            <i class="fa-solid fa-house"></i>
+            / Staff /
+            <a href="summary.html">Summary</a>
+          </div>
+        </div>
+
+        <a class="go-back" href="index.html">
+          <i class="fa-solid fa-circle-arrow-left"></i>
+          Go back
+        </a>
+      </div>
+
+      <div class="summary-grid">
+
+        <!-- Total staff by status -->
+        <section class="summary-card">
+          <h2>TOTAL STAFF</h2>
+
+          <div class="section-label">By Status</div>
+
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Active Staff</td>
+                <td>37</td>
+              </tr>
+              <tr>
+                <td>Inactive Staff</td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Total staff by role -->
+        <section class="summary-card">
+          <h2>TOTAL STAFF</h2>
+
+          <div class="section-label">By Role</div>
+
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Accountant</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Administrator</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Clerk</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Receptionist</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>spoarts</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Teacher</td>
+                <td>24</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Copyright © 2026 All rights reserved.</span>
+      <span>Version 1.0.0</span>
+    </footer>
+
+  </main>
+</div>
+
+<script src="js/app.js"></script>
+
+<script>
+  // Toggle the Staff, Students, Reports and Finance submenus.
+  document.querySelectorAll(".nav-parent").forEach(button => {
+    button.addEventListener("click", () => {
+      const menuId = button.dataset.menu;
+      const menu = document.getElementById(menuId);
+
+      if (!menu) return;
+
+      const willOpen = !menu.classList.contains("open");
+
+      menu.classList.toggle("open", willOpen);
+      button.classList.toggle("expanded", willOpen);
+
+      const chevron = button.querySelector(".chevron");
+      if (chevron) {
+        chevron.classList.toggle("fa-chevron-up", willOpen);
+        chevron.classList.toggle("fa-chevron-down", !willOpen);
+      }
+    });
+  });
+
+  // Search staff summary rows.
+  document.getElementById("searchForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const query = document.getElementById("searchInput")
+      .value.trim().toLowerCase();
+
+    document.querySelectorAll(".summary-table tbody tr").forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(query)
+        ? ""
+        : "none";
+    });
+  });
+
+  // Reset summary table filtering when the search field is cleared.
+  document.getElementById("searchInput").addEventListener("input", event => {
+    if (event.target.value.trim() === "") {
+      document.querySelectorAll(".summary-table tbody tr").forEach(row => {
+        row.style.display = "";
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

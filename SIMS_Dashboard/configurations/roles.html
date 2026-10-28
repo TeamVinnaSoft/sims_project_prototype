@@ -1,0 +1,448 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMS | Roles</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      background: #f2f2f2;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #222;
+    }
+
+    .roles-content {
+      padding: 32px 20px;
+      min-height: calc(100vh - 150px);
+    }
+
+    .page-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .page-heading h1 {
+      font-size: 32px;
+      margin: 0 0 10px;
+    }
+
+    .breadcrumb {
+      font-size: 14px;
+    }
+
+    .breadcrumb a {
+      color: #5682ff;
+      text-decoration: none;
+    }
+
+    .heading-actions {
+      display: flex;
+      gap: 16px;
+    }
+
+    .action-button {
+      border: 0;
+      border-radius: 4px;
+      padding: 11px 20px;
+      background: #5182ff;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px #0002;
+    }
+
+    .back-button {
+      background: white;
+      color: #666;
+      font-size: 20px;
+      padding: 9px 16px;
+    }
+
+    .roles-panel {
+      background: white;
+      padding: 30px 34px;
+      border: 1px solid #eee;
+      overflow-x: auto;
+    }
+
+    .roles-panel h2 {
+      font-size: 16px;
+      margin: 0 0 30px;
+      color: #555;
+    }
+
+    .roles-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 850px;
+    }
+
+    .roles-table th,
+    .roles-table td {
+      border: 1px solid #eee;
+      padding: 10px 6px;
+      text-align: left;
+      font-size: 16px;
+    }
+
+    .roles-table th {
+      font-weight: 600;
+    }
+
+    .status {
+      display: inline-block;
+      background: #76bf18;
+      color: white;
+      padding: 5px 12px;
+      font-size: 14px;
+    }
+
+    .permission-button {
+      border: 0;
+      border-radius: 4px;
+      background: #5182ff;
+      color: white;
+      padding: 10px 15px;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px #0002;
+    }
+
+    .permission-button:hover,
+    .action-button:hover {
+      background: #376be8;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 25px 20px;
+      border-top: 1px solid #e5e5e5;
+      color: #777;
+      font-size: 13px;
+    }
+
+    dialog {
+      border: 0;
+      border-radius: 8px;
+      padding: 25px;
+      width: min(400px, calc(100% - 50px));
+      box-shadow: 0 8px 35px #0003;
+    }
+
+    dialog::backdrop {
+      background: #0006;
+    }
+
+    dialog input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 11px;
+      margin: 8px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .dialog-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .roles-content {
+        padding: 20px 10px;
+      }
+
+      .roles-panel {
+        padding: 20px 12px;
+      }
+
+      .page-heading h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand-row">
+        <div class="brand-mark"><span></span><span></span><span></span></div>
+        <strong>SIMS</strong>
+      </div>
+
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link" href="../index.html">
+          <i class="fa-solid fa-house"></i><span>Dashboard</span>
+        </a>
+
+        <a class="nav-link" href="../index.html">
+          <i class="fa-solid fa-list"></i><span>Reports</span>
+        </a>
+
+        <a class="nav-link" href="../index.html">
+          <i class="fa-solid fa-user-group"></i><span>Students</span>
+        </a>
+
+        <a class="nav-link" href="../index.html">
+          <i class="fa-solid fa-users"></i><span>Staff</span>
+        </a>
+
+        <a class="nav-link active" href="index.html">
+          <i class="fa-solid fa-gear"></i><span>Configurations</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-area">
+
+      <header class="topbar">
+        <form class="search-form" id="searchForm">
+          <span class="search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+
+          <input type="search"
+                 placeholder="Search by name / email / mobile no."
+                 aria-label="Search">
+
+          <select aria-label="Search category">
+            <option>In Students</option>
+            <option>In Staff</option>
+            <option>All records</option>
+          </select>
+
+          <button type="submit" class="search-button">Search</button>
+        </form>
+
+        <button class="profile-button" type="button">
+          <span class="brand-mark small"><span></span><span></span><span></span></span>
+          <span>Dev 2</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+      </header>
+
+      <section class="roles-content">
+
+        <div class="page-heading">
+          <div>
+            <h1>Roles</h1>
+            <div class="breadcrumb">
+              Configurations
+              &nbsp;&nbsp;
+              <i class="fa-solid fa-house"></i>
+              / Configurations /
+              <a href="roles.html">Roles</a>
+            </div>
+          </div>
+
+          <div class="heading-actions">
+            <button class="action-button" id="newRoleButton">
+              New Role
+            </button>
+
+            <button class="action-button back-button"
+                    onclick="location.href='index.html'"
+                    aria-label="Go back">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+          </div>
+        </div>
+
+        <section class="roles-panel">
+          <h2>ROLES CONFIGURATIONS</h2>
+
+          <table class="roles-table">
+            <thead>
+              <tr>
+                <th>Role Name</th>
+                <th>Role Code</th>
+                <th>Staff Count</th>
+                <th>Status</th>
+                <th>Action</th>
+                <th>View</th>
+              </tr>
+            </thead>
+
+            <tbody id="rolesTableBody">
+              <tr>
+                <td>Accountant</td>
+                <td>AT</td>
+                <td>1</td>
+                <td><span class="status">Active</span></td>
+                <td><button class="permission-button" data-role="Accountant">Manage Permissions</button></td>
+                <td><button class="permission-button" data-view="Accountant">View permissions</button></td>
+              </tr>
+
+              <tr>
+                <td>Administrator</td>
+                <td>AD</td>
+                <td>2</td>
+                <td><span class="status">Active</span></td>
+                <td><button class="permission-button" data-role="Administrator">Manage Permissions</button></td>
+                <td><button class="permission-button" data-view="Administrator">View permissions</button></td>
+              </tr>
+
+              <tr>
+                <td>Clerk</td>
+                <td>CK</td>
+                <td>2</td>
+                <td><span class="status">Active</span></td>
+                <td><button class="permission-button" data-role="Clerk">Manage Permissions</button></td>
+                <td><button class="permission-button" data-view="Clerk">View permissions</button></td>
+              </tr>
+
+              <tr>
+                <td>Receptionist</td>
+                <td>RT</td>
+                <td>2</td>
+                <td><span class="status">Active</span></td>
+                <td><button class="permission-button" data-role="Receptionist">Manage Permissions</button></td>
+                <td><button class="permission-button" data-view="Receptionist">View permissions</button></td>
+              </tr>
+
+              <tr>
+                <td>Sports</td>
+                <td>SP</td>
+                <td>1</td>
+                <td><span class="status">Active</span></td>
+                <td><button class="permission-button" data-role="Sports">Manage Permissions</button></td>
+                <td><button class="permission-button" data-view="Sports">View permissions</button></td>
+              </tr>
+
+              <tr>
+                <td>Teacher</td>
+                <td>TE</td>
+                <td>24</td>
+                <td><span class="status">Active</span></td>
+                <td><button class="permission-button" data-role="Teacher">Manage Permissions</button></td>
+                <td><button class="permission-button" data-view="Teacher">View permissions</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </section>
+
+      <footer class="footer">
+        <span>Copyright © 2026 All rights reserved.</span>
+        <span>Version 1.0.0</span>
+      </footer>
+    </main>
+  </div>
+
+  <!-- New Role dialog -->
+  <dialog id="newRoleDialog">
+    <h2>Create New Role</h2>
+    <form id="newRoleForm">
+      <label for="roleName">Role Name</label>
+      <input id="roleName" required placeholder="e.g. Librarian">
+
+      <label for="roleCode">Role Code</label>
+      <input id="roleCode" required maxlength="10" placeholder="e.g. LB">
+
+      <div class="dialog-actions">
+        <button type="button" class="permission-button" id="cancelRole">
+          Cancel
+        </button>
+        <button type="submit" class="action-button">
+          Add Role
+        </button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    const roleDialog = document.getElementById("newRoleDialog");
+    const roleForm = document.getElementById("newRoleForm");
+    const rolesBody = document.getElementById("rolesTableBody");
+
+    document.getElementById("newRoleButton").addEventListener("click", () => {
+      roleForm.reset();
+      roleDialog.showModal();
+    });
+
+    document.getElementById("cancelRole").addEventListener("click", () => {
+      roleDialog.close();
+    });
+
+    roleForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      const name = document.getElementById("roleName").value.trim();
+      const code = document.getElementById("roleCode").value.trim().toUpperCase();
+
+      if (!name || !code) return;
+
+      const duplicate = [...rolesBody.querySelectorAll("tr")].some(row =>
+        row.cells[0].textContent.trim().toLowerCase() === name.toLowerCase() ||
+        row.cells[1].textContent.trim().toLowerCase() === code.toLowerCase()
+      );
+
+      if (duplicate) {
+        alert("This role name or code already exists.");
+        return;
+      }
+
+      const row = document.createElement("tr");
+      const nameCell = row.insertCell();
+      const codeCell = row.insertCell();
+      const countCell = row.insertCell();
+      const statusCell = row.insertCell();
+      const actionCell = row.insertCell();
+      const viewCell = row.insertCell();
+
+      nameCell.textContent = name;
+      codeCell.textContent = code;
+      countCell.textContent = "0";
+      statusCell.innerHTML = '<span class="status">Active</span>';
+
+      const manageButton = document.createElement("button");
+      manageButton.className = "permission-button";
+      manageButton.textContent = "Manage Permissions";
+      manageButton.dataset.role = name;
+      actionCell.appendChild(manageButton);
+
+      const viewButton = document.createElement("button");
+      viewButton.className = "permission-button";
+      viewButton.textContent = "View permissions";
+      viewButton.dataset.view = name;
+      viewCell.appendChild(viewButton);
+
+      roleDialog.close();
+    });
+
+    rolesBody.addEventListener("click", event => {
+      const button = event.target.closest("button");
+      if (!button) return;
+
+      if (button.dataset.role) {
+        alert("Manage Permissions for " + button.dataset.role +
+              " will be implemented in the next step.");
+      } else if (button.dataset.view) {
+        alert("View Permissions for " + button.dataset.view +
+              " will be implemented in the next step.");
+      }
+    });
+
+    document.getElementById("searchForm").addEventListener("submit", event => {
+      event.preventDefault();
+    });
+  </script>
+</body>
+</html>
