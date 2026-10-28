@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>support ticket</title>
+
+    <link rel="stylesheet" href = "support_ticket.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <a href="#">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Student Data </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+
+      
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Staff Data </a>
+            <a href="#"> Create Staff </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+     
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="../finance_module/summary.html"> Summary </a>
+            <a href="../finance_module/fee_received.html"> fee received </a>
+            <a href="../finance_module/expenditure.html"> expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+
+            <a href="configurations.html">
+                Configurations
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="search-box">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej         
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="my_school.html">🎓 My School</a>
+            <a href="#">₹ Subscription &amp; Billing</a>
+            <a href="#">▣ Support Tickets</a>
+            <a href="#">♙ Privacy Policy</a>
+            <a href="">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+
+
+ <!-- Detailed ticket view -->
+        <section class="ticket-detail">
+
+            <div class="ticket-header">
+                <div class="ticket-title">
+                    <div class="ticket-icon">₹</div>
+                    <div>
+                        <span class="ticket-id">TICKET ID: SIMS-00024</span>
+                        <h2>Fee Receipt Not Generating</h2>
+                        <p>Finance / Fee Issue</p>
+                    </div>
+                </div>
+
+                <div class="ticket-badges">
+                    <span class="priority high">High Priority</span>
+                    <span class="status progress">In Progress</span>
+                </div>
+            </div>
+
+            <div class="ticket-body">
+
+                <!-- School details -->
+                <section class="detail-section">
+                    <div class="section-title">
+                        <span class="section-icon">🏫</span>
+                        <div>
+                            <h3>School Information</h3>
+                            <p>Details of the school that submitted this request.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>School Name</label>
+                            <p>ABC Public School</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>School ID</label>
+                            <p>SCH-1024</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Contact Person</label>
+                            <p>School Management</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Contact Email</label>
+                            <p>management@example.com</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Issue information -->
+                <section class="detail-section">
+                    <div class="section-title">
+                        <span class="section-icon">📝</span>
+                        <div>
+                            <h3>Issue Details</h3>
+                            <p>Information provided when creating the ticket.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Issue Category</label>
+                            <p>Finance / Fee Issue</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Issue Priority</label>
+                            <p><span class="priority high">High</span></p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Submitted Date</label>
+                            <p>26 October 2026</p>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Last Updated</label>
+                            <p>27 October 2026</p>
+                        </div>
+                    </div>
+
+                    <div class="description-box">
+                        <label>Issue Description</label>
+                        <p>
+                            The school management is unable to generate fee
+                            receipts after collecting student fee payments.
+                            The payment details are available, but the receipt
+                            download option is not working. Please investigate
+                            this issue and help us generate the receipts.
+                        </p>
+                    </div>
+
+                    <div class="attachment-box">
+                        <div class="attachment-icon">PDF</div>
+                        <div class="attachment-info">
+                            <strong>fee-receipt-error.pdf</strong>
+                            <span>Supporting document · Demo attachment</span>
+                        </div>
+                        <a href="#" class="attachment-link">View File</a>
+                    </div>
+                </section>
+
+                <!-- Status timeline -->
+                <section class="detail-section">
+                    <div class="section-title">
+                        <span class="section-icon">◷</span>
+                        <div>
+                            <h3>Ticket Progress</h3>
+                            <p>Track the progress of your support request.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline">
+
+                        <div class="timeline-item completed">
+                            <div class="timeline-marker">✓</div>
+                            <div class="timeline-content">
+                                <h4>Ticket Submitted</h4>
+                                <p>Your support request was submitted successfully.</p>
+                                <span>26 Oct 2026 · 10:30 AM</span>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item completed">
+                            <div class="timeline-marker">✓</div>
+                            <div class="timeline-content">
+                                <h4>Ticket Reviewed</h4>
+                                <p>The support team reviewed the issue details.</p>
+                                <span>26 Oct 2026 · 11:15 AM</span>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item current">
+                            <div class="timeline-marker">3</div>
+                            <div class="timeline-content">
+                                <h4>Investigation In Progress</h4>
+                                <p>The support team is checking the fee receipt module.</p>
+                                <span>27 Oct 2026 · 09:45 AM</span>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-marker">4</div>
+                            <div class="timeline-content">
+                                <h4>Resolution</h4>
+                                <p>The final solution will appear here after the issue is resolved.</p>
+                                <span>Pending</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Support response -->
+                <section class="response-section">
+                    <div class="response-heading">
+                        <div class="response-icon">✉️</div>
+                        <div>
+                            <h3>Support Team Response</h3>
+                            <p>Latest communication regarding your ticket.</p>
+                        </div>
+                    </div>
+
+                    <div class="response-message">
+                        <div class="agent-avatar">S</div>
+                        <div class="response-content">
+                            <div class="agent-info">
+                                <strong>SIMS Support Team</strong>
+                                <span>27 Oct 2026 · 09:45 AM</span>
+                            </div>
+
+                            <p>
+                                Hello Management Team, we have received your
+                                report regarding fee receipt generation.
+                                Our technical team is investigating the issue.
+                                We will update this ticket once we have more
+                                information.
+                            </p>
+
+                            <span class="reply-status">Latest Update</span>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <div class="ticket-footer">
+                <div>
+                    <span class="footer-label">Current Ticket Status</span>
+                    <strong class="footer-status">In Progress</strong>
+                </div>
+            </div>
+
+        </section>
+
+ 
+
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

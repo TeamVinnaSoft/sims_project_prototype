@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>support ticket</title>
+
+    <link rel="stylesheet" href = "support_ticket.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <a href="#">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Student Data </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+
+      
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Staff Data </a>
+            <a href="#"> Create Staff </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+     
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="../finance_module/summary.html"> Summary </a>
+            <a href="../finance_module/fee_received.html"> fee received </a>
+            <a href="../finance_module/expenditure.html"> expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+
+            <a href="configurations.html">
+                Configurations
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="search-box">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej         
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="my_school.html">🎓 My School</a>
+            <a href="#">₹ Subscription &amp; Billing</a>
+            <a href="#">▣ Support Tickets</a>
+            <a href="#">♙ Privacy Policy</a>
+            <a href="">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+
+ <section class="page-heading">
+            <div>
+                <h1>School Support Ticket</h1>
+            </div>
+
+            <button type="button" class="btn btn-primary"
+                    id="newTicketBtn">
+                 <a href="new_support_ticket.html"> New Support Ticket</a>
+            </button>
+        </section>
+
+        <section class="summary-grid">
+
+            <article class="summary-card">
+                <div class="summary-top">
+                    <span>Total Tickets</span>
+                    <span class="summary-icon purple">▤</span>
+                </div>
+                <h2 id="totalTickets">0</h2>
+                <p>All submitted tickets</p>
+            </article>
+
+            <article class="summary-card">
+                <div class="summary-top">
+                    <span>Open Tickets</span>
+                    <span class="summary-icon blue">◷</span>
+                </div>
+                <h2 id="openTickets">0</h2>
+                <p>Awaiting support</p>
+            </article>
+
+            <article class="summary-card">
+                <div class="summary-top">
+                    <span>In Progress</span>
+                    <span class="summary-icon orange">↻</span>
+                </div>
+                <h2 id="progressTickets">0</h2>
+                <p>Being investigated</p>
+            </article>
+
+            <article class="summary-card">
+                <div class="summary-top">
+                    <span>Resolved</span>
+                    <span class="summary-icon green">✓</span>
+                </div>
+                <h2 id="resolvedTickets">0</h2>
+                <p>Successfully resolved</p>
+            </article>
+
+        </section>
+
+         <!-- Ticket Tracking Section -->
+        <section class="panel tickets-panel">
+
+            <div class="panel-heading tickets-heading">
+                <div>
+                    <h2>My Support Tickets</h2>
+                    <p>Track your school's submitted support requests.</p>
+                </div>
+            </div>
+
+            <div class="filters">
+
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input type="search" id="searchTickets"
+                           placeholder="Search ticket ID, subject, school...">
+                </div>
+
+                <select id="filterStatus" aria-label="Filter by status">
+                    <option value="">All Statuses</option>
+                    <option value="Open">Open</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                    <option value="Closed">Closed</option>
+                </select>
+
+                <select id="filterPriority" aria-label="Filter by priority">
+                    <option value="">All Priorities</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                    <option value="Urgent">Urgent</option>
+                </select>
+
+                <button type="button" class="btn btn-secondary"
+                        id="clearFiltersBtn">Clear Filters</button>
+
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ticket ID</th>
+                            <th>Subject / Category</th>
+                            <th>Submitted Date</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>SIMS-00017</td>
+                        <td>Fee Issue</td>
+                        <td>27 October 2026</td>
+                        <td>High</td>
+                        <td>In Progress</td>
+                        <td>
+                            <a href="view_support_ticket.html">
+                               <button class="view-btn">View</button>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>SIMS-00018</td>
+                        <td>Finance</td>
+                        <td>28 October 2026</td>
+                        <td>High</td>
+                        <td>In Progress</td>
+                        <td>
+                            <a href="view_support_ticket.html">
+                                <button class="view-btn">View</button>
+                            </a>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+                </table>
+
+                <div class="empty-state" id="emptyState" hidden>
+                    <div class="empty-icon">🎫</div>
+                    <h3>No support tickets found</h3>
+                    <p>Create a ticket or change your search filters.</p>
+                </div>
+            </div>
+
+        </section>
+
+
+
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

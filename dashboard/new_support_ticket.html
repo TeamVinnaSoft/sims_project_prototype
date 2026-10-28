@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>support ticket</title>
+
+    <link rel="stylesheet" href = "support_ticket.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item active">
+            <a href="#">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Student Data </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+
+      
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Staff Data </a>
+            <a href="#"> Create Staff </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+     
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="../finance_module/summary.html"> Summary </a>
+            <a href="../finance_module/fee_received.html"> fee received </a>
+            <a href="../finance_module/expenditure.html"> expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+
+            <a href="configurations.html">
+                Configurations
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="search-box">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej         
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="my_school.html">🎓 My School</a>
+            <a href="#">₹ Subscription &amp; Billing</a>
+            <a href="#">▣ Support Tickets</a>
+            <a href="#">♙ Privacy Policy</a>
+            <a href="">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+
+    <section class="page-heading">
+            <div>
+                <h1>New Support Ticket</h1>
+            </div>
+    </section>
+
+             <!-- Create Ticket Section -->
+        <section class="panel form-panel" id="createTicketSection">
+
+            <div class="panel-heading">
+                <div>
+                    <h2>Create Support Ticket</h2>
+                    <p>Provide the details of the issue you are facing.</p>
+                </div>
+            </div>
+
+            <form id="ticketForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="schoolName">School Name</label>
+                        <input type="text" id="schoolName"
+                               placeholder="Enter school name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="schoolId">School ID</label>
+                        <input type="text" id="schoolId"
+                               placeholder="Enter school ID" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactEmail">Contact Email</label>
+                        <input type="email" id="contactEmail"
+                               placeholder="school@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Issue Category</label>
+                        <select id="category" required>
+                            <option value="">Select category</option>
+                            <option>Technical Issue</option>
+                            <option>Finance / Fee Issue</option>
+                            <option>Student Management</option>
+                            <option>Staff Management</option>
+                            <option>Login / Access Issue</option>
+                            <option>Data / Report Issue</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select id="priority" required>
+                            <option value="">Select priority</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                            <option value="Urgent">Urgent</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="subject">Ticket Subject</label>
+                        <input type="text" id="subject" maxlength="120"
+                               placeholder="Briefly describe your issue" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="description">Issue Description</label>
+                        <textarea id="description" rows="5" maxlength="2000"
+                                  placeholder="Explain the issue and the steps to reproduce it..."
+                                  required></textarea>
+                        <small class="field-hint">
+                            Include relevant details so the support team can investigate.
+                        </small>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="attachment">Attachment
+                            <span class="optional">(Optional)</span></label>
+                        <input type="file" id="attachment"
+                               accept=".jpg,.jpeg,.png,.pdf,.txt">
+                        <small class="field-hint" id="attachmentHint">
+                           
+                        </small>
+                    </div>
+
+                </div>
+
+                <div class="form-footer">
+                    <button type="submit" class="btn btn-secondary"
+                            id="resetFormBtn">Submit Support Ticket</button>
+                    
+                </div>
+            </form>
+        </section>
+
+
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
