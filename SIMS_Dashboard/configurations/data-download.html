@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Download Data - SIMS</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+.download-content {
+    padding: 20px;
+    background: #f4f4f4;
+    min-height: 65vh;
+}
+.download-card {
+    background: white;
+    padding: 24px;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px #ddd;
+    margin-bottom: 20px;
+}
+.download-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: end;
+    margin-bottom: 22px;
+}
+.field { display: flex; flex-direction: column; gap: 7px; }
+.field label { font-weight: 600; color: #444; }
+.field select, .field input {
+    padding: 11px;
+    min-width: 210px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+}
+.btn {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 4px;
+    background: #4d7df3;
+    color: white;
+    cursor: pointer;
+}
+.btn:hover { background: #3565d4; }
+.btn.secondary { background: #687582; }
+.summary {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+.summary-box {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 18px;
+    flex: 1;
+    min-width: 160px;
+}
+.summary-box p { margin: 0 0 8px; color: #777; }
+.summary-box h2 { margin: 0; color: #333; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; background: white; }
+th, td {
+    text-align: left;
+    padding: 13px;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+}
+th { background: #f7f8fa; color: #444; }
+.empty { padding: 30px; text-align: center; color: #777; }
+.note { color: #777; font-size: 13px; margin-top: 15px; }
+.breadcrumb { color: #777; margin: 8px 0 20px; }
+.breadcrumb a { color: #4d7df3; text-decoration: none; }
+@media(max-width:600px) {
+    .download-content { padding: 10px; }
+    .download-card { padding: 14px; }
+    .field, .field select, .field input { width: 100%; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Main SIMS sidebar and header can be reused from your existing page -->
+<div class="download-content">
+    <h1>Download data</h1>
+    <div class="breadcrumb">
+        <a href="../index.html"><i class="fa fa-home"></i></a>
+        / <a href="index.html">Configurations</a> / Download data
+    </div>
+
+    <div class="summary">
+        <div class="summary-box">
+            <p>Selected module</p>
+            <h2 id="moduleSummary">Students</h2>
+        </div>
+        <div class="summary-box">
+            <p>Records available</p>
+            <h2 id="recordCount">4</h2>
+        </div>
+        <div class="summary-box">
+            <p>Export format</p>
+            <h2>CSV</h2>
+        </div>
+    </div>
+
+    <section class="download-card">
+        <h2><i class="fa fa-download"></i> Export data</h2>
+        <p>Select a module to preview its records and download them.</p>
+
+        <div class="download-controls">
+            <div class="field">
+                <label for="module">Select module</label>
+                <select id="module">
+                    <option value="students">Students</option>
+                    <option value="staff">Staff</option>
+                    <option value="attendance">Attendance</option>
+                    <option value="fees">Fees</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="search">Search records</label>
+                <input id="search" type="text"
+                       placeholder="Search in preview...">
+            </div>
+
+            <button class="btn" id="downloadBtn">
+                <i class="fa fa-file-csv"></i> Download CSV
+            </button>
+            <button class="btn secondary" id="refreshBtn">
+                <i class="fa fa-rotate"></i> Reset
+            </button>
+        </div>
+
+        <h3 id="tableTitle">Student records</h3>
+        <div class="table-wrap">
+            <table>
+                <thead id="tableHead"></thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+
+        <p class="note">
+            Prototype notice: these are sample records for testing.
+            Connect the SIMS backend to export actual school data.
+        </p>
+    </section>
+</div>
+
+<script>
+const datasets = {
+    students: {
+        title: "Student records",
+        filename: "students.csv",
+        columns: ["Student ID", "First Name", "Last Name", "Class", "Mobile", "Status"],
+        rows: [
+            ["STU001", "Aarav", "Reddy", "10-A", "9000000001", "Active"],
+            ["STU002", "Ananya", "Sharma", "9-B", "9000000002", "Active"],
+            ["STU003", "Rahul", "Kumar", "8-A", "9000000003", "Active"],
+            ["STU004", "Priya", "Rao", "10-B", "9000000004", "Inactive"]
+        ]
+    },
+    staff: {
+        title: "Staff records",
+        filename: "staff.csv",
+        columns: ["Staff ID", "First Name", "Last Name", "Role", "Mobile", "Status"],
+        rows: [
+            ["STF001", "Ramesh", "Rao", "Teacher", "9100000001", "Active"],
+            ["STF002", "Suma", "Devi", "Administrator", "9100000002", "Active"],
+            ["STF003", "Kiran", "Kumar", "Accountant", "9100000003", "Active"],
+            ["STF004", "Meena", "Reddy", "Receptionist", "9100000004", "Inactive"]
+        ]
+    },
+    attendance: {
+        title: "Attendance records",
+        filename: "attendance.csv",
+        columns: ["Record ID", "Person ID", "Name", "Date", "Session", "Status"],
+        rows: [
+            ["ATT001", "STU001", "Aarav Reddy", "2026-10-26", "Morning", "Present"],
+            ["ATT002", "STU002", "Ananya Sharma", "2026-10-26", "Morning", "Present"],
+            ["ATT003", "STU003", "Rahul Kumar", "2026-10-26", "Morning", "Absent"],
+            ["ATT004", "STF001", "Ramesh Rao", "2026-10-26", "Morning", "Present"]
+        ]
+    },
+    fees: {
+        title: "Fee records",
+        filename: "fees.csv",
+        columns: ["Receipt ID", "Student ID", "Student Name", "Amount", "Date", "Status"],
+        rows: [
+            ["FEE001", "STU001", "Aarav Reddy", "15000", "2026-06-10", "Paid"],
+            ["FEE002", "STU002", "Ananya Sharma", "12000", "2026-06-12", "Paid"],
+            ["FEE003", "STU003", "Rahul Kumar", "15000", "2026-06-15", "Pending"],
+            ["FEE004", "STU004", "Priya Rao", "12000", "2026-06-18", "Pending"]
+        ]
+    }
+};
+
+const moduleSelect = document.getElementById("module");
+const searchInput = document.getElementById("search");
+
+function getCurrentData() {
+    return datasets[moduleSelect.value];
+}
+
+function renderTable() {
+    const data = getCurrentData();
+    const query = searchInput.value.trim().toLowerCase();
+
+    document.getElementById("moduleSummary").textContent =
+        moduleSelect.options[moduleSelect.selectedIndex].text;
+
+    document.getElementById("tableTitle").textContent = data.title;
+    document.getElementById("recordCount").textContent = data.rows.length;
+
+    document.getElementById("tableHead").innerHTML =
+        "<tr>" + data.columns.map(col => `<th>${col}</th>`).join("") + "</tr>";
+
+    const filteredRows = data.rows.filter(row =>
+        row.some(value => String(value).toLowerCase().includes(query))
+    );
+
+    document.getElementById("tableBody").innerHTML = filteredRows.length
+        ? filteredRows.map(row =>
+            "<tr>" + row.map(value =>
+                `<td>${escapeHTML(value)}</td>`
+            ).join("") + "</tr>"
+          ).join("")
+        : `<tr><td colspan="${data.columns.length}" class="empty">
+             No matching records found.
+           </td></tr>`;
+}
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;",
+        '"': "&quot;", "'": "&#39;"
+    })[char]);
+}
+
+function downloadCSV() {
+    const data = getCurrentData();
+    const csvCell = value =>
+        '"' + String(value).replace(/"/g, '""') + '"';
+
+    const csv = [data.columns, ...data.rows]
+        .map(row => row.map(csvCell).join(","))
+        .join("\r\n");
+
+    const blob = new Blob(["\uFEFF" + csv], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = data.filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+}
+
+moduleSelect.addEventListener("change", () => {
+    searchInput.value = "";
+    renderTable();
+});
+searchInput.addEventListener("input", renderTable);
+document.getElementById("downloadBtn").addEventListener("click", downloadCSV);
+document.getElementById("refreshBtn").addEventListener("click", () => {
+    moduleSelect.value = "students";
+    searchInput.value = "";
+    renderTable();
+});
+
+renderTable();
+</script>
+</body>
+</html>

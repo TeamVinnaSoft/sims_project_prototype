@@ -1,0 +1,695 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMS | Features</title>
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet"
+ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+* { box-sizing: border-box; }
+
+.features-content {
+    margin: 20px;
+    padding: 24px;
+    background: #fff;
+    min-height: 650px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.page-heading h1 {
+    font-size: 20px;
+    margin: 0 0 8px;
+    color: #333;
+}
+
+.breadcrumb {
+    color: #777;
+    font-size: 12px;
+}
+
+.breadcrumb a {
+    color: #5683ff;
+    text-decoration: none;
+}
+
+.back-btn {
+    padding: 9px 14px;
+    background: white;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.summary-card {
+    border: 1px solid #e6eaf0;
+    border-radius: 6px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 6px #00000008;
+}
+
+.summary-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 20px;
+}
+
+.total-icon { background: #edf2ff; color: #5683ff; }
+.active-icon { background: #eaf8e5; color: #59a82d; }
+.inactive-icon { background: #ffeded; color: #ed4b4b; }
+
+.summary-label {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.summary-number {
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-input,
+.filter-select {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 13px;
+}
+
+.search-input {
+    width: 260px;
+    max-width: 100%;
+}
+
+.filter-select {
+    min-width: 145px;
+}
+
+.result-count {
+    font-size: 12px;
+    color: #777;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.features-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.features-table th,
+.features-table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.features-table th {
+    background: #f7f8fc;
+    color: #444;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.features-table th button {
+    font: inherit;
+    color: inherit;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.features-table tbody tr:hover {
+    background: #f7f9ff;
+}
+
+.status {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status.active {
+    color: #37851b;
+    background: #e9f8e2;
+}
+
+.status.inactive {
+    color: #d93636;
+    background: #ffe8e8;
+}
+
+.empty-row {
+    text-align: center !important;
+    padding: 30px !important;
+    color: #777;
+}
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    color: #666;
+    font-size: 12px;
+}
+
+.pagination-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.pagination-buttons button {
+    padding: 7px 11px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.pagination-buttons button.current {
+    background: #5683ff;
+    color: white;
+    border-color: #5683ff;
+}
+
+.pagination-buttons button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+    .features-content {
+        margin: 10px;
+        padding: 14px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .toolbar {
+        align-items: stretch;
+    }
+
+    .filters {
+        width: 100%;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .filter-select {
+        flex: 1;
+        min-width: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="app-shell">
+
+    <aside class="sidebar">
+        <div class="brand-row">
+            <div class="brand-mark">
+                <span></span><span></span><span></span>
+            </div>
+            <strong>SIMS</strong>
+        </div>
+
+        <nav class="side-nav" aria-label="Main navigation">
+            <a class="nav-link" href="../index.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+            <a class="nav-link" href="../index.html#reports">
+                <i class="fa-solid fa-list"></i>
+                <span>Reports</span>
+            </a>
+            <a class="nav-link" href="../index.html#students">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Students</span>
+            </a>
+            <a class="nav-link" href="../index.html#staff">
+                <i class="fa-solid fa-users"></i>
+                <span>Staff</span>
+            </a>
+            <a class="nav-link active" href="index.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Configurations</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-area">
+
+        <header class="topbar">
+            <form class="search-form" onsubmit="return false">
+                <span class="search-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="search"
+                    placeholder="Search by name / email / mobile no."
+                    aria-label="Search">
+                <select aria-label="Search category">
+                    <option>In Students</option>
+                    <option>In Staff</option>
+                    <option>All records</option>
+                </select>
+                <button type="submit" class="search-button">Search</button>
+            </form>
+
+            <button class="profile-button" type="button">
+                <span class="brand-mark small">
+                    <span></span><span></span><span></span>
+                </span>
+                <span>Dev 2</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+        </header>
+
+        <section class="features-content">
+
+            <div class="page-heading">
+                <div>
+                    <h1>Software Features</h1>
+                    <div class="breadcrumb">
+                        <a href="../index.html">Dashboard</a> /
+                        <a href="index.html">Configurations</a> /
+                        Features
+                    </div>
+                </div>
+                <button class="back-btn" onclick="history.back()">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+            </div>
+
+            <!-- Summary cards -->
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <div class="summary-icon total-icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <div>
+                        <div class="summary-label">Total Features</div>
+                        <div class="summary-number" id="totalCount">0</div>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon active-icon">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div>
+                        <div class="summary-label">Fully Active</div>
+                        <div class="summary-number" id="activeCount">0</div>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon inactive-icon">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                    <div>
+                        <div class="summary-label">Inactive</div>
+                        <div class="summary-number" id="inactiveCount">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search and filters -->
+            <div class="toolbar">
+                <div class="filters">
+                    <input type="search" id="featureSearch"
+                        class="search-input"
+                        placeholder="Search feature name..."
+                        aria-label="Search features">
+
+                    <select id="statusFilter" class="filter-select"
+                        aria-label="Filter by status">
+                        <option value="all">All statuses</option>
+                        <option value="1">Fully Active</option>
+                        <option value="0">Inactive</option>
+                    </select>
+
+                    <select id="categoryFilter" class="filter-select"
+                        aria-label="Filter by category">
+                        <option value="all">All categories</option>
+                        <option value="Academics">Academics</option>
+                        <option value="Student Services">Student Services</option>
+                        <option value="Administration">Administration</option>
+                        <option value="Communication">Communication</option>
+                        <option value="Integrations">Integrations</option>
+                    </select>
+                </div>
+
+                <span class="result-count" id="resultCount"
+                    aria-live="polite"></span>
+            </div>
+
+            <!-- Features table -->
+            <div class="table-wrapper">
+                <table class="features-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>
+                                <button type="button" data-sort="name">
+                                    Feature Name ↕
+                                </button>
+                            </th>
+                            <th>Category</th>
+                            <th>
+                                <button type="button" data-sort="status">
+                                    Status ↕
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="featureRows"></tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <span id="pageInfo"></span>
+                <div class="pagination-buttons" id="paginationButtons"></div>
+            </div>
+
+        </section>
+
+        <footer class="footer config-footer">
+            <span>Copyright © 2026 All rights reserved.</span>
+            <span>Version 1.0.0</span>
+        </footer>
+
+    </main>
+</div>
+
+<script>
+// Sample feature data.
+// Status 1 = Fully Active; status 0 = Inactive.
+const features = [
+["Student Attendance",1,"Academics"],
+["Student Leave management",1,"Student Services"],
+["Staff Attendance",1,"Administration"],
+["Staff Leave management",1,"Administration"],
+["Staff Payroll",1,"Administration"],
+["Examination Management",1,"Academics"],
+["Marks Management",1,"Academics"],
+["Fee Management",1,"Administration"],
+["Timetable",1,"Academics"],
+["Transportation",1,"Administration"],
+["School Bus Attendance",1,"Student Services"],
+["Syllabus tracking",1,"Academics"],
+["Lesson plan",1,"Academics"],
+["Course Materials",0,"Academics"],
+["Question Bank Management",1,"Academics"],
+["Homework",1,"Academics"],
+["Assignment",1,"Academics"],
+["Academic Calendar",1,"Academics"],
+["Holiday Information",1,"Academics"],
+["NoticeBoard",1,"Communication"],
+["Circular",1,"Communication"],
+["Thought Of The Day",1,"Communication"],
+["Online Class",1,"Academics"],
+["Online Test",1,"Academics"],
+["Online Quiz",1,"Academics"],
+["Question paper generator",1,"Academics"],
+["Health Details",0,"Student Services"],
+["Fitness Details",0,"Student Services"],
+["Discipline monitoring",0,"Student Services"],
+["Behavior monitoring",0,"Student Services"],
+["Latecomers Details",1,"Student Services"],
+["Uniform Maintenance Details",0,"Student Services"],
+["Counseling sessions",0,"Student Services"],
+["Bag weight",0,"Student Services"],
+["Student badges",0,"Student Services"],
+["Student Leaderboards",0,"Student Services"],
+["Student Rewards",0,"Student Services"],
+["Co-curricular activities",0,"Student Services"],
+["Brainstorming",0,"Student Services"],
+["To Do List",1,"Administration"],
+["Internal Messaging",0,"Communication"],
+["Surveys and Feedback",0,"Communication"],
+["Online Admission Management",1,"Administration"],
+["PTM schedules",0,"Communication"],
+["Principal Appointment",1,"Administration"],
+["Talk to Teacher",0,"Communication"],
+["Visitor Details",1,"Administration"],
+["ID card generation",0,"Administration"],
+["Automated Grading",0,"Academics"],
+["Classroom Seating arrangement",0,"Academics"],
+["Exam hall seating arrangement",0,"Academics"],
+["Accounting",0,"Administration"],
+["Hostel Management",0,"Administration"],
+["Bookstore Management",0,"Administration"],
+["Library Management",0,"Administration"],
+["Inventory Management",0,"Administration"],
+["Asset Management",0,"Administration"],
+["School Infrastructure",0,"Administration"],
+["School Policies and Regulations",0,"Administration"],
+["Staff Skills Tracking",0,"Administration"],
+["Parent App",1,"Communication"],
+["Parent Portal",1,"Communication"],
+["Staff App",1,"Communication"],
+["Staff Portal",1,"Communication"],
+["Principal App",1,"Communication"],
+["School Bus App",1,"Student Services"],
+["Data Import and Export",1,"Administration"],
+["Custom Reports",0,"Administration"],
+["Dashboard Customization",0,"Administration"],
+["Analytics",1,"Administration"],
+["School Radio",0,"Communication"],
+["LMS integration",0,"Integrations"],
+["Biometric device integration",0,"Integrations"],
+["GPS device integration",0,"Integrations"],
+["Payment gateway",0,"Integrations"],
+["WhatsApp Integration",0,"Integrations"],
+["Email Configuration",0,"Integrations"],
+["SMS Configuration",1,"Integrations"],
+["Multi Branch Management",0,"Administration"],
+["Campaign Management",1,"Communication"],
+["School website configuration",1,"Integrations"]
+];
+
+const pageSize = 10;
+let currentPage = 1;
+let sortField = "";
+let sortAscending = true;
+
+const rows = document.getElementById("featureRows");
+const searchInput = document.getElementById("featureSearch");
+const statusFilter = document.getElementById("statusFilter");
+const categoryFilter = document.getElementById("categoryFilter");
+
+function updateSummary() {
+    document.getElementById("totalCount").textContent = features.length;
+    document.getElementById("activeCount").textContent =
+        features.filter(f => f[1] === 1).length;
+    document.getElementById("inactiveCount").textContent =
+        features.filter(f => f[1] === 0).length;
+}
+
+function getFilteredFeatures() {
+    const query = searchInput.value.trim().toLowerCase();
+    const status = statusFilter.value;
+    const category = categoryFilter.value;
+
+    let result = features.filter(feature => {
+        const matchesName = feature[0].toLowerCase().includes(query);
+        const matchesStatus =
+            status === "all" || String(feature[1]) === status;
+        const matchesCategory =
+            category === "all" || feature[2] === category;
+
+        return matchesName && matchesStatus && matchesCategory;
+    });
+
+    if (sortField === "name") {
+        result.sort((a, b) =>
+            a[0].localeCompare(b[0]) * (sortAscending ? 1 : -1)
+        );
+    } else if (sortField === "status") {
+        result.sort((a, b) =>
+            (a[1] - b[1]) * (sortAscending ? 1 : -1)
+        );
+    }
+
+    return result;
+}
+
+function renderFeatures() {
+    const filtered = getFilteredFeatures();
+    const totalPages = Math.ceil(filtered.length / pageSize);
+    currentPage = Math.min(currentPage, Math.max(totalPages, 1));
+
+    const start = (currentPage - 1) * pageSize;
+    const pageItems = filtered.slice(start, start + pageSize);
+
+    rows.innerHTML = "";
+
+    if (pageItems.length === 0) {
+        rows.innerHTML = `
+            <tr>
+                <td colspan="4" class="empty-row">
+                    No matching features found.
+                </td>
+            </tr>`;
+    } else {
+        pageItems.forEach(feature => {
+            const originalIndex = features.indexOf(feature);
+            const tr = document.createElement("tr");
+
+            const number = document.createElement("td");
+            number.textContent = originalIndex + 1;
+
+            const name = document.createElement("td");
+            name.textContent = feature[0];
+
+            const category = document.createElement("td");
+            category.textContent = feature[2];
+
+            const statusCell = document.createElement("td");
+            const badge = document.createElement("span");
+            badge.className = "status " +
+                (feature[1] === 1 ? "active" : "inactive");
+            badge.textContent =
+                feature[1] === 1 ? "Fully Active" : "Inactive";
+
+            statusCell.appendChild(badge);
+            tr.append(number, name, category, statusCell);
+            rows.appendChild(tr);
+        });
+    }
+
+    document.getElementById("resultCount").textContent =
+        `Showing ${filtered.length} of ${features.length} features`;
+
+    document.getElementById("pageInfo").textContent =
+        filtered.length === 0
+            ? "No results"
+            : `Showing ${start + 1}–${Math.min(start + pageSize, filtered.length)} of ${filtered.length}`;
+
+    renderPagination(totalPages);
+}
+
+function renderPagination(totalPages) {
+    const container = document.getElementById("paginationButtons");
+    container.innerHTML = "";
+
+    function addButton(label, page, disabled, current) {
+        const button = document.createElement("button");
+        button.textContent = label;
+        button.disabled = disabled;
+
+        if (current) button.classList.add("current");
+
+        button.addEventListener("click", () => {
+            currentPage = page;
+            renderFeatures();
+        });
+
+        container.appendChild(button);
+    }
+
+    addButton("Previous", currentPage - 1, currentPage <= 1, false);
+
+    for (let page = 1; page <= totalPages; page++) {
+        addButton(String(page), page, false, page === currentPage);
+    }
+
+    addButton("Next", currentPage + 1,
+        currentPage >= totalPages || totalPages === 0, false);
+}
+
+searchInput.addEventListener("input", () => {
+    currentPage = 1;
+    renderFeatures();
+});
+
+statusFilter.addEventListener("change", () => {
+    currentPage = 1;
+    renderFeatures();
+});
+
+categoryFilter.addEventListener("change", () => {
+    currentPage = 1;
+    renderFeatures();
+});
+
+document.querySelectorAll("[data-sort]").forEach(button => {
+    button.addEventListener("click", () => {
+        const field = button.dataset.sort;
+
+        if (sortField === field) {
+            sortAscending = !sortAscending;
+        } else {
+            sortField = field;
+            sortAscending = true;
+        }
+
+        currentPage = 1;
+        renderFeatures();
+    });
+});
+
+updateSummary();
+renderFeatures();
+</script>
+
+</body>
+</html>
