@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fee Module</title>
+    <link rel="stylesheet" href = "style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Staff Data</a>
+            <a href="#">Create Staff</a>
+            <a href="#">Attendance</a>
+        </div>
+
+        
+
+        <div class="menu-item"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="../finance_module/summary.html">Summary</a>
+            <a href="../finance_module/fee_received.html">Fee Received</a>
+            <a href="../finance_module/expenditure.html">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+    <div class="main">
+        <div class="topbar"> 
+            <h3>Fee  | Configuration</h3>
+        </div>
+
+       <!-- Map Concessions -->
+        <section class="form-section" id="mapping-form">
+            <div class="section-heading">
+                <div>
+                    <h2>Map Concessions</h2>
+                    <p>Associate a concession with a fee component.</p>
+                </div>
+               
+            </div>
+
+            <div class="card form-card">
+                <form action="#" method="post">
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="map-component">Fee Component</label>
+                            <select id="map-component" name="component">
+                                <option value="">Select Component</option>
+                                <option>Tuition Fee</option>
+                                <option>Transport Fee</option>
+                                <option>Library Fee</option>
+                                <option>Examination Fee</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="map-concession">Fee Concession</label>
+                            <select id="map-concession" name="concession">
+                                <option value="">Select Concession</option>
+                                <option>Scholarship</option>
+                                <option>Sibling</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="reset" class="btn secondary">Cancel</button>
+                        <button type="submit" class="btn primary">Save Mapping</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>

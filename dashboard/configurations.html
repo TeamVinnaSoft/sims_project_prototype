@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Configurations</title>
+
+    <link rel="stylesheet" href = "configurations.css">
+
+</head>
+
+<body>
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Staff Data</a>
+            <a href="#">Create Staff</a>
+            <a href="#">Attendance</a>
+        </div>
+
+        
+
+        <div class="menu-item"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="../finance_module/summary.html">Summary</a>
+            <a href="../finance_module/fee_received.html">Fee Received</a>
+            <a href="../finance_module/expenditure.html">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item active">
+            <a href="configurations.html">Configurations</a>
+        </div>
+
+        <!-- LOGOUT -->
+        <div class="logout-area">
+            <a href="logout.html" class="logout-button">
+                Logout
+            </a>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="main">
+    <!-- HEADER -->
+    <div class="header">
+       
+        
+    </div>
+
+
+
+    <div class="configuration-container">
+        <h3>Configurations</h3>
+        <div class="configuration-grid">
+
+            <!-- COLUMN 1 -->
+
+            <div class="configuration-column">
+
+                <a href="#" class="configuration-card">
+                    <div class="config-icon"> 🎓 </div>
+                    <div>
+                        <strong>School Branding</strong>
+
+                        <span>
+                            Logo, banners, colors, etc.
+                        </span>
+                    </div>
+                </a>
+
+
+
+
+                <a href="#" class="configuration-card">
+                    <div class="config-icon"> ▦ </div>
+                    <div>
+                        <strong>Features</strong>
+                        <span>
+                            Software features selection
+                        </span>
+                   </div>
+                </a>
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon"> 📆 </div>
+                    <div>
+                        <strong>Academic Year</strong>
+                        <span>
+                            Manage academic years
+                        </span>
+                    </div>
+                </a>
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        🕐
+                    </div>
+
+                    <div>
+                        <strong>School Timing</strong>
+
+                        <span>
+                            Configure school timings
+                        </span>
+                    </div>
+
+                </a>
+
+
+                <a href="../classes_subjects/classwise_sub.html" class="configuration-card">
+
+                    <div class="config-icon">
+                        📖
+                    </div>
+
+                    <div>
+                        <strong>Classes & Subjects</strong>
+
+                        <span>
+                            Manage classes and subjects
+                        </span>
+                    </div>
+                </a>
+
+
+                <a href="../classroom/classroom_config.html" class="configuration-card">
+
+                    <div class="config-icon">
+                        🏫
+                    </div>
+
+                    <div>
+                        <strong>Classrooms</strong>
+
+                        <span>
+                            Manage classrooms
+                        </span>
+                    </div>
+
+                </a>
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        👥
+                    </div>
+
+                    <div>
+                        <strong>Roles</strong>
+
+                        <span>
+                            role configuration
+                        </span>
+                    </div>
+                </a>
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        👨‍💼
+                    </div>
+
+                    <div>
+                        <strong>Staff</strong>
+
+                        <span>
+                            Staff configuration
+                        </span>
+                    </div>
+                </a>
+
+
+                <a href="../principal/principal_configuration.html" class="configuration-card">
+
+                    <div class="config-icon">
+                        👑
+                    </div>
+
+                    <div>
+                        <strong>Principal Account</strong>
+
+                        <span>
+                            principal configuration
+                        </span>
+                    </div>
+                </a>
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        💵
+                    </div>
+
+                    <div>
+                        <strong>Payroll</strong>
+
+                        <span>
+                            Staff payroll
+                        </span>
+                    </div>
+                </a>
+
+                <a href="../fee_module/fee_module_config.html" class="configuration-card">
+
+                    <div class="config-icon">
+                        💰
+                    </div>
+
+                    <div>
+                        <strong>Fee Module</strong>
+
+                        <span>
+                            Fee configuration
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+
+
+            <!-- COLUMN 2 -->
+
+            <div class="configuration-column">
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        👥
+                    </div>
+
+                    <div>
+                        <strong>Staff Role Mapping</strong>
+
+                        <span>
+                            Configure staff roles
+                        </span>
+                    </div>
+
+                </a>
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        👨‍🏫
+                    </div>
+
+                    <div>
+                        <strong>Class Teacher Mapping</strong>
+
+                        <span>
+                            Assign class teachers
+                        </span>
+                    </div>
+
+                </a>
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        📚
+                    </div>
+
+                    <div>
+                        <strong>Subject Teacher Mapping</strong>
+
+                        <span>
+                            Assign subject teachers
+                        </span>
+                    </div>
+
+                </a>
+
+
+                <a href="../academic_calendar/academic_calendar.html" class="configuration-card">
+
+                    <div class="config-icon">
+                        📆
+                    </div>
+
+                    <div>
+                        <strong>Academic Calendar</strong>
+
+                        <span>
+                            Manage academic calendar
+                        </span>
+                    </div>
+
+                </a>
+
+
+                <a href="../holidays/holidays_config.html" class="configuration-card">
+
+                    <div class="config-icon">
+                        🎈
+                    </div>
+
+                    <div>
+                        <strong>Holiday List</strong>
+
+                        <span>
+                            Manage holidays
+                        </span>
+                    </div>
+                </a>
+
+
+                 <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        📋
+                    </div>
+
+                    <div>
+                        <strong>Lesson Planner</strong>
+
+                        <span>
+                            Plan lessons
+                        </span>
+                    </div>
+                </a>
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        🎥
+                    </div>
+
+                    <div>
+                        <strong>Online Classes</strong>
+
+                        <span>
+                            Online Configuration
+                        </span>
+                    </div>
+                </a>
+
+                <a href="../examination/examination_config_page.html" class="configuration-card">
+
+                    <div class="config-icon">
+                        📝
+                    </div>
+
+                    <div>
+                        <strong>Examinations</strong>
+
+                        <span>
+                            examination Configuration
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+
+
+            <!-- COLUMN 3 -->
+
+            <div class="configuration-column">
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        ☁️
+                    </div>
+
+                    <div>
+                        <strong>Bulk Data Upload</strong>
+
+                        <span>
+                            Upload school data
+                        </span>
+                    </div>
+                </a>
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        ☁️
+                    </div>
+
+                    <div>
+                        <strong>Data Download</strong>
+
+                        <span>
+                            Download school data
+                        </span>
+                    </div>
+
+                </a>
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        📱
+                    </div>
+
+                    <div>
+                        <strong>Apps</strong>
+
+                        <span>
+                            Mobile application settings
+                        </span>
+                    </div>
+                </a>
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        🌐
+                    </div>
+
+                    <div>
+                        <strong>Website</strong>
+
+                        <span>
+                            Website configuration
+                        </span>
+                    </div>
+
+                </a>
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        ✉️
+                    </div>
+
+                    <div>
+                        <strong>E-mail Server</strong>
+
+                        <span>
+                            Configure email server
+                        </span>
+                    </div>
+
+                </a>
+
+
+                <a href="#" class="configuration-card">
+
+                    <div class="config-icon">
+                        💬
+                    </div>
+
+                    <div>
+                        <strong>SMS Gateway</strong>
+
+                        <span>
+                            Configure SMS gateway
+                        </span>
+                    </div>
+                </a>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+    menu.classList.toggle("show");
+
+    element.classList.toggle("open");
+
+}
+
+</script>
+
+</body>
+
+</html>

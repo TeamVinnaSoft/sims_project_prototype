@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Management Dashboard</title>
+
+    <link rel="stylesheet" href = "dashboard.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item active">
+            <a href="#">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Student Data </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+
+      
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Staff Data </a>
+            <a href="#"> Create Staff </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+     
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="../finance_module/summary.html"> Summary </a>
+            <a href="../finance_module/fee_received.html"> fee received </a>
+            <a href="../finance_module/expenditure.html"> expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+
+            <a href="configurations.html">
+                Configurations
+            </a>
+
+        </div>
+
+
+
+       
+
+        <div class="logout-area">
+
+            <a href="#" class="logout-button"> Logout </a>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="search-box">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej         
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="my_school.html">🎓 My School</a>
+            <a href="#">₹ Subscription &amp; Billing</a>
+            <a href="#">▣ Support Tickets</a>
+            <a href="#">♙ Privacy Policy</a>
+            <a href="">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div>
+            <h2>
+                Welcome Back
+            </h2>
+
+            <p>
+                Management Dashboard
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         MAIN CARDS
+    ========================= -->
+
+    <div class="dashboard-cards">
+
+
+        <!-- STUDENTS -->
+
+        <div class="card">
+
+            <div class="card-content">
+
+                <div>
+
+                    <div class="card-title">
+                        Students
+                    </div>
+
+                    <div class="card-value">
+                        10
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STAFF -->
+
+        <div class="card">
+
+            <div class="card-content">
+
+                <div>
+
+                    <div class="card-title">
+                        Staff
+                    </div>
+
+                    <div class="card-value">
+                        7
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FEE DUES -->
+
+        <div class="card">
+
+            <div class="card-content">
+
+                <div>
+
+                    <div class="card-title">
+                        Fee Dues
+                    </div>
+
+                    <div class="card-value">
+                        ₹0
+                    </div>
+
+                </div>
+
+
+                <div class="card-icon">
+                    ₹
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- EXPENDITURE -->
+
+        <div class="card">
+
+            <div class="card-content">
+
+                <div>
+
+                    <div class="card-title">
+                        Expenditure
+                    </div>
+
+                    <div class="card-value">
+                        ₹0
+                    </div>
+
+                </div>
+
+
+                <div class="card-icon">
+                    ₹
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         ACADEMIC INFORMATION
+    ========================= -->
+
+    <div class="secondary-cards">
+
+
+        <!-- CLASSES -->
+
+        <div class="card">
+
+            <div class="card-title">
+                Classes
+            </div>
+
+            <div class="card-value">
+                10
+            </div>
+
+        </div>
+
+
+
+        <!-- CLASS ROOMS -->
+
+        <div class="card">
+
+            <div class="card-title">
+                Class Rooms
+            </div>
+
+            <div class="card-value">
+                10
+            </div>
+
+        </div>
+
+
+
+        <!-- SUBJECTS -->
+
+        <div class="card">
+
+            <div class="card-title">
+                Subjects
+            </div>
+
+            <div class="card-value">
+                80
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         ACADEMIC YEAR
+    ========================= -->
+
+    <div class="academic-year">
+
+        <h3>
+
+            Academic Year:
+
+            <span>
+                2026 - 2027
+            </span>
+
+        </h3>
+
+    </div>
+
+
+
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

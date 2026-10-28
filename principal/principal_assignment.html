@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Principal Configuration</title>
+    <link rel="stylesheet" href = "../classes_subjects/style.css">
+</head>
+<body>
+    
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <a href="../dashboard/dashboard.html">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Student Data </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="#"> Summary </a>
+            <a href="#"> Staff Data </a>
+            <a href="#"> Create Staff </a>
+            <a href="#"> Attendance </a>
+        </div>
+
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="../finance_module/summary.html">Summary</a>
+            <a href="../finance_module/fee_received.html">Fee Received</a>
+            <a href="../finance_module/expenditure.html">Expenditure</a>
+        </div>
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item ">
+
+            <a href="../dashboard/configurations.html">
+                Configurations
+            </a>
+
+        </div>
+       
+
+        <div class="logout-area">
+
+            <a href="#" class="logout-button"> Logout </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+<div class="main">
+<div class="timing-box">
+    <h2>Principal</h2>
+    <p>Configuration</p>
+    <form>
+        <div class="input-group">
+            <label>Select Principal:</label>
+                <select>
+                    <option>Teja</option>
+                    <option>Ramu</option>
+                    <option>Rakesh</option>
+                    <option>Prakash</option>
+                    <option>Akhil</option>
+                    <option>Vamsi</option>
+                    <option>Kav</option>
+                </select>
+        </div><br>
+
+    </form>
+
+
+        <div>
+            <a href="principal_configuration.html">
+                <button class="view-btn">Set As Principal</button>
+            </a>
+
+            <a href="principal_assignment.html">
+                <button class="view-btn-cancel">Cancel</button>
+            </a>
+ 
+</div>
+
+</body>
+</html>

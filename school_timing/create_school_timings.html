@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School Timings</title>
+    <link rel="stylesheet" href = "style.css">
+</head>
+<body>
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Staff Data</a>
+            <a href="#">Create Staff</a>
+            <a href="#">Attendance</a>
+        </div>
+
+        
+
+        <div class="menu-item"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="../finance_module/summary.html">Summary</a>
+            <a href="../finance_module/fee_received.html">Fee Received</a>
+            <a href="../finance_module/expenditure.html">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+<div class="main">
+     <div class="topbar"> 
+        <h3>Create New Schedule</h3>
+    </div><br>
+   
+    <form>
+        <div class="input-group">
+            <label>Schedule Name:</label>
+            <input type="text" placeholder="New Schedule name">
+        </div><br>
+
+        <div class="input-group">
+            <label>Strat Date:</label>
+            <input type="date" placeholder="schedule start date">
+        </div><br>
+
+         <div class="input-group">
+            <label>End Date:</label>
+            <input type="date" placeholder="schedule end date">
+        </div><br>
+
+         <div class="input-group">
+            <label>Schedule Type:</label>
+            <select>
+                <option>Select Schedule type</option>
+                <option>Regular</option>
+                <option>Special</option>
+            </select>
+        </div><br>
+
+        <div class="input-group">
+            <label>Days Of Week:</label>
+            <input type="checkbox" checked>Sun
+            <input type="checkbox" checked>Mon
+            <input type="checkbox" checked>Tue
+            <input type="checkbox" checked>Wed
+            <input type="checkbox" checked>Thu
+            <input type="checkbox" checked>Fri
+            <input type="checkbox" checked>Sat
+        </div><br>
+    </form>
+
+    <a href="school_timings.html">
+        <button class="view-btn" type="submit"> Create a schedule</button>
+    </a>
+
+    <a href="create_school_timings.html">
+        <button class="view-btn-cancel" type="submit"> Cancel</button>
+    </a>
+</div>
+
+</body><br>
+</html>

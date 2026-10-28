@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Holidays configuration</title>
+    <link rel="stylesheet" href = "../school_timing/style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Staff Data</a>
+            <a href="#">Create Staff</a>
+            <a href="#">Attendance</a>
+        </div>
+
+        
+
+        <div class="menu-item"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="../finance_module/summary.html">Summary</a>
+            <a href="../finance_module/fee_received.html">Fee Received</a>
+            <a href="../finance_module/expenditure.html">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+    <div class="main">
+        <div class="topbar"> 
+            <h3>Holidays  | Configuration</h3>
+        </div>
+
+        <div class="table">
+        <table>
+            <tr>
+                <th>Holiday Date</th>
+                <th>HolidayDetails</th>
+            </tr>
+
+            <tr>
+                <td>01-01-2026</td>
+                <td>New Year Day</td>
+            </tr> 
+
+            <tr>
+                <td>14-01-2024</td>
+                <td>Bhogi</td>
+            </tr>
+
+            <tr>
+                <td>15-01-2024</td>
+                <td>Sankranti</td>
+            </tr>
+            <tr>
+                <td>16-01-2024</td>
+                <td>Kanuma</td>
+            </tr>
+
+            <tr>
+                <td>26-01-2024</td>
+                <td>Republic Day</td>
+            </tr>
+        </table>
+        </div>
+    </div>
+
+</body>
+</html>

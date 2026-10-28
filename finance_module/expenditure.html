@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Finance Module</title>
+    <link rel="stylesheet" href = "expenditure.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Staff Data</a>
+            <a href="#">Create Staff</a>
+            <a href="#">Attendance</a>
+        </div>
+
+        
+
+        <div class="menu-item active"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="summary.html">Summary</a>
+            <a href="fee_received.css">Fee Received</a>
+            <a href="expenditure.html">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+    <div class="main">
+        <div class="topbar"> 
+            <h3>Fee  | Configuration</h3>
+        </div>
+
+        <div class="page-heading">
+        <div>
+            <h1>Expenditure</h1>
+            <p>Home / Finance / Expenditure</p>
+        </div>
+        <button class="btn primary" onclick="window.print()">
+            Print Report
+        </button>
+    </div>
+
+    <section class="cards">
+        <div class="card">
+            <p>Total Expenditure</p>
+            <h2>₹5,25,000</h2>
+            <span>Total recorded expenses</span>
+        </div>
+        <div class="card">
+            <p>Total Transactions</p>
+            <h2>156</h2>
+            <span>Recorded expense entries</span>
+        </div>
+        <div class="card">
+            <p>Highest Expense</p>
+            <h2>₹1,50,000</h2>
+            <span>Staff salary</span>
+        </div>
+    </section>
+
+    <section class="category-section">
+        <h3>Expense Categories</h3>
+
+        <div class="category-grid">
+            <div class="category-card">
+                <div class="category-icon salary">₹</div>
+                <p>Salary</p>
+                <h3>₹1,50,000</h3>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon utilities">ϟ</div>
+                <p>Utilities</p>
+                <h3>₹75,000</h3>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon maintenance">⚙️</div>
+                <p>Maintenance</p>
+                <h3>₹65,000</h3>
+            </div>
+
+            <div class="category-card">
+                <div class="category-icon stationery">▤</div>
+                <p>Stationery</p>
+                <h3>₹45,000</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <div class="panel-heading">
+            <div>
+                <h3>Expenditure Register</h3>
+                <p>View and filter all recorded school expenses</p>
+            </div>
+            <button class="btn primary" onclick="window.print()">
+                Export / Print
+            </button>
+        </div>
+
+        <div class="filters">
+            <input type="search" id="search"
+                   placeholder="Search expense or vendor..."
+                   oninput="filterExpenses()">
+
+            <select id="category" onchange="filterExpenses()">
+                <option value="">All Categories</option>
+                <option>Salary</option>
+                <option>Utilities</option>
+                <option>Maintenance</option>
+                <option>Stationery</option>
+                <option>Transport</option>
+                <option>Other</option>
+            </select>
+
+            <select id="mode" onchange="filterExpenses()">
+                <option value="">All Payment Modes</option>
+                <option>Cash</option>
+                <option>UPI</option>
+                <option>Bank Transfer</option>
+                <option>Card</option>
+            </select>
+        </div>
+
+        <div class="table-wrapper">
+            <table id="expenseTable">
+                <thead>
+                    <tr>
+                        <th>Expense ID</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Vendor / Payee</th>
+                        <th>Date</th>
+                        <th>Payment Mode</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>EXP-1001</td>
+                        <td>Utilities</td>
+                        <td>Electricity Bill</td>
+                        <td>Electricity Board</td>
+                        <td>25-10-2026</td>
+                        <td>Bank Transfer</td>
+                        <td>₹12,500</td>
+                    </tr>
+                    <tr>
+                        <td>EXP-1002</td>
+                        <td>Stationery</td>
+                        <td>Books and Office Supplies</td>
+                        <td>ABC Stationers</td>
+                        <td>23-10-2026</td>
+                        <td>UPI</td>
+                        <td>₹8,500</td>
+                    </tr>
+                    <tr>
+                        <td>EXP-1003</td>
+                        <td>Maintenance</td>
+                        <td>Classroom Repairs</td>
+                        <td>City Maintenance</td>
+                        <td>20-10-2026</td>
+                        <td>Cash</td>
+                        <td>₹6,500</td>
+                    </tr>
+                    <tr>
+                        <td>EXP-1004</td>
+                        <td>Transport</td>
+                        <td>School Bus Servicing</td>
+                        <td>Auto Service Centre</td>
+                        <td>18-10-2026</td>
+                        <td>Bank Transfer</td>
+                        <td>₹15,000</td>
+                    </tr>
+                    <tr>
+                        <td>EXP-1005</td>
+                        <td>Salary</td>
+                        <td>Staff Salary</td>
+                        <td>School Payroll</td>
+                        <td>15-10-2026</td>
+                        <td>Bank Transfer</td>
+                        <td>₹1,50,000</td>
+                    </tr>
+                    <tr>
+                        <td>EXP-1006</td>
+                        <td>Other</td>
+                        <td>School Event Expenses</td>
+                        <td>Event Services</td>
+                        <td>12-10-2026</td>
+                        <td>UPI</td>
+                        <td>₹10,000</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="empty" id="emptyMessage" hidden>
+                No matching expense records found.
+            </div>
+        </div>
+    </section>
+       
+    </div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+</html>

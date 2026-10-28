@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fee Module</title>
+    <link rel="stylesheet" href = "style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Staff Data</a>
+            <a href="#">Create Staff</a>
+            <a href="#">Attendance</a>
+        </div>
+
+        
+
+        <div class="menu-item"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="../finance_module/summary.html">Summary</a>
+            <a href="../finance_module/fee_received.html">Fee Received</a>
+            <a href="../finance_module/expenditure.html">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+    <div class="main">
+        <div class="topbar"> 
+            <h3>Fee  | Configuration</h3>
+        </div>
+
+         <!-- Component Configuration Form -->
+        <section class="form-section" id="component-form">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Configure Fee Components</h2>
+                    <p>Create or update a fee component.</p>
+                </div>
+            </div>
+
+            <div class="card form-card">
+                <form action="#" method="post">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="component-code">Component Code</label>
+                            <input type="text" id="component-code"
+                                   name="component_code"
+                                   placeholder="code" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="component-name">Component Name</label>
+                            <input type="text" id="component-name"
+                                   name="component_name"
+                                   placeholder="Enter component name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="component-category">Select Component *</label>
+                            <select id="component-category" name="category" required>
+                                <option value="">Select Component</option>
+                                <option value="tuition">Tuition</option>
+                                <option value="transport">Transport</option>
+                                <option value="library">Library</option>
+                                <option value="examination">Examination</option>
+                                <option value="laboratory">Laboratory</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="component-status">Status</label>
+                            <select id="component-status" name="status">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="reset" class="btn secondary">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn primary">
+                            Save Component
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>

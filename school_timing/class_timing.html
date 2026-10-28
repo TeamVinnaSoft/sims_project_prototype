@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Class Timing Configuration</title>
+    <link rel="stylesheet" href = "style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Staff Data</a>
+            <a href="#">Create Staff</a>
+            <a href="#">Attendance</a>
+        </div>
+
+        
+
+        <div class="menu-item"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="../finance_module/summary.html">Summary</a>
+            <a href="../finance_module/fee_received.html">Fee Received</a>
+            <a href="../finance_module/expenditure.html">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+<div class="main">
+    <div class="topbar"> 
+        <h3>Class Timings Confugurations</h3>
+        <div class="nav">
+            <a href="class_timings_creation.html"> Add Timings</a>
+            <a href="class_wise_periods.html"> Class Timetable</a>
+        </div>
+    </div><br>
+    
+        <table>
+            <tr>
+                <th>Order No</th>
+                <th>Period Type</th>
+                <th>Hour Name</th>
+                <th>Strat Time</th>
+                <th>End Time</th>
+                <th>Stastus</th>
+                <th>Action</th>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>Class</td>
+                <td>1st Hour</td>
+                <td>08:00</td>
+                <td>08:55</td>
+                <td><span class="status">Active</span></td>
+                <td>
+                    <a href="#">
+                        <button class="view-btn"> Edit</button>
+                    </a>
+     
+                </td>
+            </tr>
+
+            <tr>
+                <td>2</td>
+                <td>Class</td>
+                <td>2st Hour</td>
+                <td>08:55</td>
+                <td>09:50</td>
+                <td><span class="status">Active</span></td>
+                <td>
+                    <a href="#">
+                        <button class="view-btn"> Edit</button>
+                    </a>
+                
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>break</td>
+                <td>small break</td>
+                <td>09:50</td>
+                <td>10:00</td>
+                <td><span class="status">Active</span></td>
+                <td>
+                    <a href="#">
+                        <button class="view-btn"> Edit</button>
+                    </a>
+                
+                </td>
+            </tr>
+        </table>
+</div>
+</body>
+</html>
