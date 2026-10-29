@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Class</title>
+    <link rel="stylesheet" href = "onlineclass.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="../SIMS_Dashboard/summary.html"> Summary </a>
+            <a href="../SIMS_Dashboard/staff-data.html"> Staff Data </a>
+            <a href="../SIMS_Dashboard/create-staff.html"> Create Staff </a>
+            <a href="../SIMS_Dashboard/attendence.html"> Attendance </a>
+        </div>
+
+        
+
+        <div class="menu-item"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="../finance_module/summary.html">Summary</a>
+            <a href="../finance_module/fee_received.html">Fee Received</a>
+            <a href="../finance_module/expenditure.html">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+    <div class="main">
+        <div class ="topbar">
+            <div class="heading-left">
+                <h3>Online Class</h3>
+            </div>
+           
+        </div>
+
+         <!-- Schedule class form -->
+        <section class="content-panel schedule-panel" id="scheduleSection">
+
+            <div class="panel-heading">
+                <div>
+                    <h2>Schedule a New Online Class</h2>
+                    <p>Enter the session details, assign a teacher and provide the meeting link.</p>
+                </div>
+            </div>
+
+            <form id="scheduleForm">
+
+                <div class="form-section-title">
+                    <div>
+                        <h3>Basic Information</h3>
+                        <p>Identify the class and academic details.</p>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="sessionTitle">Session Title <span>*</span></label>
+                        <input id="sessionTitle" name="sessionTitle"
+                               type="text"
+                               placeholder="e.g. Mathematics - Algebra"
+                               required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="academicYear">Academic Year <span>*</span></label>
+                        <select id="academicYear" name="academicYear" required>
+                            <option value="">Select academic year</option>
+                            <option>2026-2027</option>
+                            <option>2027-2028</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="className">Class <span>*</span></label>
+                        <select id="className" name="className" required>
+                            <option value="">Select class</option>
+                            <option>Class 6</option>
+                            <option>Class 7</option>
+                            <option>Class 8</option>
+                            <option>Class 9</option>
+                            <option>Class 10</option>
+                            <option>Class 11</option>
+                            <option>Class 12</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sectionName">Section <span>*</span></label>
+                        <select id="sectionName" name="sectionName" required>
+                            <option value="">Select section</option>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                            <option>D</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subjectName">Subject <span>*</span></label>
+                        <select id="subjectName" name="subjectName" required>
+                            <option value="">Select subject</option>
+                            <option>Mathematics</option>
+                            <option>Science</option>
+                            <option>English</option>
+                            <option>Telugu</option>
+                            <option>Social Studies</option>
+                            <option>Computer Science</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teacherName">Assign Teacher <span>*</span></label>
+                        <select id="teacherName" name="teacherName" required>
+                            <option value="">Select teacher</option>
+                            <option>Mr. Ramesh Kumar</option>
+                            <option>Ms. Priya Sharma</option>
+                            <option>Ms. Anita Reddy</option>
+                            <option>Mr. Suresh Rao</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section-title">
+                    <div>
+                        <h3>Schedule Details</h3>
+                        <p>Set the date, time and duration of the class.</p>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="classDate">Class Date <span>*</span></label>
+                        <input id="classDate" name="classDate"
+                               type="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startTime">Start Time <span>*</span></label>
+                        <input id="startTime" name="startTime"
+                               type="time" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endTime">End Time <span>*</span></label>
+                        <input id="endTime" name="endTime"
+                               type="time" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="duration">Duration</label>
+                        <input id="duration" name="duration"
+                               type="text" placeholder="Calculated automatically"
+                               readonly>
+                    </div>
+                </div>
+
+                <div class="form-section-title">
+                    <div>
+                        <h3>Meeting Configuration</h3>
+                        <p>Configure how teachers and students will join.</p>
+                    </div>
+                </div>
+
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="platform">Meeting Platform <span>*</span></label>
+                        <select id="platform" name="platform" required>
+                            <option value="">Select platform</option>
+                            <option>Google Meet</option>
+                            <option>Zoom</option>
+                            <option>Microsoft Teams</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="meetingLink">Meeting URL</label>
+                        <input id="meetingLink" name="meetingLink"
+                               type="url"
+                               placeholder="https://...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="meetingId">Meeting ID</label>
+                        <input id="meetingId" name="meetingId"
+                               type="text" placeholder="Enter meeting ID">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="meetingPassword">Passcode</label>
+                        <input id="meetingPassword" name="meetingPassword"
+                               type="text" placeholder="Optional passcode">
+                    </div>
+                </div>
+
+                <div class="form-section-title">
+                    <div>
+                        <h3>Learning Materials & Settings</h3>
+                        <p>Add instructions and enable optional session features.</p>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="classDescription">Class Description / Instructions</label>
+                        <textarea id="classDescription" name="classDescription"
+                                  rows="4"
+                                  placeholder="Enter lesson objectives, instructions or topics to be covered..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recording">Recording</label>
+                        <select id="recording" name="recording">
+                            <option>Recording planned</option>
+                            <option>Recording not required</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentAccess">Student Access</label>
+                        <select id="studentAccess" name="studentAccess">
+                            <option>Assigned class and section only</option>
+                            <option>Teacher and management only</option>
+                        </select>
+                    </div>
+                </div>
+
+               
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-outline">
+                        Save Class Schedule
+                    </button>
+                </div>
+
+                <p id="formMessage" class="form-message" role="status"></p>
+            </form>
+        </section>
+
+    </div>
+
+</body>
+</html>
