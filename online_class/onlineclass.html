@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Class</title>
+    <link rel="stylesheet" href = "onlineclass.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management</h2>
+
+        <p>Management Panel</p>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <div class="menu-item">
+
+            <a href="../dashboard/dashboard.html"> Dashboard</a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+            <span>Student</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="#">Summary</a>
+            <a href="#">Student Data</a>
+            <a href="#">Attendance</a>
+        </div>
+
+
+    
+        <div class="menu-item"
+             onclick="toggleMenu('staffMenu', this)">
+            <span>Staff</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="staffMenu" class="submenu">
+            <a href="../SIMS_Dashboard/summary.html"> Summary </a>
+            <a href="../SIMS_Dashboard/staff-data.html"> Staff Data </a>
+            <a href="../SIMS_Dashboard/create-staff.html"> Create Staff </a>
+            <a href="../SIMS_Dashboard/attendence.html"> Attendance </a>
+        </div>
+
+        
+
+        <div class="menu-item"
+             onclick="toggleMenu('financeMenu', this)">
+            <span>Finance Module</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="financeMenu" class="submenu">
+            <a href="../finance_module/summary.html">Summary</a>
+            <a href="../finance_module/fee_received.html">Fee Received</a>
+            <a href="../finance_module/expenditure.html">Expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item"
+             onclick="toggleMenu('reportsMenu', this)">
+            <span>Reports</span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#">Students</a>
+            <a href="#">Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+            <a href="../dashboard/configurations.html">Configurations</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+    <div class="main">
+        <div class ="topbar">
+            <div class="heading-left">
+                <h3>Online Class</h3>
+            </div>
+            <div class="heading-right">
+                <a href="schedule_new_onlineclass.html" class="add-syllabus">Create Online Class</a>
+            </div>
+        </div>
+
+        <!-- Summary cards -->
+        <section class="summary-grid">
+
+            <div class="summary-card">
+                <div class="summary-icon icon-purple">▣</div>
+                <div>
+                    <p>Total Classes</p>
+                    <h2>24</h2>
+                    <span>All sessions</span>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon icon-blue">◷</div>
+                <div>
+                    <p>Scheduled</p>
+                    <h2>08</h2>
+                    <span>Upcoming sessions</span>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon icon-green">●</div>
+                <div>
+                    <p>Live Now</p>
+                    <h2>02</h2>
+                    <span>Currently running</span>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon icon-orange">✓</div>
+                <div>
+                    <p>Completed</p>
+                    <h2>14</h2>
+                    <span>Finished sessions</span>
+                </div>
+            </div>
+
+        </section>
+
+         <!-- Filters -->
+        <section class="content-panel">
+            <div class="panel-heading">
+                <div>
+                    <h2>Online Class Sessions</h2>
+                    <p>Review and manage scheduled classes.</p>
+                </div>
+                <span class="record-count">8 sessions</span>
+            </div>
+
+            <div class="filters">
+                <input type="search" id="searchClass"
+                       placeholder="Search subject, teacher or class...">
+
+                <select id="filterClass" aria-label="Filter by class">
+                    <option value="">All Classes</option>
+                    <option value="Class 8">Class 8</option>
+                    <option value="Class 9">Class 9</option>
+                    <option value="Class 10">Class 10</option>
+                </select>
+
+                <select id="filterStatus" aria-label="Filter by status">
+                    <option value="">All Statuses</option>
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="Live">Live</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+
+                <input type="date" id="filterDate"
+                       aria-label="Filter by date">
+            </div>
+        </section>
+
+        <!-- Upcoming classes -->
+        <section class="class-section">
+
+            <div class="class-list" id="classList">
+
+                <!-- Class 1 -->
+                <article class="class-card"
+                         data-class="Class 10"
+                         data-status="Scheduled"
+                         data-date="2026-10-29"
+                         data-search="mathematics class 10 section a ramesh kumar">
+
+                    <div class="class-accent accent-blue"></div>
+
+                    <div class="class-main">
+                        <div class="class-top">
+                            <div class="subject-details">
+                                <span class="class-id">SESSION · OC-0001</span>
+                                <h3>Mathematics - Quadratic Equations</h3>
+                                <p>Class 10 · Section A · Mathematics</p>
+                            </div>
+                            <span class="status-badge scheduled">Scheduled</span>
+                        </div>
+
+                        <div class="class-info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Teacher</span>
+                                <strong>Mr. Teja</strong>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Date</span>
+                                <strong>29 Oct 2026</strong>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Time</span>
+                                <strong>09:00 AM - 10:00 AM</strong>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Platform</span>
+                                <strong>Google Meet</strong>
+                            </div>
+                        </div>
+
+                        <div class="class-footer">
+                            <div class="participants">
+                                <span>♙</span>
+                                42 students assigned
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-outline"
+                                        type="button"
+                                        onclick="showClassDetails('OC-1024')">
+                                    View Details
+                                </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Class 2 -->
+                <article class="class-card"
+                         data-class="Class 9"
+                         data-status="Live"
+                         data-date="2026-10-28"
+                         data-search="science class 9 section b priya sharma">
+
+                    <div class="class-accent accent-green"></div>
+
+                    <div class="class-main">
+                        <div class="class-top">
+                            <div class="subject-details">
+                                <span class="class-id">SESSION · OC-0002</span>
+                                <h3>Science - Structure of the Atom</h3>
+                                <p>Class 9 · Section B · Science</p>
+                            </div>
+                            <span class="status-badge live">● Live Now</span>
+                        </div>
+
+                        <div class="class-info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Teacher</span>
+                                <strong>Ms. Ramya</strong>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Date</span>
+                                <strong>28 Oct 2026</strong>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Time</span>
+                                <strong>01:00 PM - 02:00 PM</strong>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Platform</span>
+                                <strong>Microsoft Teams</strong>
+                            </div>
+                        </div>
+
+                        <div class="class-footer">
+                            <div class="participants">
+                                <span>♙</span>
+                                38 students assigned
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn btn-outline"
+                                        type="button"
+                                        onclick="showClassDetails('OC-1025')">
+                                    View Details
+                                </button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+        </section>
+        
+
+    </div>
+
+</body>
+</html>
