@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>student module</title>
+
+    <link rel="stylesheet" href = "attendance.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item ">
+            <a href="#">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item active"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="student_summary.html"> Summary </a>
+            <a href="students_data.html"> Student Data </a>
+            <a href="student_attendance.html"> Attendance </a>
+        </div>
+
+
+
+      
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="../SIMS_Dashboard/summary.html"> Summary </a>
+            <a href="../SIMS_Dashboard/staff-data.html"> Staff Data </a>
+            <a href="../SIMS_Dashboard/create-staff.html"> Create Staff </a>
+            <a href="../SIMS_Dashboard/attendence.html"> Attendance </a>
+        </div>
+
+
+     
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="../finance_module/summary.html"> Summary </a>
+            <a href="../finance_module/fee_received.html"> fee received </a>
+            <a href="../finance_module/expenditure.html"> expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+
+            <a href="configurations.html">
+                Configurations
+            </a>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="search-box">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej         
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="my_school.html">🎓 My School</a>
+            <a href="subcription$billing.html">₹ Subscription &amp; Billing</a>
+            <a href="support_ticket.html">▣ Support Tickets</a>
+            <a href="../SIMS_Dashboard/profile/privacy-policy.html">♙ Privacy Policy</a>
+            <a href="../SIMS_Dashboard/profile/help.html">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+
+<section class="page-content">
+
+            <div class="page-heading">
+                <div>
+                    <h1>Students</h1>
+                    <p>Attendance Management</p>
+                </div>
+
+                <div class="breadcrumb">
+                    Home / Students / <strong>Attendance</strong>
+                </div>
+            </div>
+
+            <!-- Summary cards -->
+            <div class="summary-grid">
+
+                <div class="summary-card blue-card">
+                    <div class="summary-icon">♙</div>
+                    <div>
+                        <p>Total Students</p>
+                        <h2 id="totalStudents">240</h2>
+                        <span>Registered students</span>
+                    </div>
+                </div>
+
+                <div class="summary-card green-card">
+                    <div class="summary-icon">✓</div>
+                    <div>
+                        <p>Present Today</p>
+                        <h2 id="presentCount">218</h2>
+                        <span>Marked present</span>
+                    </div>
+                </div>
+
+                <div class="summary-card red-card">
+                    <div class="summary-icon">✕</div>
+                    <div>
+                        <p>Absent Today</p>
+                        <h2 id="absentCount">12</h2>
+                        <span>Marked absent</span>
+                    </div>
+                </div>
+
+                <div class="summary-card orange-card">
+                    <div class="summary-icon">◷</div>
+                    <div>
+                        <p>On Leave</p>
+                        <h2 id="leaveCount">10</h2>
+                        <span>Approved leave</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Attendance filters -->
+            <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h2>Student Attendance</h2>
+                        <p>Search and manage individual student attendance</p>
+                    </div>
+                    <span class="record-count" id="recordCount">5 Students</span>
+                </div>
+
+                <div class="filters">
+
+                    <div class="form-field">
+                        <label for="attendanceDate">Attendance Date</label>
+                        <input type="date" id="attendanceDate">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="classFilter">Class</label>
+                        <select id="classFilter">
+                            <option value="">All Classes</option>
+                            <option>Class 8</option>
+                            <option>Class 9</option>
+                            <option>Class 10</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="sectionFilter">Section</label>
+                        <select id="sectionFilter">
+                            <option value="">All Sections</option>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="statusFilter">Attendance Status</label>
+                        <select id="statusFilter">
+                            <option value="">All Statuses</option>
+                            <option>Present</option>
+                            <option>Absent</option>
+                            <option>Late</option>
+                            <option>Leave</option>
+                        </select>
+                    </div>
+
+                    <div class="form-field search-field">
+                        <label for="studentSearch">Student Search</label>
+                        <input type="search" id="studentSearch"
+                               placeholder="Name or admission no.">
+                    </div>
+
+                    <button class="btn btn-primary filter-button"
+                            id="resetFilters" type="button">
+                        Reset Filters
+                    </button>
+
+                </div>
+            </section>
+
+                       
+<!-- Class-wise Attendance -->
+<section class="panel class-attendance-panel">
+    <div class="panel-heading">
+        <div>
+            <h2>Class-wise Attendance</h2>
+            <p>Compare attendance across different classes</p>
+        </div>
+        <select id="classWiseDate" aria-label="Class attendance date">
+            <option value="today">Today</option>
+            <option value="month">This Month</option>
+        </select>
+    </div>
+
+    <div class="class-attendance-grid">
+
+        <article class="class-card">
+            <div class="class-card-top">
+                <div>
+                    <span class="class-label">CLASS 8</span>
+                    <h3>Class 8</h3>
+                </div>
+                <span class="class-icon">📚</span>
+            </div>
+            <p class="class-total">Total Students <strong>60</strong></p>
+            <div class="attendance-progress">
+                <div class="progress-fill" style="width: 93%"></div>
+            </div>
+            <div class="class-stats">
+                <span class="present-text">Present <strong>56</strong></span>
+                <span class="absent-text">Absent <strong>4</strong></span>
+            </div>
+            <div class="class-percentage">93.33% Attendance</div>
+            <button class="btn btn-outline class-view-btn"
+                    data-class="Class 8">View Class Details</button>
+        </article>
+
+        <article class="class-card">
+            <div class="class-card-top">
+                <div>
+                    <span class="class-label">CLASS 9</span>
+                    <h3>Class 9</h3>
+                </div>
+                <span class="class-icon">📘</span>
+            </div>
+            <p class="class-total">Total Students <strong>80</strong></p>
+            <div class="attendance-progress">
+                <div class="progress-fill" style="width: 90%"></div>
+            </div>
+            <div class="class-stats">
+                <span class="present-text">Present <strong>72</strong></span>
+                <span class="absent-text">Absent <strong>8</strong></span>
+            </div>
+            <div class="class-percentage">90% Attendance</div>
+            <button class="btn btn-outline class-view-btn"
+                    data-class="Class 9">View Class Details</button>
+        </article>
+
+        <article class="class-card">
+            <div class="class-card-top">
+                <div>
+                    <span class="class-label">CLASS 10</span>
+                    <h3>Class 10</h3>
+                </div>
+                <span class="class-icon">🎓</span>
+            </div>
+            <p class="class-total">Total Students <strong>100</strong></p>
+            <div class="attendance-progress">
+                <div class="progress-fill" style="width: 90%"></div>
+            </div>
+            <div class="class-stats">
+                <span class="present-text">Present <strong>90</strong></span>
+                <span class="absent-text">Absent <strong>10</strong></span>
+            </div>
+            <div class="class-percentage">90% Attendance</div>
+            <button class="btn btn-outline class-view-btn"
+                    data-class="Class 10">View Class Details</button>
+        </article>
+
+    </div>
+</section>
+        
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
