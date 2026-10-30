@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMS | Staff Reports</title>
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f3f3f3;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #222;
+}
+
+.report-content {
+    padding: 30px 22px;
+    min-height: calc(100vh - 140px);
+}
+
+.page-heading {
+    font-size: 29px;
+    font-weight: 600;
+    margin-bottom: 35px;
+}
+
+.report-section {
+    background: white;
+    border: 1px solid #e9e9e9;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.report-section h2 {
+    font-size: 18px;
+    margin: 0 0 25px;
+    font-weight: 600;
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.report-card {
+    min-height: 165px;
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    padding: 22px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #fff;
+}
+
+.report-card i {
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.report-card h3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0 0 17px;
+}
+
+.report-card button {
+    background: #5182ff;
+    border: none;
+    border-radius: 3px;
+    padding: 9px 22px;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.report-card button:hover {
+    background: #376be8;
+}
+
+.blue { color: #5182ff; }
+.green { color: #70bd16; }
+.red { color: #fa4b55; }
+.orange { color: #f5a623; }
+
+.report-card button:focus-visible {
+    outline: 2px solid #222;
+    outline-offset: 3px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 20px;
+    border-top: 1px solid #e5e5e5;
+    color: #777;
+    font-size: 13px;
+}
+
+@media(max-width: 1000px) {
+    .report-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media(max-width: 600px) {
+    .report-content {
+        padding: 20px 12px;
+    }
+
+    .report-section {
+        padding: 18px 12px;
+    }
+
+    .report-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-heading {
+        font-size: 24px;
+    }
+
+    .footer {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="brand-row">
+            <div class="brand-mark">
+                <span></span><span></span><span></span>
+            </div>
+            <strong>SIMS</strong>
+        </div>
+
+        <nav class="side-nav">
+
+            <a class="nav-link" href="../index.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a class="nav-link active" href="../index.html">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports</span>
+            </a>
+
+            <a class="nav-link" href="../index.html">
+                <i class="fa-solid fa-user-group"></i>
+                <span>Students</span>
+            </a>
+
+            <a class="nav-link" href="../index.html">
+                <i class="fa-solid fa-users"></i>
+                <span>Staff</span>
+            </a>
+
+            <a class="nav-link" href="../index.html">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Finance Module</span>
+            </a>
+
+            <a class="nav-link" href="../configurations/index.html">
+                <i class="fa-solid fa-gear"></i>
+                <span>Configurations</span>
+            </a>
+
+        </nav>
+    </aside>
+
+    <!-- Main area -->
+    <main class="main-area">
+
+        <!-- Topbar -->
+        <header class="topbar">
+
+            <form class="search-form" id="searchForm">
+                <span class="search-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+
+                <input type="search"
+                placeholder="Search by name / email / mobile no.">
+
+                <select>
+                    <option>In Students</option>
+                    <option>In Staff</option>
+                    <option>All records</option>
+                </select>
+
+                <button type="submit" class="search-button">
+                    Search
+                </button>
+            </form>
+
+            <button class="profile-button" type="button">
+                <span class="brand-mark small">
+                    <span></span><span></span><span></span>
+                </span>
+                <span>Dev 2</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+        </header>
+
+        <!-- Staff Reports -->
+        <section class="report-content">
+
+            <h1 class="page-heading">Staff Reports</h1>
+
+            <!-- Attendance -->
+            <section class="report-section">
+
+                <h2>Attendance</h2>
+
+                <div class="report-grid">
+
+                    <div class="report-card">
+                        <i class="fa-solid fa-calendar-check blue"></i>
+                        <h3>Staff Attendance Report</h3>
+                        <button onclick="openReport('Staff Attendance Report')">
+                            View Report
+                        </button>
+                    </div>
+
+                    <div class="report-card">
+                        <i class="fa-solid fa-clock green"></i>
+                        <h3>Staff Late Coming Report</h3>
+                        <button onclick="openReport('Staff Late Coming Report')">
+                            View Report
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Leaves -->
+            <section class="report-section">
+
+                <h2>Leaves</h2>
+
+                <div class="report-grid">
+
+                    <div class="report-card">
+                        <i class="fa-solid fa-calendar-minus red"></i>
+                        <h3>Staff Leaves Report</h3>
+                        <button onclick="openReport('Staff Leaves Report')">
+                            View Report
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Performance -->
+            <section class="report-section">
+
+                <h2>Performance</h2>
+
+                <div class="report-grid">
+
+                    <div class="report-card">
+                        <i class="fa-solid fa-chart-line blue"></i>
+                        <h3>Staff Performance Report</h3>
+                        <button onclick="openReport('Staff Performance Report')">
+                            View Report
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Others -->
+            <section class="report-section">
+
+                <h2>Others</h2>
+
+                <div class="report-grid">
+
+                    <div class="report-card">
+                        <i class="fa-solid fa-users green"></i>
+                        <h3>Staff List Report</h3>
+                        <button onclick="openReport('Staff List Report')">
+                            View Report
+                        </button>
+                    </div>
+
+                    <div class="report-card">
+                        <i class="fa-solid fa-user-tie orange"></i>
+                        <h3>Staff Designation Report</h3>
+                        <button onclick="openReport('Staff Designation Report')">
+                            View Report
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <span>Copyright © 2026 All rights reserved.</span>
+            <span>Version 1.0.0</span>
+        </footer>
+
+    </main>
+</div>
+
+<script>
+function openReport(reportName) {
+    alert(reportName + " selected. Report functionality can be connected next.");
+}
+
+document.getElementById("searchForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    alert("Search functionality can be connected next.");
+});
+</script>
+
+</body>
+</html>
