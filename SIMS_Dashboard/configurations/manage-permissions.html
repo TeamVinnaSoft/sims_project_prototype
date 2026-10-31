@@ -1,0 +1,592 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMS | Manage Permissions</title>
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+body {
+    margin: 0;
+    background: #f2f2f2;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #222;
+}
+
+.permission-content {
+    padding: 25px 18px;
+    min-height: calc(100vh - 150px);
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+.page-heading h1 {
+    font-size: 28px;
+    margin: 0 0 8px;
+}
+
+.breadcrumb {
+    font-size: 13px;
+    color: #666;
+}
+
+.breadcrumb a {
+    color: #5682ff;
+    text-decoration: none;
+}
+
+.back-button {
+    background: white;
+    border: 0;
+    padding: 12px 16px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #666;
+}
+
+.panel {
+    background: white;
+    padding: 25px 30px;
+    margin-bottom: 22px;
+    box-shadow: 0 1px 4px #0001;
+}
+
+.summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.role-name {
+    font-size: 15px;
+}
+
+.role-badge {
+    display: inline-block;
+    background: #76bf18;
+    color: white;
+    padding: 5px 12px;
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.description {
+    color: #777;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.stats {
+    display: flex;
+    gap: 55px;
+    text-align: center;
+}
+
+.stat {
+    font-size: 13px;
+    color: #777;
+}
+
+.stat strong {
+    display: block;
+    font-size: 17px;
+    color: #222;
+}
+
+.stat:nth-child(2) strong {
+    color: #5182ff;
+}
+
+.stat:nth-child(3) strong {
+    color: #76bf18;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 750px;
+}
+
+th {
+    background: #e9edf0;
+    padding: 17px 12px;
+    color: #555;
+    font-size: 14px;
+    text-align: center;
+}
+
+th:first-child,
+td:first-child {
+    text-align: left;
+}
+
+td {
+    padding: 17px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    font-size: 14px;
+}
+
+td:first-child {
+    font-weight: bold;
+}
+
+.module-desc {
+    display: block;
+    font-size: 11px;
+    color: #888;
+    font-weight: normal;
+    margin-top: 3px;
+}
+
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #087df0;
+}
+
+.dash {
+    color: #888;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.updated {
+    font-size: 12px;
+    color: #777;
+}
+
+button {
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.cancel-btn {
+    padding: 11px 22px;
+    border: 0;
+    background: #f5f6f8;
+    color: #444;
+}
+
+.save-btn {
+    padding: 11px 22px;
+    border: 0;
+    background: #5182ff;
+    color: white;
+    margin-left: 8px;
+    box-shadow: 0 2px 4px #0002;
+}
+
+.save-btn:hover {
+    background: #376be8;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 20px;
+    border-top: 1px solid #e5e5e5;
+    color: #777;
+    font-size: 13px;
+}
+
+@media(max-width:650px) {
+    .permission-content {
+        padding: 15px 10px;
+    }
+
+    .panel {
+        padding: 18px 12px;
+    }
+
+    .stats {
+        gap: 25px;
+    }
+
+    .page-heading h1 {
+        font-size: 23px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="brand-row">
+        <div class="brand-mark">
+            <span></span><span></span><span></span>
+        </div>
+        <strong>SIMS</strong>
+    </div>
+
+    <nav class="side-nav">
+        <a class="nav-link" href="../index.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a class="nav-link" href="../index.html">
+            <i class="fa-solid fa-list"></i>
+            <span>Reports</span>
+        </a>
+
+        <a class="nav-link" href="../index.html">
+            <i class="fa-solid fa-user-group"></i>
+            <span>Students</span>
+        </a>
+
+        <a class="nav-link" href="../index.html">
+            <i class="fa-solid fa-users"></i>
+            <span>Staff</span>
+        </a>
+
+        <a class="nav-link" href="../index.html">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Finance module</span>
+        </a>
+
+        <a class="nav-link active" href="index.html">
+            <i class="fa-solid fa-gear"></i>
+            <span>Configurations</span>
+        </a>
+    </nav>
+</aside>
+
+<!-- MAIN AREA -->
+<main class="main-area">
+
+<header class="topbar">
+    <form class="search-form" id="searchForm">
+        <span class="search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+
+        <input type="search"
+        placeholder="Search by name / email / mobile no.">
+
+        <select>
+            <option>In Students</option>
+            <option>In Staff</option>
+            <option>All records</option>
+        </select>
+
+        <button type="submit" class="search-button">Search</button>
+    </form>
+
+    <button class="profile-button" type="button">
+        <span class="brand-mark small">
+            <span></span><span></span><span></span>
+        </span>
+        <span>Dev 2</span>
+        <i class="fa-solid fa-chevron-down"></i>
+    </button>
+</header>
+
+<section class="permission-content">
+
+    <div class="page-heading">
+        <div>
+            <h1>Manage Permissions</h1>
+
+            <div class="breadcrumb">
+                Configurations
+                &nbsp;&nbsp;
+                <i class="fa-solid fa-house"></i>
+                / Configurations /
+                <a href="roles.html">Permissions</a>
+            </div>
+        </div>
+
+        <button class="back-button" id="backButton"
+        aria-label="Go back">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <!-- ROLE SUMMARY -->
+    <div class="panel">
+        <div class="summary">
+
+            <div>
+                <span class="role-name">Role name:</span>
+                <span class="role-badge" id="roleName">Teacher</span>
+
+                <div class="description">
+                    Control what each role can access and perform in the school ERP.
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    Modules
+                    <strong id="moduleCount">7</strong>
+                </div>
+
+                <div class="stat">
+                    Permissions
+                    <strong id="permissionCount">0</strong>
+                </div>
+
+                <div class="stat">
+                    Enabled
+                    <strong id="enabledCount">0</strong>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PERMISSIONS TABLE -->
+    <div class="panel table-wrap">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Module</th>
+                    <th>View</th>
+                    <th>Create</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>Approve</th>
+                    <th>Other</th>
+                </tr>
+            </thead>
+
+            <tbody id="permissionRows"></tbody>
+        </table>
+
+        <div class="actions">
+            <span class="updated">
+                Changes will apply to all users assigned to the
+                <strong id="footerRole">Teacher</strong> role.
+            </span>
+
+            <div>
+                <button class="cancel-btn" id="cancelButton">
+                    Cancel
+                </button>
+
+                <button class="save-btn" id="saveButton">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<footer class="footer">
+    <span>Copyright © 2026 All rights reserved.</span>
+    <span>Version 1.0.0</span>
+</footer>
+
+</main>
+</div>
+
+<script>
+
+// GET ROLE FROM URL
+const params = new URLSearchParams(window.location.search);
+const role = params.get("role") || "Teacher";
+
+document.getElementById("roleName").textContent = role;
+document.getElementById("footerRole").textContent = role;
+
+// SAME STORAGE KEY USED BY VIEW PERMISSIONS PAGE
+const storageKey = "SIMS_permissions_" + role;
+
+// MODULES
+const modules = [
+    ["Dashboard", "Dashboard and overview"],
+    ["Students", "Student records and profiles"],
+    ["Attendance", "Student attendance"],
+    ["Examinations", "Exams, marks and results"],
+    ["Circulars", "Circulars and announcements"],
+    ["Fees & Payments", "Fees and payment records"],
+    ["Support Tickets", "Support requests and tickets"]
+];
+
+// DEFAULT CHECKBOX VALUES
+const defaultPermissions = [
+    [1,0,0,0,0,0],
+    [1,0,0,0,0,0],
+    [1,1,0,0,0,0],
+    [1,0,1,0,0,0],
+    [1,0,0,0,1,0],
+    [1,0,0,0,0,0],
+    [1,1,0,0,0,0]
+];
+
+// READ SAVED PERMISSIONS
+let permissions = defaultPermissions.map(row => [...row]);
+
+try {
+    const saved = JSON.parse(localStorage.getItem(storageKey));
+
+    if (Array.isArray(saved)) {
+        saved.forEach((value, index) => {
+            if (index < 42) {
+                permissions[Math.floor(index / 6)][index % 6] =
+                    Number(value) ? 1 : 0;
+            }
+        });
+    }
+} catch (error) {
+    console.error("Unable to read saved permissions", error);
+}
+
+// RENDER TABLE
+const permissionRows = document.getElementById("permissionRows");
+
+function renderTable() {
+
+    permissionRows.innerHTML = "";
+
+    modules.forEach((module, rowIndex) => {
+
+        const row = document.createElement("tr");
+
+        const moduleCell = document.createElement("td");
+
+        moduleCell.innerHTML =
+            module[0] +
+            '<span class="module-desc">' +
+            module[1] +
+            '</span>';
+
+        row.appendChild(moduleCell);
+
+        permissions[rowIndex].forEach((allowed, columnIndex) => {
+
+            const cell = document.createElement("td");
+
+            if (
+                (rowIndex === 0 && columnIndex > 0) ||
+                (rowIndex === 1 && columnIndex === 4) ||
+                (rowIndex === 1 && columnIndex === 5) ||
+                (rowIndex === 2 && columnIndex === 3) ||
+                (rowIndex === 3 && columnIndex === 3) ||
+                (rowIndex === 4 && columnIndex === 3) ||
+                (rowIndex === 5 && columnIndex === 3) ||
+                (rowIndex === 6 && columnIndex === 4)
+            ) {
+                cell.innerHTML = '<span class="dash">—</span>';
+            } else {
+
+                const checkbox = document.createElement("input");
+
+                checkbox.type = "checkbox";
+                checkbox.checked = Boolean(allowed);
+
+                checkbox.addEventListener("change", () => {
+
+                    permissions[rowIndex][columnIndex] =
+                        checkbox.checked ? 1 : 0;
+
+                    updateCounts();
+
+                });
+
+                cell.appendChild(checkbox);
+            }
+
+            row.appendChild(cell);
+
+        });
+
+        permissionRows.appendChild(row);
+
+    });
+
+    updateCounts();
+}
+
+// UPDATE SUMMARY COUNTS
+function updateCounts() {
+
+    const total = permissions.reduce(
+        (sum, row) => sum + row.filter(Boolean).length, 0
+    );
+
+    const available = document.querySelectorAll(
+        '#permissionRows input[type="checkbox"]'
+    ).length;
+
+    document.getElementById("permissionCount").textContent = available;
+    document.getElementById("enabledCount").textContent = total;
+}
+
+// SAVE PERMISSIONS
+document.getElementById("saveButton").addEventListener("click", () => {
+
+    const flattenedPermissions = permissions.flat();
+
+    localStorage.setItem(
+        storageKey,
+        JSON.stringify(flattenedPermissions)
+    );
+
+    alert("Permissions saved successfully!");
+
+    window.location.href =
+        "view-permissions.html?role=" + encodeURIComponent(role);
+
+});
+
+// CANCEL
+document.getElementById("cancelButton").addEventListener("click", () => {
+
+    window.location.href =
+        "roles.html";
+
+});
+
+// BACK BUTTON
+document.getElementById("backButton").addEventListener("click", () => {
+
+    window.location.href = "roles.html";
+
+});
+
+// SEARCH
+document.getElementById("searchForm").addEventListener("submit", event => {
+    event.preventDefault();
+});
+
+// INITIALIZE
+renderTable();
+
+</script>
+
+</body>
+</html>

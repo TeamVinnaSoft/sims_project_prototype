@@ -432,13 +432,17 @@
       if (!button) return;
 
       if (button.dataset.role) {
-        alert("Manage Permissions for " + button.dataset.role +
-              " will be implemented in the next step.");
-      } else if (button.dataset.view) {
-        alert("View Permissions for " + button.dataset.view +
-              " will be implemented in the next step.");
-      }
-    });
+    window.location.href =
+        "manage-permissions.html?role=" +
+        encodeURIComponent(button.dataset.role);
+
+} else if (button.dataset.view) {
+    window.location.href =
+        "view-permissions.html?role=" +
+        encodeURIComponent(button.dataset.view);
+}
+}
+    );
 
     document.getElementById("searchForm").addEventListener("submit", event => {
       event.preventDefault();

@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMS | Fee Reports</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f3f3;
+    color: #222;
+    font-size: 14px;
+}
+
+/* Topbar */
+.topbar {
+    height: 56px;
+    background: white;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.brand {
+    width: 240px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 22px;
+    border-right: 1px solid #eee;
+    color: #4557b8;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.brand-mark {
+    width: 28px;
+    height: 26px;
+    margin-right: 10px;
+    position: relative;
+}
+
+.brand-mark span {
+    position: absolute;
+    width: 20px;
+    height: 7px;
+    transform: skewY(-18deg);
+}
+
+.brand-mark span:nth-child(1) {
+    background: #64b52b;
+    top: 2px;
+    left: 4px;
+}
+
+.brand-mark span:nth-child(2) {
+    background: #4273d7;
+    top: 10px;
+    left: 0;
+}
+
+.brand-mark span:nth-child(3) {
+    background: #f5bd21;
+    top: 18px;
+    left: 5px;
+}
+
+.search-area {
+    display: flex;
+    height: 44px;
+    flex: 1;
+    margin: 0 30px;
+    min-width: 0;
+}
+
+.search-icon {
+    width: 40px;
+    background: #e9ecef;
+    color: #999;
+    display: grid;
+    place-items: center;
+}
+
+.search-area input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #eee;
+    padding: 0 20px;
+}
+
+.search-area select {
+    width: 120px;
+    border: 1px solid #eee;
+    background: white;
+    color: #999;
+}
+
+.search-area button {
+    background: #4e7efa;
+    color: white;
+    border: 0;
+    padding: 0 25px;
+    cursor: pointer;
+}
+
+.profile {
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    bottom: 0;
+    width: 240px;
+    background: white;
+    border-right: 1px solid #eee;
+    overflow-y: auto;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 20px;
+    gap: 18px;
+    text-decoration: none;
+    color: #222;
+    border-bottom: 1px solid #eee;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #4e7efa;
+}
+
+.nav-group {
+    border-bottom: 1px solid #eee;
+}
+
+.group-toggle {
+    width: 100%;
+    background: white;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+}
+
+.nav-label {
+    flex: 1;
+}
+
+.submenu {
+    display: none;
+    background: #fafafa;
+}
+
+.nav-group.open .submenu {
+    display: block;
+}
+
+.submenu a {
+    display: block;
+    padding: 12px 20px 12px 55px;
+    text-decoration: none;
+    color: #555;
+}
+
+.submenu a:hover,
+.submenu a.active {
+    color: #4e7efa;
+    background: #edf2ff;
+}
+
+/* Main content */
+.main {
+    margin-left: 240px;
+    padding-top: 56px;
+    min-height: 100vh;
+}
+
+.content {
+    padding: 22px 16px 35px;
+    min-height: calc(100vh - 125px);
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.page-heading h1 {
+    font-size: 25px;
+}
+
+.breadcrumb {
+    color: #777;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.breadcrumb span {
+    color: #4e7efa;
+}
+
+.go-back {
+    color: #1682f5;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.reports-container {
+    background: white;
+    padding: 22px 28px 50px;
+    border: 1px solid #eee;
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 18px;
+}
+
+.report-card {
+    border: 1px solid #e5e8eb;
+    min-height: 172px;
+    padding: 24px 27px;
+}
+
+.report-card h3 {
+    font-size: 13px;
+    color: #444;
+    margin-bottom: 35px;
+}
+
+.report-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13px;
+}
+
+.report-btn {
+    display: inline-block;
+    background: #4e7efa;
+    color: white;
+    border: 0;
+    border-radius: 3px;
+    padding: 8px 14px;
+    text-decoration: none;
+    font-size: 13px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px #0002;
+}
+
+.report-btn:hover {
+    background: #3868e5;
+}
+
+/* Footer */
+.footer {
+    min-height: 70px;
+    border-top: 1px solid #e7e7e7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 16px;
+    color: #777;
+    font-size: 13px;
+}
+
+.version {
+    color: #222;
+}
+
+/* Responsive */
+@media(max-width:850px) {
+    .brand,
+    .sidebar {
+        width: 190px;
+    }
+
+    .main {
+        margin-left: 190px;
+    }
+
+    .search-area {
+        margin: 0 10px;
+    }
+}
+
+@media(max-width:650px) {
+    .sidebar {
+        width: 180px;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .brand {
+        width: 100px;
+        padding: 0 10px;
+        font-size: 17px;
+    }
+
+    .search-area {
+        margin: 0 8px;
+    }
+
+    .search-area select {
+        display: none;
+    }
+
+    .profile {
+        padding: 0 5px;
+        font-size: 12px;
+    }
+
+    .report-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .reports-container {
+        padding: 15px;
+    }
+
+    .page-heading h1 {
+        font-size: 21px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <div class="brand-mark">
+            <span></span><span></span><span></span>
+        </div>
+        SIMS
+    </div>
+
+    <form class="search-area" onsubmit="return false">
+        <span class="search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+        <input type="search" placeholder="Search by name / email / mobile no.">
+        <select>
+            <option>In Students</option>
+            <option>In Staff</option>
+        </select>
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="profile">
+        <div class="brand-mark">
+            <span></span><span></span><span></span>
+        </div>
+        <strong>Dev 2</strong>
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+</header>
+
+<aside class="sidebar">
+
+    <a href="../index.html" class="nav-link">
+        <i class="fa-solid fa-house"></i> Dashboard
+    </a>
+
+    <div class="nav-group open">
+        <button class="nav-link group-toggle active">
+            <i class="fa-solid fa-list"></i>
+            <span class="nav-label">Reports</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+
+        <div class="submenu">
+            <a href="fee.html" class="active">Fees</a>
+            <a href="#students">Students</a>
+            <a href="#staff">Staff</a>
+        </div>
+    </div>
+
+    <a href="../index.html#students" class="nav-link">
+        <i class="fa-solid fa-users"></i> Students
+    </a>
+
+    <a href="../index.html#staff" class="nav-link">
+        <i class="fa-solid fa-user-group"></i> Staff
+    </a>
+
+    <a href="../finance_module/summary.html" class="nav-link">
+        <i class="fa-solid fa-wallet"></i> Finance module
+    </a>
+
+    <a href="../configurations/index.html" class="nav-link">
+        <i class="fa-solid fa-gear"></i> Configurations
+    </a>
+
+</aside>
+
+<main class="main">
+
+    <section class="content">
+
+        <div class="page-heading">
+            <div>
+                <h1>Fee Reports</h1>
+                <div class="breadcrumb">
+                    <i class="fa-solid fa-house"></i>
+                    / Reports / <span>Fee</span>
+                </div>
+            </div>
+
+            <a href="../index.html" class="go-back">
+                <i class="fa-solid fa-circle-arrow-left"></i> Go back
+            </a>
+        </div>
+
+        <div class="reports-container">
+
+            <div class="report-grid">
+
+                <!-- Fee Collection -->
+                <div class="report-card">
+                    <h3>FEE COLLECTION</h3>
+                    <div class="report-actions">
+                        <button class="report-btn" onclick="showReport('Fee Collection')">View report</button>
+                        <button class="report-btn" onclick="showReport('Total Fees Collected')">Total Fees Collected</button>
+                        <button class="report-btn" onclick="showReport('Total Fees Collected by Class/Section')">Total Fees Collected by Class/Section</button>
+                        <button class="report-btn" onclick="showReport('Total Fees Collected by Fee Component')">Total Fees Collected by Fee Component</button>
+                    </div>
+                </div>
+
+                <!-- Dues -->
+                <div class="report-card">
+                    <h3>DUES AND OUTSTANDING PAYMENTS</h3>
+                    <div class="report-actions">
+                        <button class="report-btn" onclick="showReport('Total Outstanding Dues')">Total Outstanding Dues</button>
+                        <button class="report-btn" onclick="showReport('Outstanding Dues by Class/Section')">Outstanding Dues by Class/Section</button>
+                        <button class="report-btn" onclick="showReport('List of Students with Outstanding Dues')">List of Students with Outstanding Dues</button>
+                    </div>
+                </div>
+
+                <!-- Concessions -->
+                <div class="report-card">
+                    <h3>CONCESSIONS</h3>
+                    <div class="report-actions">
+                        <button class="report-btn" onclick="showReport('Total Concessions Given')">Total Concessions Given</button>
+                    </div>
+                </div>
+
+                <!-- Late Fees -->
+                <div class="report-card">
+                    <h3>LATE FEES AND PENALTIES</h3>
+                    <div class="report-actions">
+                        <button class="report-btn" onclick="showReport('Total Late Fees Collected')">Total Late Fees Collected</button>
+                        <button class="report-btn" onclick="showReport('Students with Late Fees')">Students with Late Fees</button>
+                    </div>
+                </div>
+
+                <!-- By Student -->
+                <div class="report-card">
+                    <h3>BY STUDENT</h3>
+                    <div class="report-actions">
+                        <button class="report-btn" onclick="showReport('Fee Payment History for a Student')">Fee Payment History for a Student</button>
+                        <button class="report-btn" onclick="showReport('Students on Installment Plans')">Students on Installment Plans</button>
+                        <button class="report-btn" onclick="showReport('Students with Zero Dues')">Students with Zero Dues</button>
+                    </div>
+                </div>
+
+                <!-- Others -->
+                <div class="report-card">
+                    <h3>OTHERS</h3>
+                    <div class="report-actions">
+                        <button class="report-btn" onclick="showReport('Payment Mode Usage')">Payment Mode Usage</button>
+                        <button class="report-btn" onclick="showReport('Receipts Issued')">Receipts Issued</button>
+                        <button class="report-btn" onclick="showReport('Audit Log of Fee Adjustments')">Audit Log of Fee Adjustments</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <footer class="footer">
+        <span>Copyright © 2026 All rights reserved.</span>
+        <span class="version">Version 1.0.0</span>
+    </footer>
+
+</main>
+
+<script>
+function showReport(reportName) {
+    alert(
+        reportName +
+        "\n\nThis report option is selected. Actual report data can be connected later."
+    );
+}
+</script>
+
+</body>
+</html>

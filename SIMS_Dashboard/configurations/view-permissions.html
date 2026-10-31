@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMS | Permission Summary</title>
+
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+body {
+    margin: 0;
+    background: #f2f2f2;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #222;
+}
+
+.view-content {
+    padding: 22px 18px;
+    min-height: calc(100vh - 150px);
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-heading h1 {
+    font-size: 26px;
+    margin: 0 0 7px;
+}
+
+.breadcrumb {
+    font-size: 13px;
+    color: #666;
+}
+
+.breadcrumb a {
+    color: #5682ff;
+    text-decoration: none;
+}
+
+.back-button {
+    border: 0;
+    background: white;
+    padding: 12px 15px;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+}
+
+.panel {
+    background: white;
+    padding: 25px 28px;
+    margin-bottom: 22px;
+    box-shadow: 0 1px 4px #0001;
+}
+
+.summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    min-height: 90px;
+}
+
+.role-label {
+    display: block;
+    font-size: 12px;
+    color: #777;
+}
+
+.role-badge {
+    display: inline-block;
+    background: #76bf18;
+    color: white;
+    padding: 5px 12px;
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.description {
+    font-size: 12px;
+    color: #777;
+    margin-top: 3px;
+}
+
+.stats {
+    display: flex;
+    gap: 65px;
+    text-align: center;
+}
+
+.stat {
+    font-size: 12px;
+    color: #777;
+    min-width: 65px;
+}
+
+.stat strong {
+    display: block;
+    font-size: 17px;
+    color: #222;
+}
+
+.stat:nth-child(2) strong {
+    color: #76bf18;
+}
+
+.stat:nth-child(3) strong {
+    color: #5182ff;
+}
+
+.stat:nth-child(4) strong {
+    color: #d69a00;
+}
+
+.overview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.overview strong {
+    font-size: 14px;
+}
+
+.legend {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 5px 9px;
+    color: white;
+    font-size: 10px;
+}
+
+.full {
+    background: #76bf18;
+}
+
+.partial {
+    background: #ffbd00;
+    color: #222;
+}
+
+.none {
+    background: #777;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 750px;
+}
+
+th {
+    background: #e9edf0;
+    color: #555;
+    font-size: 13px;
+    padding: 15px 12px;
+    text-align: center;
+}
+
+th:first-child,
+td:first-child {
+    text-align: left;
+}
+
+td {
+    padding: 16px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    font-size: 13px;
+}
+
+td:first-child {
+    font-weight: bold;
+}
+
+.module-desc {
+    display: block;
+    font-size: 10px;
+    color: #888;
+    font-weight: normal;
+    margin-top: 3px;
+}
+
+.tick {
+    color: #76bf18;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.dash {
+    color: #888;
+}
+
+.other {
+    color: #76bf18;
+    font-weight: bold;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.updated {
+    font-size: 12px;
+    color: #777;
+}
+
+button {
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background: #5182ff;
+    color: white;
+    border: 0;
+    margin-left: 7px;
+}
+
+.edit-btn:hover {
+    background: #376be8;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 20px;
+    border-top: 1px solid #e5e5e5;
+    color: #777;
+    font-size: 13px;
+}
+
+@media(max-width:700px) {
+    .view-content {
+        padding: 12px;
+    }
+
+    .panel {
+        padding: 17px 12px;
+    }
+
+    .stats {
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .page-heading h1 {
+        font-size: 22px;
+    }
+}
+
+@media print {
+    .sidebar,
+    .topbar,
+    .footer,
+    .actions button,
+    .back-button {
+        display: none !important;
+    }
+
+    .main-area {
+        width: 100% !important;
+    }
+
+    .view-content {
+        padding: 0;
+    }
+
+    .panel {
+        box-shadow: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="brand-row">
+        <div class="brand-mark">
+            <span></span><span></span><span></span>
+        </div>
+        <strong>SIMS</strong>
+    </div>
+
+    <nav class="side-nav">
+
+        <a class="nav-link" href="../index.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a class="nav-link" href="../index.html">
+            <i class="fa-solid fa-list"></i>
+            <span>Reports</span>
+        </a>
+
+        <a class="nav-link" href="../index.html">
+            <i class="fa-solid fa-user-group"></i>
+            <span>Students</span>
+        </a>
+
+        <a class="nav-link" href="../index.html">
+            <i class="fa-solid fa-users"></i>
+            <span>Staff</span>
+        </a>
+
+        <a class="nav-link" href="../../finance_module/summary.html">
+            <i class="fa-solid fa-wallet"></i>
+            <span>Finance module</span>
+        </a>
+
+        <a class="nav-link active" href="index.html">
+            <i class="fa-solid fa-gear"></i>
+            <span>Configurations</span>
+        </a>
+
+    </nav>
+</aside>
+
+<!-- MAIN AREA -->
+<main class="main-area">
+
+<header class="topbar">
+
+    <form class="search-form" id="searchForm">
+        <span class="search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+
+        <input type="search"
+        placeholder="Search by name / email / mobile no.">
+
+        <select>
+            <option>In Students</option>
+            <option>In Staff</option>
+            <option>All records</option>
+        </select>
+
+        <button type="submit" class="search-button">
+            Search
+        </button>
+    </form>
+
+    <button class="profile-button" type="button">
+        <span class="brand-mark small">
+            <span></span><span></span><span></span>
+        </span>
+        <span>Dev 2</span>
+        <i class="fa-solid fa-chevron-down"></i>
+    </button>
+
+</header>
+
+<section class="view-content">
+
+    <!-- PAGE HEADING -->
+    <div class="page-heading">
+
+        <div>
+            <h1>Permission Summary</h1>
+
+            <div class="breadcrumb">
+                Configurations
+                &nbsp;&nbsp;
+                <i class="fa-solid fa-house"></i>
+                / Configurations /
+                <a href="roles.html">Permissions</a>
+            </div>
+        </div>
+
+        <button class="back-button" id="backButton">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+    </div>
+
+    <!-- ROLE SUMMARY -->
+    <div class="panel">
+
+        <div class="summary">
+
+            <div>
+                <span class="role-label">Role</span>
+
+                <span class="role-badge" id="roleName">
+                    Teacher
+                </span>
+
+                <div class="description">
+                    View the permissions and module access assigned to the role.
+                </div>
+            </div>
+
+            <div class="stats">
+
+                <div class="stat">
+                    Modules
+                    <strong id="moduleCount">12</strong>
+                </div>
+
+                <div class="stat">
+                    Enabled
+                    <strong id="enabledCount">0</strong>
+                </div>
+
+                <div class="stat">
+                    Full Access
+                    <strong id="fullCount">0</strong>
+                </div>
+
+                <div class="stat">
+                    Restricted
+                    <strong id="restrictedCount">0</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ACCESS OVERVIEW -->
+    <div class="panel">
+
+        <div class="overview">
+
+            <div>
+                <strong>Access Overview</strong>
+
+                <p class="description">
+                    Summary of module-level access for this role.
+                </p>
+            </div>
+
+            <div class="legend">
+                <span class="badge full">Full Access</span>
+                <span class="badge partial">Partial Access</span>
+                <span class="badge none">No Access</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- PERMISSION TABLE -->
+    <div class="panel table-wrap">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Module</th>
+                    <th>Access</th>
+                    <th>View</th>
+                    <th>Create</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>Approve</th>
+                    <th>Other</th>
+                </tr>
+            </thead>
+
+            <tbody id="permissionRows"></tbody>
+
+        </table>
+
+        <div class="actions">
+
+            <span class="updated">
+                Last updated by <strong>Principal</strong> on 06 October 2026 at 09:30 AM.
+            </span>
+
+            <div>
+                <button onclick="window.print()">Print</button>
+
+                <button class="edit-btn" id="editButton">
+                    Edit Permissions
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer class="footer">
+    <span>Copyright © 2026 All rights reserved.</span>
+    <span>Version 1.0.0</span>
+</footer>
+
+</main>
+</div>
+
+<script>
+
+// GET ROLE FROM URL
+const params = new URLSearchParams(window.location.search);
+const role = params.get("role") || "Teacher";
+
+document.getElementById("roleName").textContent = role;
+
+// SAME STORAGE KEY AS MANAGE PERMISSIONS
+const storageKey = "SIMS_permissions_" + role;
+
+// MODULE DETAILS
+const modules = [
+    ["Dashboard", "Dashboard and overview"],
+    ["Students", "Student records and profiles"],
+    ["Attendance", "Student attendance"],
+    ["Examinations", "Exams, marks and results"],
+    ["Circulars", "Circulars and announcements"],
+    ["Fees & Payments", "Fees and payment records"],
+    ["Support Tickets", "Support requests and tickets"],
+    ["Library", "Books and library records"],
+    ["Transport", "Routes and transportation"],
+    ["Staff", "Staff records and profiles"],
+    ["Finance", "Financial records"],
+    ["Configurations", "System configurations"]
+];
+
+// DEFAULT VALUES FOR THE 12 MODULES
+const defaults = [
+    [1,0,0,0,0,0],
+    [1,1,1,0,0,0],
+    [1,1,1,0,0,0],
+    [1,0,1,0,0,1],
+    [1,1,1,0,1,1],
+    [1,0,0,0,0,1],
+    [1,1,0,0,0,1],
+    [0,0,0,0,0,0],
+    [0,0,0,0,0,0],
+    [0,0,0,0,0,0],
+    [0,0,0,0,0,0],
+    [0,0,0,0,0,0]
+];
+
+// LOAD SAVED PERMISSIONS
+let saved = null;
+
+try {
+    saved = JSON.parse(localStorage.getItem(storageKey));
+} catch (error) {
+    saved = null;
+}
+
+// MERGE SAVED VALUES WITH DEFAULTS
+const permissionData = defaults.map(row => [...row]);
+
+if (Array.isArray(saved)) {
+    saved.forEach((value, index) => {
+        if (index < 42) {
+            permissionData[Math.floor(index / 6)][index % 6] =
+                Number(value) ? 1 : 0;
+        }
+    });
+}
+
+// BUILD TABLE
+const rows = document.getElementById("permissionRows");
+
+let enabled = 0;
+let full = 0;
+let restricted = 0;
+
+modules.forEach((module, index) => {
+
+    const permissions = permissionData[index];
+    const count = permissions.filter(Boolean).length;
+
+    const access =
+        count === 6 ? "Full Access" :
+        count === 0 ? "No Access" :
+        "Partial";
+
+    if (count > 0) enabled++;
+    if (count === 6) full++;
+    if (count > 0 && count < 6) restricted++;
+    if (count === 0) restricted++;
+
+    const accessClass =
+        count === 6 ? "full" :
+        count === 0 ? "none" :
+        "partial";
+
+    const labels = [
+        "View", "Create", "Edit",
+        "Delete", "Approve", "Other"
+    ];
+
+    const specialLabels = {
+        3: "Publish",
+        5: "Export",
+        6: "Assign"
+    };
+
+    let cells = "";
+
+    permissions.forEach((allowed, permissionIndex) => {
+
+        let content = "<span class='dash'>—</span>";
+
+        if (allowed) {
+
+            if (permissionIndex === 5 &&
+                specialLabels[index]) {
+
+                content =
+                    "<span class='other'>" +
+                    specialLabels[index] +
+                    "</span>";
+
+            } else {
+
+                content = "<span class='tick'>✓</span>";
+
+            }
+        }
+
+        cells += "<td>" + content + "</td>";
+
+    });
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+        <td>
+            ${module[0]}
+            <span class="module-desc">${module[1]}</span>
+        </td>
+
+        <td>
+            <span class="badge ${accessClass}">
+                ${access}
+            </span>
+        </td>
+
+        ${cells}
+    `;
+
+    rows.appendChild(row);
+
+});
+
+// UPDATE SUMMARY
+document.getElementById("moduleCount").textContent = modules.length;
+document.getElementById("enabledCount").textContent = enabled;
+document.getElementById("fullCount").textContent = full;
+document.getElementById("restrictedCount").textContent = restricted;
+
+// EDIT PERMISSIONS
+document.getElementById("editButton").addEventListener("click", () => {
+
+    window.location.href =
+        "manage-permissions.html?role=" +
+        encodeURIComponent(role);
+
+});
+
+// BACK BUTTON
+document.getElementById("backButton").addEventListener("click", () => {
+
+    window.location.href = "roles.html";
+
+});
+
+// SEARCH
+document.getElementById("searchForm").addEventListener("submit", event => {
+    event.preventDefault();
+});
+
+</script>
+
+</body>
+</html>
