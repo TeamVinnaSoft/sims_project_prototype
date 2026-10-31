@@ -1,3 +1,3 @@
 # sims_project_prototype
 
-# To open the website, fir open the dashboard.html page located inthe main dashboard folder
+# To open the website, for open the dashboard.html page located in the main dashboard folder
