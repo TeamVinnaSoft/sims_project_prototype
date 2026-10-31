@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Management Dashboard</title>
+
+    <link rel="stylesheet" href = "dashboard.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <a href="../dashboard/dashboard.html">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="../student_module/student_summary.html"> Summary </a>
+            <a href="../student_module/students_data.html"> Student Data </a>
+            <a href="../student_module/student_attendance.html"> Attendance </a>
+        </div>
+
+
+
+      
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="../SIMS_Dashboard/summary.html"> Summary </a>
+            <a href="../SIMS_Dashboard/staff-data.html"> Staff Data </a>
+            <a href="../SIMS_Dashboard/create-staff.html"> Create Staff </a>
+            <a href="../SIMS_Dashboard/attendence.html"> Attendance </a>
+        </div>
+
+
+     
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="../finance_module/summary.html"> Summary </a>
+            <a href="../finance_module/fee_received.html"> fee received </a>
+            <a href="../finance_module/expenditure.html"> expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+
+            <a href="configurations.html">
+                Configurations
+            </a>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="search-box">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej         
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="my_school.html">🎓 My School</a>
+            <a href="subcription$billing.html">₹ Subscription &amp; Billing</a>
+            <a href="support_ticket.html">▣ Support Tickets</a>
+            <a href="../SIMS_Dashboard/profile/privacy-policy.html">♙ Privacy Policy</a>
+            <a href="../SIMS_Dashboard/profile/help.html">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+       <!-- Page Heading -->
+        <section class="page-heading">
+
+            <div>
+                <h1>Parent module menu</h1>
+                <p>Configurations</p>
+            </div>
+
+        </section>
+
+        <!-- Menu Table -->
+        <section class="table-container">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Menu Item Name</th>
+                        <th>Menu Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="menuList">
+
+                    <tr>
+                        <td>
+                            <div class="order-buttons">
+                                <button onclick="moveRow(this, -1)">▲</button>
+                                <button onclick="moveRow(this, 1)">▼</button>
+                            </div>
+                        </td>
+                        <td>Dashboard</td>
+                        <td><span class="status active-status">Active</span></td>
+                        <td><label class="switch"><input type="checkbox" checked onchange="updateStatus(this)"><span class="slider"></span></label></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="order-buttons">
+                                <button onclick="moveRow(this, -1)">▲</button>
+                                <button onclick="moveRow(this, 1)">▼</button>
+                            </div>
+                        </td>
+                        <td>Online Class</td>
+                        <td><span class="status active-status">Active</span></td>
+                        <td><label class="switch"><input type="checkbox" checked onchange="updateStatus(this)"><span class="slider"></span></label></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="order-buttons">
+                                <button onclick="moveRow(this, -1)">▲</button>
+                                <button onclick="moveRow(this, 1)">▼</button>
+                            </div>
+                        </td>
+                        <td>Homework</td>
+                        <td><span class="status active-status">Active</span></td>
+                        <td><label class="switch"><input type="checkbox" checked onchange="updateStatus(this)"><span class="slider"></span></label></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="order-buttons">
+                                <button onclick="moveRow(this, -1)">▲</button>
+                                <button onclick="moveRow(this, 1)">▼</button>
+                            </div>
+                        </td>
+                        <td>Attendance</td>
+                        <td><span class="status active-status">Active</span></td>
+                        <td><label class="switch"><input type="checkbox" checked onchange="updateStatus(this)"><span class="slider"></span></label></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="order-buttons">
+                                <button onclick="moveRow(this, -1)">▲</button>
+                                <button onclick="moveRow(this, 1)">▼</button>
+                            </div>
+                        </td>
+                        <td>Syllabus</td>
+                        <td><span class="status active-status">Active</span></td>
+                        <td><label class="switch"><input type="checkbox" checked onchange="updateStatus(this)"><span class="slider"></span></label></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="order-buttons">
+                                <button onclick="moveRow(this, -1)">▲</button>
+                                <button onclick="moveRow(this, 1)">▼</button>
+                            </div>
+                        </td>
+                        <td>Timetable</td>
+                        <td><span class="status active-status">Active</span></td>
+                        <td><label class="switch"><input type="checkbox" checked onchange="updateStatus(this)"><span class="slider"></span></label></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="order-buttons">
+                                <button onclick="moveRow(this, -1)">▲</button>
+                                <button onclick="moveRow(this, 1)">▼</button>
+                            </div>
+                        </td>
+                        <td>Examinations</td>
+                        <td><span class="status active-status">Active</span></td>
+                        <td><label class="switch"><input type="checkbox" checked onchange="updateStatus(this)"><span class="slider"></span></label></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="order-buttons">
+                                <button onclick="moveRow(this, -1)">▲</button>
+                                <button onclick="moveRow(this, 1)">▼</button>
+                            </div>
+                        </td>
+                        <td>Progress Card</td>
+                        <td><span class="status active-status">Active</span></td>
+                        <td><label class="switch"><input type="checkbox" checked onchange="updateStatus(this)"><span class="slider"></span></label></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="order-buttons">
+                                <button onclick="moveRow(this, -1)">▲</button>
+                                <button onclick="moveRow(this, 1)">▼</button>
+                            </div>
+                        </td>
+                        <td>Notifications</td>
+                        <td><span class="status active-status">Active</span></td>
+                        <td><label class="switch"><input type="checkbox" checked onchange="updateStatus(this)"><span class="slider"></span></label></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="order-buttons">
+                                <button onclick="moveRow(this, -1)">▲</button>
+                                <button onclick="moveRow(this, 1)">▼</button>
+                            </div>
+                        </td>
+                        <td>Fee Details</td>
+                        <td><span class="status inactive-status">Inactive</span></td>
+                        <td><label class="switch"><input type="checkbox" onchange="updateStatus(this)"><span class="slider"></span></label></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </section>  
+
+
+
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

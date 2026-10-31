@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>bulk data upload</title>
+
+    <link rel="stylesheet" href = "bulk_data_upload.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <a href="../dashboard/dashboard.html">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="../student_module/student_summary.html"> Summary </a>
+            <a href="../student_module/students_data.html"> Student Data </a>
+            <a href="../student_module/student_attendance.html"> Attendance </a>
+        </div>
+
+
+
+      
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="../SIMS_Dashboard/summary.html"> Summary </a>
+            <a href="../SIMS_Dashboard/staff-data.html"> Staff Data </a>
+            <a href="../SIMS_Dashboard/create-staff.html"> Create Staff </a>
+            <a href="../SIMS_Dashboard/attendence.html"> Attendance </a>
+        </div>
+
+
+     
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="../finance_module/summary.html"> Summary </a>
+            <a href="../finance_module/fee_received.html"> fee received </a>
+            <a href="../finance_module/expenditure.html"> expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+
+            <a href="configurations.html">
+                Configurations
+            </a>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="search-box">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej         
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="my_school.html">🎓 My School</a>
+            <a href="subcription$billing.html">₹ Subscription &amp; Billing</a>
+            <a href="support_ticket.html">▣ Support Tickets</a>
+            <a href="../SIMS_Dashboard/profile/privacy-policy.html">♙ Privacy Policy</a>
+            <a href="../SIMS_Dashboard/profile/help.html">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+ <!-- Heading -->
+        <section class="heading">
+            <div>
+                <h1>Bulk data upload</h1>
+                <p>Configurations</p>
+            </div>
+
+        </section>
+
+        <!-- Upload Cards -->
+        <section class="upload-grid" id="uploadGrid">
+
+            <!-- Column 1 -->
+            <div class="upload-column">
+
+                <button class="upload-btn" data-name="Students data"
+                        onclick="window.location.href = 'data_upload.html'">
+                    <span>Students data</span>
+                    <span class="cloud">☁️</span>
+                </button>
+
+                <button class="upload-btn" data-name="Staff data"
+                        onclick="window.location.href = 'data_upload.html'">
+                    <span>Staff data</span>
+                    <span class="cloud">☁️</span>
+                </button>
+
+                <button class="upload-btn" data-name="Academic Calendar"
+                        onclick="window.location.href = 'data_upload.html'">
+                    <span>Academic Calendar</span>
+                    <span class="cloud">☁️</span>
+                </button>
+
+                <button class="upload-btn" data-name="Holidays data"
+                        onclick="window.location.href = 'data_upload.html'">
+                    <span>Holidays data</span>
+                    <span class="cloud">☁️</span>
+                </button>
+
+            </div>
+
+            <!-- Column 2 -->
+            <div class="upload-column">
+
+                <button class="upload-btn" data-name="Syllabus data"
+                        onclick="window.location.href = 'data_upload.html'">
+                    <span>Syllabus data</span>
+                    <span class="cloud">☁️</span>
+                </button>
+
+                <button class="upload-btn" data-name="Subject Material data"
+                        onclick="window.location.href = 'data_upload.html'">
+                    <span>Subject Material data</span>
+                    <span class="cloud">☁️</span>
+                </button>
+
+                <button class="upload-btn" data-name="Library Books data"
+                        onclick="window.location.href = 'data_upload.html'">
+                    <span>Library Books data</span>
+                    <span class="cloud">☁️</span>
+                </button>
+
+                <button class="upload-btn" data-name="Timetable data"
+                        onclick="window.location.href = 'data_upload.html'">
+                    <span>Timetable data</span>
+                    <span class="cloud">☁️</span>
+                </button>
+
+            </div>
+
+            <!-- Column 3 -->
+            <div class="upload-column">
+
+                <button class="upload-btn" data-name="Thought of the day"
+                        onclick="window.location.href = 'data_upload.html'">
+                    <span>Thought of the day</span>
+                    <span class="cloud">☁️</span>
+                </button>
+
+                <button class="upload-btn" data-name="Bus stops data"
+                        onclick="window.location.href = 'data_upload.html'">
+                    <span>Bus stops data</span>
+                    <span class="cloud">☁️</span>
+                </button>
+
+                <button class="upload-btn" data-name="Transport data"
+                        onclick="window.location.href = 'data_upload.html'">
+                    <span>Transport data</span>
+                    <span class="cloud">☁️</span>
+                </button>
+
+                <button class="upload-btn" data-name="Fee Components data"
+                        onclick="window.location.href = 'data_upload.html'">
+                    <span>Fee Components data</span>
+                    <span class="cloud">☁️</span>
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+
+        <!-- Hidden file input -->
+        <input type="file" id="fileInput"
+               accept=".csv,.xlsx,.xls"
+               hidden>
+
+        <p class="message" id="message" aria-live="polite"></p>
+
+</div>
+
+<script>
+    let selectedCategory = "";
+
+    function chooseFile(button, category) {
+        selectedCategory = category;
+
+        const fileInput = document.getElementById("fileInput");
+        const message = document.getElementById("message");
+
+        fileInput.value = "";
+        message.textContent = "";
+
+        fileInput.onchange = function () {
+            if (this.files.length > 0) {
+                const file = this.files[0];
+                message.textContent =
+                    category + ": Selected file — " + file.name;
+            }
+        };
+
+        fileInput.click();
+    }
+
+    function searchItems() {
+        const query = document.getElementById("searchInput")
+            .value.trim().toLowerCase();
+
+        const buttons = document.querySelectorAll(".upload-btn");
+        let visibleCount = 0;
+
+        buttons.forEach(button => {
+            const matches = button.dataset.name.toLowerCase()
+                .includes(query);
+
+            button.style.display = matches ? "flex" : "none";
+
+            if (matches) visibleCount++;
+        });
+
+        document.getElementById("message").textContent =
+            visibleCount + " matching upload option(s) found.";
+    }
+
+    document.getElementById("searchInput").addEventListener("input", () => {
+        if (document.getElementById("searchInput").value.trim() === "") {
+            document.querySelectorAll(".upload-btn").forEach(button => {
+                button.style.display = "flex";
+            });
+
+            document.getElementById("message").textContent = "";
+        }
+    });
+</script>
+        
+
+
+
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+</script>
+
+
+</body>
+
+</html>

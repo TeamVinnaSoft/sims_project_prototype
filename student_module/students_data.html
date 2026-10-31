@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>student module</title>
+
+    <link rel="stylesheet" href = "style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item ">
+            <a href="#">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item active"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="student_summary.html"> Summary </a>
+            <a href="students_data.html"> Student Data </a>
+            <a href="student_attendance.html"> Attendance </a>
+        </div>
+
+
+
+      
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="../SIMS_Dashboard/summary.html"> Summary </a>
+            <a href="../SIMS_Dashboard/staff-data.html"> Staff Data </a>
+            <a href="../SIMS_Dashboard/create-staff.html"> Create Staff </a>
+            <a href="../SIMS_Dashboard/attendence.html"> Attendance </a>
+        </div>
+
+
+     
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="../finance_module/summary.html"> Summary </a>
+            <a href="../finance_module/fee_received.html"> fee received </a>
+            <a href="../finance_module/expenditure.html"> expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+
+            <a href="configurations.html">
+                Configurations
+            </a>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="search-box">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej         
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="my_school.html">🎓 My School</a>
+            <a href="subcription$billing.html">₹ Subscription &amp; Billing</a>
+            <a href="support_ticket.html">▣ Support Tickets</a>
+            <a href="../SIMS_Dashboard/profile/privacy-policy.html">♙ Privacy Policy</a>
+            <a href="../SIMS_Dashboard/profile/help.html">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+            <div class="panel-heading">
+                <div>
+                    <h3>Students Data</h3>
+                </div>
+            </div>
+
+    <div class="input-group">
+        <label>Class:</label>
+        <select>
+            <option>Select Class</option>
+            <option> 1st class</option>
+            <option> 2nd class</option>
+            <option> 3nd class</option>
+            <option> 4th class</option>
+            <option> 5th class</option>
+            <option> 6th class</option>
+            <option> 7th class</option>
+            <option> 8th class</option>
+            <option> 9th class</option>
+            <option> 10th class</option>
+        </select>
+    </div>
+
+       <section class="panel table-panel">
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Surname</th>
+                            <th>Mobile Number</th>
+                            <th>Mother Name</th>
+                            <th>Father Name</th>
+                            <th>Action</th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Uttej</td>
+                            <td>R</td>
+                            <td>9000010000</td>
+                            <td>Kumari</td>
+                            <td>Venkateswararao</td>
+                            <td>
+                               <a href="student_details_profile.html">
+                                   <button class="status paid">View</button>
+                                </a> 
+                            </td>
+                        </tr>
+                        <tr>
+                             <td>Teja</td>
+                            <td>K</td>
+                            <td>9000020000</td>
+                            <td>Ramya</td>
+                            <td>Raju</td>
+                            <td>
+                                <a href="student_details_profile.html">
+                                   <button class="status paid">View</button>
+                                </a> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Sanju</td>
+                            <td>M</td>
+                            <td>9000030000</td>
+                            <td>Sweety</td>
+                            <td>Lucky</td>
+                            <td>
+                               <a href="student_details_profile.html">
+                                   <button class="status paid">View</button>
+                                </a> 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+
+       
+
+       
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

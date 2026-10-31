@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Management Dashboard</title>
+
+    <link rel="stylesheet" href = "apps.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <a href="../dashboard/dashboard.html">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="../student_module/student_summary.html"> Summary </a>
+            <a href="../student_module/students_data.html"> Student Data </a>
+            <a href="../student_module/student_attendance.html"> Attendance </a>
+        </div>
+
+
+
+      
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="../SIMS_Dashboard/summary.html"> Summary </a>
+            <a href="../SIMS_Dashboard/staff-data.html"> Staff Data </a>
+            <a href="../SIMS_Dashboard/create-staff.html"> Create Staff </a>
+            <a href="../SIMS_Dashboard/attendence.html"> Attendance </a>
+        </div>
+
+
+     
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="../finance_module/summary.html"> Summary </a>
+            <a href="../finance_module/fee_received.html"> fee received </a>
+            <a href="../finance_module/expenditure.html"> expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+
+            <a href="configurations.html">
+                Configurations
+            </a>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="search-box">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej         
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="my_school.html">🎓 My School</a>
+            <a href="subcription$billing.html">₹ Subscription &amp; Billing</a>
+            <a href="support_ticket.html">▣ Support Tickets</a>
+            <a href="../SIMS_Dashboard/profile/privacy-policy.html">♙ Privacy Policy</a>
+            <a href="../SIMS_Dashboard/profile/help.html">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+ <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- CONFIGURATION DETAILS -->
+        <section class="configuration-section" id="configuration">
+            <div class="section-header">
+                <div>
+                    <h2 id="selectedApp">Principal App Configuration</h2>
+                    <p>Manage application information and settings.</p>
+                </div>
+                
+            </div>
+
+            <!-- TABS -->
+            <div class="tabs">
+                <a href="view_config.html">
+                    <button class="tap" type="submit">Overview</button>
+                </a>
+                <a href="edit_config.html">
+                    <button class="tap active" type="submit">Edit Configuration</button>
+                </a>
+                <a href="app_permission.html">
+                    <button class="tap" type="submit">Permissions</button>
+                </a>
+                <a href="app_setting.html">
+                    <button class="tap" type="submit">settings</button>
+                </a>
+                <a href="app_activity_log.html">
+                    <button class="tap" type="submit">Activity Logs</button>
+                </a>
+            </div>
+
+             <!-- PERMISSIONS -->
+            <div class="tab-content hidden" id="permissions">
+                <div class="info-card">
+                    <h3>Role Permissions Management</h3>
+                    <p>Manage who can access this application.</p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Access</th>
+                                <th>Permission Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Super Admin</td>
+                                <td><input type="checkbox" checked></td>
+                                <td>Full Access</td>
+                            </tr>
+                            <tr>
+                                <td>Principal</td>
+                                <td><input type="checkbox" checked></td>
+                                <td>Full Access</td>
+                            </tr>
+                            <tr>
+                                <td>Staff</td>
+                                <td><input type="checkbox"></td>
+                                <td>Limited Access</td>
+                            </tr>
+                            <tr>
+                                <td>Teacher</td>
+                                <td><input type="checkbox"></td>
+                                <td>Limited Access</td>
+                            </tr>
+                            <tr>
+                                <td>Parent</td>
+                                <td><input type="checkbox"></td>
+                                <td>View Only</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="form-actions">
+                        <button class="primary-btn">
+                            Save Permissions
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

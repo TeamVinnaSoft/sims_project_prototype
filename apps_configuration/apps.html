@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>apps configuration</title>
+
+    <link rel="stylesheet" href = "apps.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <a href="../dashboard/dashboard.html">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="../student_module/student_summary.html"> Summary </a>
+            <a href="../student_module/students_data.html"> Student Data </a>
+            <a href="../student_module/student_attendance.html"> Attendance </a>
+        </div>
+
+
+
+      
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="../SIMS_Dashboard/summary.html"> Summary </a>
+            <a href="../SIMS_Dashboard/staff-data.html"> Staff Data </a>
+            <a href="../SIMS_Dashboard/create-staff.html"> Create Staff </a>
+            <a href="../SIMS_Dashboard/attendence.html"> Attendance </a>
+        </div>
+
+
+     
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="../finance_module/summary.html"> Summary </a>
+            <a href="../finance_module/fee_received.html"> fee received </a>
+            <a href="../finance_module/expenditure.html"> expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+
+            <a href="configurations.html">
+                Configurations
+            </a>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="search-box">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej         
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="my_school.html">🎓 My School</a>
+            <a href="subcription$billing.html">₹ Subscription &amp; Billing</a>
+            <a href="support_ticket.html">▣ Support Tickets</a>
+            <a href="../SIMS_Dashboard/profile/privacy-policy.html">♙ Privacy Policy</a>
+            <a href="../SIMS_Dashboard/profile/help.html">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+ <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- APP CARDS -->
+        <section class="apps-grid" id="appsGrid">
+
+            <div class="app-card">
+                <div class="card-heading">
+                    <div class="app-icon green">♙</div>
+                    <div>
+                        <h3>Principal App</h3>
+                        <span class="status active-status">Active</span>
+                    </div>
+                </div>
+                <p>Main application for principal access and management.</p>
+                <div class="card-footer">
+                    <span>Version 1.2.0</span>
+                    <a href="view_config.html">
+                        <button class="view-btn-cancel" type="submit">View / Configure</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="app-card">
+                <div class="card-heading">
+                    <div class="app-icon blue">▦</div>
+                    <div>
+                        <h3>Staff App</h3>
+                        <span class="status active-status">Active</span>
+                    </div>
+                </div>
+                <p>Staff portal for teachers and non-teaching staff.</p>
+                <div class="card-footer">
+                    <span>Version 1.1.0</span>
+                    <a href="#">
+                        <button class="view-btn-cancel" type="submit">View / Configure</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="app-card">
+                <div class="card-heading">
+                    <div class="app-icon purple">♧</div>
+                    <div>
+                        <h3>Parent App</h3>
+                        <span class="status active-status">Active</span>
+                    </div>
+                </div>
+                <p>Parent portal to view student progress and reports.</p>
+                <div class="card-footer">
+                    <span>Version 1.0.5</span>
+                    
+                    <a href="#">
+                        <button class="view-btn-cancel" type="submit">View / Configure</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="app-card">
+                <div class="card-heading">
+                    <div class="app-icon orange">▣</div>
+                    <div>
+                        <h3>Bus App</h3>
+                        <span class="status disabled-status">Disabled</span>
+                    </div>
+                </div>
+                <p>Bus tracking and transport management.</p>
+                <div class="card-footer">
+                    <span>Version 1.0.2</span>
+                    <a href="#">
+                        <button class="view-btn-cancel" type="submit">View / Configure</button>
+                    </a>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

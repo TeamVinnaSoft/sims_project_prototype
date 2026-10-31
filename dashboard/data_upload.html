@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Bulk data upload</title>
+
+    <link rel="stylesheet" href = "bulk_data_upload.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Management Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <a href="#">Dashboard </a>
+        </div>
+
+      
+
+        <div class="menu-item"
+             onclick="toggleMenu('studentMenu', this)">
+
+            <span> Student </span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="studentMenu" class="submenu">
+            <a href="../student_module/student_summary.html"> Summary </a>
+            <a href="../student_module/students_data.html"> Student Data </a>
+            <a href="../student_module/student_attendance.html"> Attendance </a>
+        </div>
+
+
+
+      
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span> Staff </span>
+            <span class="menu-arrow">▶️</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="../SIMS_Dashboard/summary.html"> Summary </a>
+            <a href="../SIMS_Dashboard/staff-data.html"> Staff Data </a>
+            <a href="../SIMS_Dashboard/create-staff.html"> Create Staff </a>
+            <a href="../SIMS_Dashboard/attendence.html"> Attendance </a>
+        </div>
+
+
+     
+
+        <div class="menu-item" onclick="toggleMenu('Financemodulemenu', this)">
+            <span> Finance Module</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="Financemodulemenu" class="submenu">
+            <a href="../finance_module/summary.html"> Summary </a>
+            <a href="../finance_module/fee_received.html"> fee received </a>
+            <a href="../finance_module/expenditure.html"> expenditure</a>
+        </div>
+
+
+
+
+        <div class="menu-item" onclick="toggleMenu('reportsMenu', this)">
+            <span> Reports</span>
+            <span class="menu-arrow"> ▶️ </span>
+        </div>
+
+        <div id="reportsMenu" class="submenu">
+            <a href="#">Fees</a>
+            <a href="#"> Students </a>
+            <a href="#"> Staff</a>
+        </div>
+
+
+        <div class="menu-item">
+
+            <a href="configurations.html">
+                Configurations
+            </a>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="search-box">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej         
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="my_school.html">🎓 My School</a>
+            <a href="subcription$billing.html">₹ Subscription &amp; Billing</a>
+            <a href="support_ticket.html">▣ Support Tickets</a>
+            <a href="../SIMS_Dashboard/profile/privacy-policy.html">♙ Privacy Policy</a>
+            <a href="../SIMS_Dashboard/profile/help.html">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+
+<!-- Page Heading -->
+        <section class="page-heading">
+
+            <div>
+                <h1>Students data</h1>
+                <p>Bulk data upload</p>
+            </div>
+
+        </section>
+
+        <!-- Upload Section -->
+        <section class="content-grid">
+
+            <!-- Left Upload Card -->
+            <div class="upload-card">
+
+                <h3>SELECT YOUR STUDENTS DATA FILE & CLASS</h3>
+
+                <form id="studentForm">
+
+                    <label for="className">Select Class</label>
+
+                    <select id="className" required>
+                        <option value="">-- Select Class --</option>
+                        <option>Class 1</option>
+                        <option>Class 2</option>
+                        <option>Class 3</option>
+                        <option>Class 4</option>
+                        <option>Class 5</option>
+                        <option>Class 6</option>
+                        <option>Class 7</option>
+                        <option>Class 8</option>
+                        <option>Class 9</option>
+                        <option>Class 10</option>
+                    </select>
+
+                    <label class="file-label">
+                        * CSV file
+                    </label>
+
+                    <input type="file"
+                           id="studentFile"
+                           accept=".csv"
+                           required>
+
+                    <button type="submit" class="get-data">
+                        Get Data
+                    </button>
+
+                </form>
+
+                <div id="result"></div>
+
+            </div>
+
+            <!-- Right Information Card -->
+            <div class="info-card">
+
+                <h3>DOWNLOADS</h3>
+
+                <div class="download-section">
+
+                    <div class="download-item">
+                        <p>Template for Bulk upload</p>
+
+                        <a href="student-template.csv"
+                           download>
+                            <span class="excel-icon">📗</span>
+                            <small>Download Template</small>
+                        </a>
+                    </div>
+
+                    <div class="download-item">
+                        <p>CSV file with sample data</p>
+
+                        <a href="student-sample.csv"
+                           download>
+                            <span class="excel-icon">📗</span>
+                            <small>Download Sample</small>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="instructions">
+
+                    <h3>INSTRUCTIONS</h3>
+
+                    <p>To upload bulk data</p>
+
+                    <ol>
+                        <li>Select Class from drop down</li>
+                        <li>Select CSV file</li>
+                        <li>Click on Get Data</li>
+                        <li>Check if column names should match</li>
+                        <li>Check your data</li>
+                        <li>Click on Upload</li>
+                    </ol>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
