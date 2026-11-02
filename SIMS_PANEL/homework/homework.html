@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Parent Dashboard</title>
+
+    <link rel="stylesheet" href = "../dashboard/style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Parent Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item ">
+            <a href="../dashboard/dashboard.html">Dashboard </a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Online Class </a>
+        </div>
+
+        <div class="menu-item active">
+            <a href="#">HomeWork </a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Attendance </a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Syllabus </a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">TimeTable </a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Examinations</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Progress Crad</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Transportation</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Academic Calendar</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Holidays</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Circular</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Fee details</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Talk to Teacher</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Principal appointment</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Logout</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej R        
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="#">🎓 My Profile</a>
+            <a href="#">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+
+    
+
+
+
+    <!-- =========================
+         MAIN CARDS
+    ========================= -->
+
+        <section class="panel table-panel">
+            <div class="panel-heading">
+                <div>
+                    <h3>Home Work</h3>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date posted</th>
+                            <th>Last date</th>
+                            <th>Created By</th>
+                            <th>Subject</th>
+                            <th>Instruction</th> 
+                            <th>Downloads</th> 
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01-11-2026</td>
+                            <td>05-11-2026</td>
+                            <td>Teja</td>
+                            <td>Mathematics</td>
+                            <td> - </td>
+                            <td> - </td>
+                            <td><span class="status">Active</span></td>
+                            <td>
+                               <a href="#">
+                                    <button class="view-btn"> Upload</button>
+                                </a>
+     
+                             </td>    
+                        </tr>
+
+                        <tr>
+                            <td>01-11-2026</td>
+                            <td>05-11-2026</td>
+                            <td>Uttej</td>
+                            <td>Science</td>
+                            <td> - </td>
+                            <td> - </td>
+                            <td><span class="status">Active</span></td>
+                            <td>
+                               <a href="#">
+                                    <button class="view-btn"> Upload</button>
+                                </a>
+     
+                             </td>    
+                        </tr>
+
+                    
+                        
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
