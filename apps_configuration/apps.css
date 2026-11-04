@@ -663,6 +663,230 @@ body {
 
 
 
+/* TABS */
+
+.tabs {
+    display: flex;
+    gap: 25px;
+    border-bottom: 1px solid #e5eaf1;
+    overflow-x: auto;
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 14px 5px;
+    color: #75849a;
+    white-space: nowrap;
+}
+
+.tab.active {
+    color: #1478e9;
+    border-bottom: 3px solid #1478e9;
+    font-weight: 600;
+}
+
+.tab-content {
+    padding-top: 22px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* INFORMATION CARD */
+
+.info-card {
+    background: #fbfcfe;
+    border: 1px solid #e8edf4;
+    border-radius: 8px;
+    padding: 23px;
+}
+
+.info-card h3 {
+    margin-bottom: 18px;
+    font-size: 17px;
+}
+
+.info-card > p {
+    font-size: 13px;
+    color: #8794a6;
+    margin-bottom: 20px;
+}
+
+.info-row {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 15px;
+    padding: 16px 5px;
+    border-bottom: 1px solid #edf0f5;
+    font-size: 13px;
+}
+
+.info-row span {
+    color: #8491a4;
+}
+
+.info-row b {
+    color: #344b68;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.info-card > .primary-btn {
+    margin-top: 20px;
+}
+
+/* FORMS */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #40536d;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px;
+    border: 1px solid #dce3ed;
+    border-radius: 6px;
+    outline: none;
+    background: white;
+    color: #344b68;
+    width: 100%;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+/* TABLES */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    min-width: 550px;
+}
+
+.info-card {
+    overflow-x: auto;
+}
+
+th {
+    background: #f1f5fa;
+    color: #425875;
+    text-align: left;
+    font-size: 12px;
+    padding: 14px;
+}
+
+td {
+    border-bottom: 1px solid #e9eef5;
+    padding: 15px 14px;
+    font-size: 13px;
+    color: #52647c;
+}
+
+td input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    accent-color: #1478e9;
+    cursor: pointer;
+}
+
+
+/* SETTINGS */
+
+.toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #edf0f5;
+    margin-top: 25px;
+    padding-top: 20px;
+}
+
+.toggle-row span {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+}
+
+.toggle-row small {
+    color: #8995a6;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 23px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #cbd5e1;
+    border-radius: 20px;
+    transition: .3s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+.switch input:checked + .slider {
+    background: #1478e9;
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(21px);
+}
+
+
+
 
 @media (max-width: 750px) {
     .topbar {
