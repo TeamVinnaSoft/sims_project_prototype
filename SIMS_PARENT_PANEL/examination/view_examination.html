@@ -3,12 +3,8 @@
 
 <head>
 
-    <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Parent Dashboard</title>
+    <title>Examination Creation</title>
 
     <link rel="stylesheet" href = "../dashboard/style.css">
 
@@ -42,8 +38,8 @@
             <a href="#">Online Class </a>
         </div>
 
-        <div class="menu-item active">
-            <a href="#">HomeWork </a>
+        <div class="menu-item">
+            <a href="../homework/homework.html">HomeWork </a>
         </div>
 
         <div class="menu-item">
@@ -51,19 +47,19 @@
         </div>
 
         <div class="menu-item">
-            <a href="#">Syllabus </a>
+            <a href="../syllabus/syllabus.html">Syllabus </a>
         </div>
 
         <div class="menu-item">
             <a href="#">TimeTable </a>
         </div>
 
-        <div class="menu-item">
-            <a href="#">Examinations</a>
+        <div class="menu-item active">
+            <a href="../examination/examination_creation.html">Examinations</a>
         </div>
 
         <div class="menu-item">
-            <a href="#">Progress Crad</a>
+            <a href="#">Progress Card</a>
         </div>
 
         <div class="menu-item">
@@ -130,70 +126,94 @@
          MAIN CARDS
     ========================= -->
 
-        <section class="panel table-panel">
-            <div class="panel-heading">
-                <div>
-                    <h3>Home Work</h3>
-                </div>
+ <section class="school-card">
+
+        <div class="card-header">
+            <div>
+                <h2>Unit 1 Details</h2>
+            </div>
+        </div>
+          
+
+        <div class="details-grid">
+
+            <div class="detail">
+                <span>Examination Name</span>
+                <strong>Unit 1 </strong>
             </div>
 
-            <div class="table-wrapper">
+            <div class="detail">
+                <span>Start Date</span>
+                <strong>05 Nov 2026</strong>
+            </div>
+
+            <div class="detail">
+                <span>End Date</span>
+                <strong>20 Nov 2026</strong>
+            </div>
+
+            <div class="detail">
+                <span>Number of Exams</span>
+                <strong>5</strong>
+            </div>
+
+            <div class="detail">
+                <span>Exams Per Day</span>
+                <strong>1</strong>
+            </div>
+
+            <div class="detail">
+                <span>Max Marks</span>
+                <strong>35</strong>
+            </div>
+            <div class="detail">
+                <span>Status</span>
+                <strong>Active</strong>
+            </div>
+        </div>
+    </section>
+    <br><br>
+
+<section class="school-card">
+     <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
-                            <th>Date posted</th>
-                            <th>Last date</th>
-                            <th>Created By</th>
                             <th>Subject</th>
-                            <th>Instruction</th> 
-                            <th>Downloads</th> 
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th>Exam Date</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Max Marks</th>
+                            <th>Exam Syllabus</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>01-11-2026</td>
-                            <td>05-11-2026</td>
-                            <td>Teja</td>
-                            <td>Mathematics</td>
-                            <td> - </td>
-                            <td> - </td>
-                            <td><span class="status">Active</span></td>
-                            <td>
-                               <a href="#">
-                                    <button class="view-btn"> Upload</button>
-                                </a>
-     
-                             </td>    
+                            <td>Telugu</td>
+                            <td>5 Nov 2026</td>
+                            <td>10:00 AM</td>
+                            <td>12:00 PM</td>
+                            <td>35</td>
+                            <td>Unit 1</td>
                         </tr>
 
                         <tr>
-                            <td>01-11-2026</td>
-                            <td>05-11-2026</td>
-                            <td>Uttej</td>
-                            <td>Science</td>
-                            <td> - </td>
-                            <td> - </td>
-                            <td><span class="status">Active</span></td>
-                            <td>
-                               <a href="#">
-                                    <button class="view-btn"> Upload</button>
-                                </a>
-     
-                             </td>    
+                            <td>English</td>
+                            <td>6 Nov 2026</td>
+                            <td>10:00 AM</td>
+                            <td>12:00 PM</td>
+                            <td>35</td>
+                            <td>Unit 2</td>
                         </tr>
-
-                    
-                        
                     </tbody>
                 </table>
+                <br><br>
 
             </div>
-        </section>
 
+    </section>
 
-
+            
 
 <!-- =========================
      JAVASCRIPT
