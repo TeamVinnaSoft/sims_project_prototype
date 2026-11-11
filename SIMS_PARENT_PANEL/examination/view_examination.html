@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <title>Examination Creation</title>
+
+    <link rel="stylesheet" href = "../dashboard/style.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+
+        <p> Parent Panel</p>
+    </div>
+
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item ">
+            <a href="../dashboard/dashboard.html">Dashboard </a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Online Class </a>
+        </div>
+
+        <div class="menu-item">
+            <a href="../homework/homework.html">HomeWork </a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Attendance </a>
+        </div>
+
+        <div class="menu-item">
+            <a href="../syllabus/syllabus.html">Syllabus </a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">TimeTable </a>
+        </div>
+
+        <div class="menu-item active">
+            <a href="../examination/examination_creation.html">Examinations</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Progress Card</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Transportation</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Academic Calendar</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Holidays</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Circular</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Fee details</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Talk to Teacher</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Principal appointment</a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#">Logout</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<div class="main">
+
+<header class="topbar">
+    <div class="profile-menu">
+        <button class="profile-btn" id="profileBtn">
+            <span class="logo"></span>
+            Uttej R        
+        </button>
+
+        <div class="dropdown" id="dropdown">
+            <a href="#">🎓 My Profile</a>
+            <a href="#">ⓘ Help</a>
+            <a href="#" id="logoutBtn">⇥ Logout</a>
+        </div>
+    </div>
+</header>
+
+    
+
+
+
+    <!-- =========================
+         MAIN CARDS
+    ========================= -->
+
+ <section class="school-card">
+
+        <div class="card-header">
+            <div>
+                <h2>Unit 1 Details</h2>
+            </div>
+        </div>
+          
+
+        <div class="details-grid">
+
+            <div class="detail">
+                <span>Examination Name</span>
+                <strong>Unit 1 </strong>
+            </div>
+
+            <div class="detail">
+                <span>Start Date</span>
+                <strong>05 Nov 2026</strong>
+            </div>
+
+            <div class="detail">
+                <span>End Date</span>
+                <strong>20 Nov 2026</strong>
+            </div>
+
+            <div class="detail">
+                <span>Number of Exams</span>
+                <strong>5</strong>
+            </div>
+
+            <div class="detail">
+                <span>Exams Per Day</span>
+                <strong>1</strong>
+            </div>
+
+            <div class="detail">
+                <span>Max Marks</span>
+                <strong>35</strong>
+            </div>
+            <div class="detail">
+                <span>Status</span>
+                <strong>Active</strong>
+            </div>
+        </div>
+    </section>
+    <br><br>
+
+<section class="school-card">
+     <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Exam Date</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Max Marks</th>
+                            <th>Exam Syllabus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Telugu</td>
+                            <td>5 Nov 2026</td>
+                            <td>10:00 AM</td>
+                            <td>12:00 PM</td>
+                            <td>35</td>
+                            <td>Unit 1</td>
+                        </tr>
+
+                        <tr>
+                            <td>English</td>
+                            <td>6 Nov 2026</td>
+                            <td>10:00 AM</td>
+                            <td>12:00 PM</td>
+                            <td>35</td>
+                            <td>Unit 2</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br><br>
+
+            </div>
+
+    </section>
+
+            
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
