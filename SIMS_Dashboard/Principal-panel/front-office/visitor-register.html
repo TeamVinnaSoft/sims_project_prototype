@@ -1,0 +1,619 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visitor Register | SIMS</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f7fa;
+    color: #263445;
+}
+
+.header {
+    height: 60px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    border-bottom: 1px solid #e5eaf0;
+}
+
+.logo {
+    color: #1765b1;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.global-search {
+    width: 300px;
+    padding: 11px;
+    border: 1px solid #e0e5ed;
+    border-radius: 5px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #344054;
+    font-size: 14px;
+}
+
+.profile-circle {
+    width: 35px;
+    height: 35px;
+    background: #e7efff;
+    color: #1765b1;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 60px);
+}
+
+.sidebar {
+    width: 225px;
+    background: white;
+    border-right: 1px solid #e5eaf0;
+    flex-shrink: 0;
+    padding: 15px 0;
+}
+
+.sidebar a {
+    display: block;
+    text-decoration: none;
+    color: #344054;
+    padding: 13px 20px;
+    font-size: 14px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    color: #4f7fff;
+    background: #f2f6ff;
+}
+
+.sidebar .submenu {
+    padding-left: 35px;
+}
+
+.sidebar .submenu a {
+    padding: 10px 20px;
+    font-size: 13px;
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+    padding: 25px 28px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.page-heading h1 {
+    font-size: 24px;
+    color: #263445;
+}
+
+.breadcrumb {
+    color: #8a96a6;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.add-btn {
+    background: #4f7fff;
+    color: white;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.filter-panel {
+    background: white;
+    padding: 17px;
+    border: 1px solid #edf0f4;
+    border-radius: 5px;
+    margin-bottom: 22px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.2fr auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.filter-panel input,
+.filter-panel select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #e1e5eb;
+    border-radius: 4px;
+    color: #667085;
+    background: white;
+    font-size: 13px;
+}
+
+.filter-btn {
+    background: #4f7fff;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.clear-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #667085;
+    padding: 10px;
+    border: 1px solid #dce2e9;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.new-visitors {
+    color: #f04444;
+    font-size: 14px;
+    margin: 5px 0 12px;
+}
+
+.visitor-card {
+    background: white;
+    border: 1px solid #edf0f4;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin-bottom: 16px;
+    display: grid;
+    grid-template-columns: 155px minmax(250px, 1fr) 230px;
+    gap: 20px;
+    align-items: center;
+}
+
+.visitor-status {
+    border: 1px solid #edf0f4;
+    border-radius: 4px;
+    text-align: center;
+    padding: 13px 8px;
+    font-size: 13px;
+    color: #667085;
+}
+
+.status-icon {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.pending-icon {
+    color: #e6a700;
+}
+
+.urgent-icon {
+    color: #ff4545;
+}
+
+.met-icon {
+    color: #28a745;
+}
+
+.called-icon {
+    color: #4f7fff;
+}
+
+.visitor-info {
+    min-width: 0;
+}
+
+.visitor-name {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-bottom: 8px;
+}
+
+.visitor-name h3 {
+    font-size: 15px;
+    color: #202b3a;
+}
+
+.visitor-type,
+.phone {
+    background: #f3f5f8;
+    padding: 5px 8px;
+    font-size: 12px;
+    color: #526174;
+}
+
+.visitor-detail {
+    color: #667085;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.visitor-detail strong {
+    color: #526174;
+    font-weight: 500;
+}
+
+.visitor-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.follow-up {
+    padding: 6px 10px;
+    color: white;
+    font-size: 11px;
+    background: #ffb900;
+}
+
+.follow-up.urgent {
+    background: #ff4949;
+}
+
+.follow-up.met {
+    background: #65bd17;
+}
+
+.follow-up.called {
+    background: #4f7fff;
+}
+
+.action-buttons {
+    display: flex;
+}
+
+.action-buttons a {
+    text-decoration: none;
+    border: 1px solid #dce2e9;
+    padding: 11px 13px;
+    color: #4f7fff;
+    font-size: 12px;
+    background: white;
+}
+
+.action-buttons .mark {
+    background: #65bd17;
+    color: white;
+    border-color: #65bd17;
+}
+
+.action-buttons .notes {
+    color: #667085;
+}
+
+.action-buttons .resolve {
+    color: #65bd17;
+}
+
+.note {
+    color: #8995a5;
+    font-size: 12px;
+    margin-top: 18px;
+}
+
+@media(max-width: 1100px) {
+    .filter-panel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .visitor-card {
+        grid-template-columns: 120px 1fr;
+    }
+
+    .visitor-actions {
+        grid-column: 2;
+        align-items: flex-start;
+    }
+}
+
+@media(max-width: 700px) {
+    .header {
+        height: auto;
+        padding: 12px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .header-right {
+        width: 100%;
+    }
+
+    .global-search {
+        width: 100%;
+    }
+
+    .layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main {
+        padding: 15px;
+    }
+
+    .filter-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .visitor-card {
+        grid-template-columns: 1fr;
+        gap: 13px;
+    }
+
+    .visitor-actions {
+        grid-column: auto;
+    }
+
+    .visitor-status {
+        max-width: 150px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">SIMS</div>
+
+    <div class="header-right">
+        <input class="global-search" type="text"
+               placeholder="Search by name / email / mobile no.">
+
+        <div class="profile">
+            <div class="profile-circle">D2</div>
+            <span>sharath</span>
+        </div>
+    </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+    <a href="../dashboard.html">♙ &nbsp; Students</a>
+    <a href="#">♟ &nbsp; Staff</a>
+    <a href="../finance/finance-summary.html">▣ &nbsp; Finance</a>
+    <a href="#">▣ &nbsp; Communication</a>
+
+    <a href="visitor-register.html" class="active">
+        ♧ &nbsp; Front Office
+    </a>
+
+    <div class="submenu">
+        <a href="visitor-register.html" class="active">
+            • &nbsp; Visitor Register
+        </a>
+        <a href="appointments.html">
+            • &nbsp; Appointments
+        </a>
+    </div>
+
+    <a href="#">♜ &nbsp; Transportation</a>
+    <a href="#">▦ &nbsp; Reports</a>
+    <a href="#">◎ &nbsp; Website</a>
+    <a href="#">⇥ &nbsp; Logout</a>
+
+</aside>
+
+<main class="main">
+
+    <div class="page-heading">
+        <div>
+            <h1>Visitor Register</h1>
+            <div class="breadcrumb">Front Office / Visitor Register</div>
+        </div>
+
+        <a href="new-visitor.html" class="add-btn">
+            + Add New Visitor
+        </a>
+    </div>
+
+    <section class="filter-panel">
+
+        <input type="text"
+               placeholder="Search by name, phone, or purpose...">
+
+        <select>
+            <option>All Purposes</option>
+            <option>Parent Meeting</option>
+            <option>Official Visit</option>
+            <option>Vendor Visit</option>
+            <option>Admission Enquiry</option>
+            <option>Other</option>
+        </select>
+
+        <select>
+            <option>All Status</option>
+            <option>Pending</option>
+            <option>Urgent</option>
+            <option>Met</option>
+            <option>Called</option>
+        </select>
+
+        <input type="date" value="2026-09-23">
+
+        <button class="filter-btn" type="button">Search</button>
+
+    </section>
+
+    <p class="new-visitors">No new visitors.</p>
+
+    <!-- Visitor 1 -->
+    <section class="visitor-card">
+
+        <div class="visitor-status">
+            <span class="status-icon pending-icon">◷</span>
+            Pending
+        </div>
+
+        <div class="visitor-info">
+            <div class="visitor-name">
+                <h3>Mrs. Lakshmi Prasanna</h3>
+                <span class="visitor-type">Parent</span>
+                <span class="phone">☎ +91 98765 43210</span>
+            </div>
+
+            <div class="visitor-detail">
+                ▤ <strong>Purpose:</strong> Wanted to discuss Class 8-A daughter's progress<br>
+                ▣ 23 Sep 2026 &nbsp; ◷ 10:15 AM<br>
+                ♟ Principal in class &nbsp; &nbsp; Logged by: Ms. Swathi (Front Office)
+            </div>
+        </div>
+
+        <div class="visitor-actions">
+            <span class="follow-up">Pending Follow-up</span>
+            <div class="action-buttons">
+                <a href="#" class="mark">✓ Mark Met</a>
+                <a href="#">☎ Call</a>
+                <a href="#">⋮</a>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Visitor 2 -->
+    <section class="visitor-card">
+
+        <div class="visitor-status">
+            <span class="status-icon urgent-icon">!</span>
+            Urgent
+        </div>
+
+        <div class="visitor-info">
+            <div class="visitor-name">
+                <h3>Mr. K. Srinivas</h3>
+                <span class="visitor-type">District Education Officer</span>
+                <span class="phone">☎ +91 91234 56789</span>
+            </div>
+
+            <div class="visitor-detail">
+                ▤ <strong>Purpose:</strong> Annual inspection notice handover<br>
+                ▣ 23 Sep 2026 &nbsp; ◷ 11:45 AM<br>
+                ♟ Principal in meeting &nbsp; &nbsp; Logged by: Ms. Swathi (Front Office)
+            </div>
+        </div>
+
+        <div class="visitor-actions">
+            <span class="follow-up urgent">Pending Follow-up</span>
+            <div class="action-buttons">
+                <a href="#" class="mark">✓ Mark Met</a>
+                <a href="#">☎ Call</a>
+                <a href="#">⋮</a>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Visitor 3 -->
+    <section class="visitor-card">
+
+        <div class="visitor-status">
+            <span class="status-icon met-icon">●</span>
+            Met
+        </div>
+
+        <div class="visitor-info">
+            <div class="visitor-name">
+                <h3>Mr. Venkat Rao</h3>
+                <span class="visitor-type">Vendor</span>
+                <span class="phone">☎ +91 99887 76655</span>
+            </div>
+
+            <div class="visitor-detail">
+                ▤ <strong>Purpose:</strong> Library books supply quotation<br>
+                ▣ 23 Sep 2026 &nbsp; ◷ 09:30 AM<br>
+                ♟ Met at 02:15 PM &nbsp; &nbsp; Logged by: Mr. Ravi (Receptionist)
+            </div>
+        </div>
+
+        <div class="visitor-actions">
+            <span class="follow-up met">Met Principal</span>
+            <div class="action-buttons">
+                <a href="#">◉ View</a>
+                <a href="#" class="notes">▤ Notes</a>
+                <a href="#">⋮</a>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Visitor 4 -->
+    <section class="visitor-card">
+
+        <div class="visitor-status">
+            <span class="status-icon called-icon">☎</span>
+            Called
+        </div>
+
+        <div class="visitor-info">
+            <div class="visitor-name">
+                <h3>Mr. Ravi Kumar</h3>
+                <span class="visitor-type">Parent</span>
+                <span class="phone">☎ +91 90000 12345</span>
+            </div>
+
+            <div class="visitor-detail">
+                ▤ <strong>Purpose:</strong> Admission enquiry for Class 6 son<br>
+                ▣ 22 Sep 2026 &nbsp; ◷ 03:45 PM<br>
+                ♟ Principal out of station &nbsp; &nbsp; Logged by: Ms. Swathi (Front Office)
+            </div>
+        </div>
+
+        <div class="visitor-actions">
+            <span class="follow-up called">Called Back</span>
+            <div class="action-buttons">
+                <a href="#">◉ View</a>
+                <a href="#" class="resolve">✓ Resolve</a>
+                <a href="#">⋮</a>
+            </div>
+        </div>
+
+    </section>
+
+    <p class="note">
+        Note: Visitor records and actions are sample data for the prototype.
+        Search and action buttons are not connected to a backend.
+    </p>
+
+</main>
+</div>
+
+</body>
+</html>

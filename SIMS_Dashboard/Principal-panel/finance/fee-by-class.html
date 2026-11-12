@@ -1,0 +1,651 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fee by Class | SIMS</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6fa;
+    color: #293344;
+}
+
+.header {
+    height: 70px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    border-bottom: 1px solid #e5e8ef;
+}
+
+.logo {
+    color: #3158c9;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.search-area {
+    display: flex;
+    width: 48%;
+}
+
+.search-area input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e4ec;
+}
+
+.search-area button {
+    padding: 12px 25px;
+    background: #4c7cf5;
+    color: white;
+    border: none;
+}
+
+.profile {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 250px;
+    height: calc(100vh - 70px);
+    background: white;
+    border-right: 1px solid #e5e8ef;
+    overflow-y: auto;
+}
+
+.sidebar a {
+    display: block;
+    padding: 14px 22px;
+    color: #303846;
+    text-decoration: none;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f1f4;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    color: #4778f5;
+    background: #f3f6ff;
+}
+
+.submenu a {
+    padding: 11px 55px;
+    border: none;
+    font-size: 13px;
+}
+
+.submenu a.active {
+    color: #4778f5;
+    font-weight: bold;
+}
+
+/* MAIN */
+.main {
+    margin-left: 250px;
+    padding: 95px 25px 30px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.page-heading h1 {
+    font-size: 27px;
+    color: #202938;
+}
+
+.breadcrumb {
+    color: #8993a3;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.breadcrumb span {
+    color: #4778f5;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+select, input {
+    padding: 10px;
+    border: 1px solid #dce1e9;
+    background: white;
+    border-radius: 4px;
+}
+
+.btn {
+    padding: 11px 18px;
+    background: #4c7cf5;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* SUMMARY CARDS */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 23px;
+}
+
+.card {
+    background: white;
+    padding: 21px;
+    border: 1px solid #e9edf3;
+    border-radius: 7px;
+    box-shadow: 0 2px 7px rgba(30,50,90,.04);
+}
+
+.card p {
+    color: #7d8796;
+    font-size: 13px;
+}
+
+.card h2 {
+    margin: 14px 0 7px;
+    font-size: 25px;
+}
+
+.card small {
+    color: #929baa;
+    font-size: 12px;
+}
+
+.green { color: #20a779; }
+.orange { color: #e99a35; }
+.blue { color: #4778f5; }
+.red { color: #e05e67; }
+
+/* FILTERS */
+.filter-section {
+    background: white;
+    border: 1px solid #e9edf3;
+    border-radius: 7px;
+    padding: 20px;
+    margin-bottom: 22px;
+}
+
+.filter-section h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+.filter-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.filter-row input {
+    flex: 1;
+    min-width: 180px;
+}
+
+.filter-row select {
+    min-width: 150px;
+}
+
+/* TABLE */
+.table-section {
+    background: white;
+    border: 1px solid #e9edf3;
+    border-radius: 7px;
+    padding: 22px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.section-heading h3 {
+    font-size: 17px;
+}
+
+.section-heading span {
+    color: #8993a3;
+    font-size: 12px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 750px;
+}
+
+th {
+    text-align: left;
+    color: #788392;
+    background: #f8f9fc;
+    font-size: 12px;
+    padding: 14px;
+}
+
+td {
+    padding: 15px 14px;
+    border-bottom: 1px solid #eef0f4;
+    font-size: 13px;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.paid {
+    color: #16865e;
+    background: #e6f7ef;
+}
+
+.partial {
+    color: #bd801f;
+    background: #fff4df;
+}
+
+.pending {
+    color: #d0525b;
+    background: #ffebed;
+}
+
+.progress {
+    width: 100px;
+    height: 7px;
+    background: #edf0f5;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 7px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #20a779;
+    border-radius: 10px;
+}
+
+.footer {
+    text-align: center;
+    color: #929baa;
+    font-size: 12px;
+    padding: 25px 10px;
+}
+
+@media(max-width:1100px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width:700px) {
+    .sidebar {
+        width: 190px;
+    }
+
+    .main {
+        margin-left: 190px;
+        padding: 90px 15px 25px;
+    }
+
+    .search-area {
+        display: none;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="logo">✦ SIMS</div>
+
+    <div class="search-area">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button>Search</button>
+    </div>
+
+    <div class="profile">👤 &nbsp; Dev 2 &nbsp;⌄</div>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <a href="../dashboard.html">⌂ &nbsp; Dashboard</a>
+    <a href="#">▰ &nbsp; Approval requests</a>
+    <a href="../live-status.html">◉ &nbsp; Classes Live Status</a>
+    <a href="#">▦ &nbsp; Academics</a>
+    <a href="#">♙ &nbsp; Students</a>
+    <a href="#">♟ &nbsp; Staff</a>
+
+    <a href="finance-summary.html" class="active">▣ &nbsp; Finance</a>
+
+    <div class="submenu">
+        <a href="finance-summary.html">• &nbsp; Summary</a>
+        <a href="fee-by-class.html" class="active">• &nbsp; Fee by Class</a>
+        <a href="fee-by-component.html">• &nbsp; Fee by Component</a>
+        <a href="expenditures.html">• &nbsp; Expenditures</a>
+        <a href="finance-search.html">• &nbsp; Search</a>
+    </div>
+
+    <a href="#">▣ &nbsp; Communication</a>
+    <a href="#">♧ &nbsp; Front Office</a>
+    <a href="#">♜ &nbsp; Transportation</a>
+    <a href="#">▦ &nbsp; Reports</a>
+    <a href="#">▤ &nbsp; Website</a>
+    <a href="#">↪ &nbsp; Logout</a>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+    <div class="page-heading">
+        <div>
+            <h1>Fee by Class</h1>
+            <div class="breadcrumb">
+                ⌂ &nbsp; / Dashboard / Finance / <span>Fee by Class</span>
+            </div>
+        </div>
+
+        <div class="actions">
+            <select>
+                <option>2026–2027</option>
+                <option>2025–2026</option>
+            </select>
+
+            <a href="finance-summary.html" class="btn">Back to Summary</a>
+        </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="summary-grid">
+
+        <div class="card">
+            <p>Total Fee Amount</p>
+            <h2 class="blue">₹12,50,000</h2>
+            <small>All classes combined</small>
+        </div>
+
+        <div class="card">
+            <p>Total Fee Collected</p>
+            <h2 class="green">₹9,00,000</h2>
+            <small>Amount received from students</small>
+        </div>
+
+        <div class="card">
+            <p>Total Pending Amount</p>
+            <h2 class="orange">₹3,50,000</h2>
+            <small>Amount yet to be collected</small>
+        </div>
+
+    </div>
+
+    <!-- FILTER SECTION -->
+    <section class="filter-section">
+
+        <h3>Filter Class-wise Fee Details</h3>
+
+        <div class="filter-row">
+            <input type="text" placeholder="Search class...">
+
+            <select>
+                <option>All Classes</option>
+                <option>Class 1</option>
+                <option>Class 2</option>
+                <option>Class 3</option>
+                <option>Class 4</option>
+                <option>Class 5</option>
+                <option>Class 6</option>
+                <option>Class 7</option>
+                <option>Class 8</option>
+                <option>Class 9</option>
+                <option>Class 10</option>
+            </select>
+
+            <select>
+                <option>All Payment Status</option>
+                <option>Fully Paid</option>
+                <option>Partially Paid</option>
+                <option>Pending</option>
+            </select>
+
+            <a href="fee-by-class.html" class="btn">View</a>
+        </div>
+
+    </section>
+
+    <!-- CLASS-WISE FEE TABLE -->
+    <section class="table-section">
+
+        <div class="section-heading">
+            <h3>Class-wise Fee Details</h3>
+            <span>Academic Year: 2026–2027</span>
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Students</th>
+                        <th>Total Fee</th>
+                        <th>Collected</th>
+                        <th>Pending</th>
+                        <th>Collection</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Class 1</td>
+                        <td>25</td>
+                        <td>₹1,25,000</td>
+                        <td class="green">₹1,00,000</td>
+                        <td class="orange">₹25,000</td>
+                        <td>
+                            80%
+                            <div class="progress">
+                                <div class="progress-fill" style="width:80%"></div>
+                            </div>
+                        </td>
+                        <td><span class="status paid">Good</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Class 2</td>
+                        <td>24</td>
+                        <td>₹1,20,000</td>
+                        <td class="green">₹95,000</td>
+                        <td class="orange">₹25,000</td>
+                        <td>
+                            79%
+                            <div class="progress">
+                                <div class="progress-fill" style="width:79%"></div>
+                            </div>
+                        </td>
+                        <td><span class="status paid">Good</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Class 3</td>
+                        <td>26</td>
+                        <td>₹1,30,000</td>
+                        <td class="green">₹1,00,000</td>
+                        <td class="orange">₹30,000</td>
+                        <td>
+                            77%
+                            <div class="progress">
+                                <div class="progress-fill" style="width:77%"></div>
+                            </div>
+                        </td>
+                        <td><span class="status paid">Good</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Class 4</td>
+                        <td>25</td>
+                        <td>₹1,25,000</td>
+                        <td class="green">₹90,000</td>
+                        <td class="orange">₹35,000</td>
+                        <td>
+                            72%
+                            <div class="progress">
+                                <div class="progress-fill" style="width:72%"></div>
+                            </div>
+                        </td>
+                        <td><span class="status partial">Partial</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Class 5</td>
+                        <td>24</td>
+                        <td>₹1,20,000</td>
+                        <td class="green">₹75,000</td>
+                        <td class="orange">₹45,000</td>
+                        <td>
+                            63%
+                            <div class="progress">
+                                <div class="progress-fill" style="width:63%"></div>
+                            </div>
+                        </td>
+                        <td><span class="status partial">Partial</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Class 6</td>
+                        <td>26</td>
+                        <td>₹1,30,000</td>
+                        <td class="green">₹95,000</td>
+                        <td class="orange">₹35,000</td>
+                        <td>
+                            73%
+                            <div class="progress">
+                                <div class="progress-fill" style="width:73%"></div>
+                            </div>
+                        </td>
+                        <td><span class="status partial">Partial</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Class 7</td>
+                        <td>25</td>
+                        <td>₹1,25,000</td>
+                        <td class="green">₹90,000</td>
+                        <td class="orange">₹35,000</td>
+                        <td>
+                            72%
+                            <div class="progress">
+                                <div class="progress-fill" style="width:72%"></div>
+                            </div>
+                        </td>
+                        <td><span class="status partial">Partial</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Class 8</td>
+                        <td>25</td>
+                        <td>₹1,25,000</td>
+                        <td class="green">₹80,000</td>
+                        <td class="orange">₹45,000</td>
+                        <td>
+                            64%
+                            <div class="progress">
+                                <div class="progress-fill" style="width:64%"></div>
+                            </div>
+                        </td>
+                        <td><span class="status partial">Partial</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Class 9</td>
+                        <td>25</td>
+                        <td>₹1,25,000</td>
+                        <td class="green">₹75,000</td>
+                        <td class="orange">₹50,000</td>
+                        <td>
+                            60%
+                            <div class="progress">
+                                <div class="progress-fill" style="width:60%"></div>
+                            </div>
+                        </td>
+                        <td><span class="status pending">Needs Attention</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Class 10</td>
+                        <td>25</td>
+                        <td>₹1,25,000</td>
+                        <td class="green">₹1,00,000</td>
+                        <td class="orange">₹25,000</td>
+                        <td>
+                            80%
+                            <div class="progress">
+                                <div class="progress-fill" style="width:80%"></div>
+                            </div>
+                        </td>
+                        <td><span class="status paid">Good</span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        © 2026 SIMS - School Information Management System
+    </footer>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,530 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMS - Admission Requests</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f4f6;
+    color: #222;
+}
+
+.header {
+    height: 65px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #3158cf;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-right input {
+    width: 300px;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.header-right button {
+    padding: 12px 25px;
+    background: #4d7df5;
+    color: white;
+    border: none;
+}
+
+.profile {
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.sidebar {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    width: 225px;
+    height: calc(100vh - 65px);
+    background: white;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+}
+
+.sidebar a {
+    display: block;
+    padding: 14px 20px;
+    color: #222;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    color: #4d7df5;
+}
+
+.submenu a {
+    padding: 10px 35px;
+    border: none;
+}
+
+.main {
+    margin-left: 225px;
+    padding: 30px 25px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.page-heading h1 {
+    font-size: 27px;
+}
+
+.breadcrumb {
+    color: #777;
+    font-size: 14px;
+}
+
+.breadcrumb span {
+    color: #4d7df5;
+}
+
+.go-back {
+    color: #4d7df5;
+    text-decoration: none;
+}
+
+.filter-box {
+    background: white;
+    padding: 25px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 5px #ddd;
+}
+
+.filter-box input,
+.filter-box select {
+    height: 46px;
+    padding: 0 15px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: #777;
+    background: white;
+    font-size: 14px;
+}
+
+.search-field {
+    flex: 2;
+    min-width: 220px;
+}
+
+.filter-box select {
+    flex: 1;
+    min-width: 130px;
+}
+
+.filter-btn {
+    height: 46px;
+    min-width: 145px;
+    background: white;
+    border: 1px solid #999;
+    cursor: pointer;
+}
+
+.table-container {
+    background: white;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 950px;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #e9ecef;
+}
+
+th {
+    text-align: left;
+    padding: 16px 14px;
+    font-size: 15px;
+}
+
+td {
+    padding: 17px 14px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.applicant {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.blue { background: #4d7df5; }
+.purple { background: #8055e8; }
+.green { background: #69bd13; }
+.gray { background: #777; }
+.orange { background: #f39c35; }
+
+.name {
+    font-weight: bold;
+}
+
+.details {
+    color: #777;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.class-badge {
+    background: #f1f2f4;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.parent-name {
+    font-size: 13px;
+}
+
+.phone {
+    color: #777;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.status {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 20px;
+    color: white;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.pending { background: #ffb900; color: #222; }
+.review { background: #7955df; }
+.approved { background: #69bd13; }
+.waitlisted { background: #777; }
+.rejected { background: #e44b4b; }
+
+.view-btn {
+    display: inline-block;
+    padding: 9px 15px;
+    border: 1px solid #4d7df5;
+    color: #4d7df5;
+    background: white;
+    border-radius: 3px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.view-btn:hover {
+    background: #4d7df5;
+    color: white;
+}
+
+@media(max-width: 900px) {
+    .sidebar { width: 180px; }
+    .main { margin-left: 180px; }
+}
+
+@media(max-width: 650px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 18px 12px;
+    }
+
+    .header {
+        height: auto;
+        padding: 15px;
+        flex-wrap: wrap;
+    }
+
+    .filter-box input,
+    .filter-box select,
+    .filter-btn {
+        width: 100%;
+        flex: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">✦ SIMS</div>
+
+    <div class="header-right">
+        <input type="text" placeholder="Search by name / email / mobile no.">
+        <button>Search</button>
+        <div class="profile">👤 &nbsp; sharath &nbsp;⌄</div>
+    </div>
+</header>
+
+<aside class="sidebar">
+
+    <a href="../dashboard.html">⌂ &nbsp; Dashboard</a>
+    <a href="#">▰ &nbsp; Approval requests</a>
+    <a href="../live-status.html">◉ &nbsp; Classes Live Status</a>
+    <a href="#">▦ &nbsp; Academics</a>
+
+    <a href="#" class="active">♙ &nbsp; Students</a>
+
+    <div class="submenu">
+        <a href="view-all.html">• &nbsp; View all</a>
+        <a href="leave-request.html">• &nbsp; Leave Requests</a>
+        <a href="concessions-map.html">• &nbsp; Concessions map</a>
+        <a href="new-admission.html">• &nbsp; New admission</a>
+        <a href="admission-requests.html" class="active">• &nbsp; Admission requests</a>
+    </div>
+
+    <a href="#">♟ &nbsp; Staff</a>
+    <a href="#">▣ &nbsp; Finance</a>
+    <a href="#">▰ &nbsp; Communication</a>
+    <a href="#">♧ &nbsp; Front Office</a>
+    <a href="#">♜ &nbsp; Transportation</a>
+    <a href="#">▦ &nbsp; Reports</a>
+    <a href="#">Website</a>
+    <a href="#">Logout</a>
+
+</aside>
+
+<main class="main">
+
+    <div class="page-heading">
+        <h1>Admission requests</h1>
+
+        <div class="breadcrumb">
+            ⌂ &nbsp; / Dashboard / <span>Admission requests</span>
+        </div>
+    </div>
+
+    <section class="filter-box">
+
+        <input class="search-field" type="text"
+        placeholder="⌕ Search by student name, application no., or parent">
+
+        <select>
+            <option>All Classes</option>
+            <option>1st Class</option>
+            <option>2nd Class</option>
+            <option>3rd Class</option>
+            <option>4th Class</option>
+            <option>5th Class</option>
+            <option>6th Class</option>
+            <option>7th Class</option>
+            <option>8th Class</option>
+            <option>9th Class</option>
+            <option>10th Class</option>
+        </select>
+
+        <select>
+            <option>All Status</option>
+            <option>Pending</option>
+            <option>Under Review</option>
+            <option>Approved</option>
+            <option>Waitlisted</option>
+            <option>Rejected</option>
+        </select>
+
+        <select>
+            <option>All Sources</option>
+            <option>Online Portal</option>
+            <option>Walk-in</option>
+            <option>Referral</option>
+        </select>
+
+        <button class="filter-btn">☰ &nbsp; Filter</button>
+
+    </section>
+
+    <section class="table-container">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Applicant</th>
+                    <th>Application No.</th>
+                    <th>Class</th>
+                    <th>Parent / Guardian</th>
+                    <th>Applied On</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>
+                        <div class="applicant">
+                            <div class="avatar blue">AS</div>
+                            <div>
+                                <div class="name">Aarav Sharma</div>
+                                <div class="details">Male · Age 6</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>ADM/2026/1042</td>
+                    <td><span class="class-badge">1st Class</span></td>
+                    <td>
+                        <div class="parent-name">Rakesh Sharma</div>
+                        <div class="phone">☎ +91 98xxxx 12345</div>
+                    </td>
+                    <td>22 Sep 2026</td>
+                    <td><span class="status pending">◷ Pending</span></td>
+                    <td>
+                        <a href="admission-details-aarav.html" class="view-btn">◉ View</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="applicant">
+                            <div class="avatar purple">BR</div>
+                            <div>
+                                <div class="name">Bhavya Reddy</div>
+                                <div class="details">Female · Age 10</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>ADM/2026/1041</td>
+                    <td><span class="class-badge">5th Class</span></td>
+                    <td>
+                        <div class="parent-name">Srinivas Reddy</div>
+                        <div class="phone">☎ +91 98xxxx 23456</div>
+                    </td>
+                    <td>21 Sep 2026</td>
+                    <td><span class="status review">♙ Under Review</span></td>
+                    <td><a href="#" class="view-btn">◉ View</a></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="applicant">
+                            <div class="avatar green">CK</div>
+                            <div>
+                                <div class="name">Charan Kumar</div>
+                                <div class="details">Male · Age 11</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>ADM/2026/1040</td>
+                    <td><span class="class-badge">6th Class</span></td>
+                    <td>
+                        <div class="parent-name">Mahesh Kumar</div>
+                        <div class="phone">☎ +91 98xxxx 34567</div>
+                    </td>
+                    <td>20 Sep 2026</td>
+                    <td><span class="status approved">✓ Approved</span></td>
+                    <td><a href="#" class="view-btn">◉ View</a></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="applicant">
+                            <div class="avatar gray">DP</div>
+                            <div>
+                                <div class="name">Divya Patel</div>
+                                <div class="details">Female · Age 9</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>ADM/2026/1039</td>
+                    <td><span class="class-badge">4th Class</span></td>
+                    <td>
+                        <div class="parent-name">Nilesh Patel</div>
+                        <div class="phone">☎ +91 98xxxx 45678</div>
+                    </td>
+                    <td>20 Sep 2026</td>
+                    <td><span class="status waitlisted">♟ Waitlisted</span></td>
+                    <td><a href="#" class="view-btn">◉ View</a></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="applicant">
+                            <div class="avatar blue">EV</div>
+                            <div>
+                                <div class="name">Eshan Verma</div>
+                                <div class="details">Male · Age 7</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>ADM/2026/1038</td>
+                    <td><span class="class-badge">2nd Class</span></td>
+                    <td>
+                        <div class="parent-name">Rajesh Verma</div>
+                        <div class="phone">☎ +91 98xxxx 56789</div>
+                    </td>
+                    <td>19 Sep 2026</td>
+                    <td><span class="status pending">◷ Pending</span></td>
+                    <td><a href="#" class="view-btn">◉ View</a></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </section>
+
+</main>
+
+</body>
+</html>

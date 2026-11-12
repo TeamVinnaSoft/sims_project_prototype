@@ -1,0 +1,583 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance Search | SIMS</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fc;
+    color: #263445;
+}
+
+.header {
+    height: 65px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    border-bottom: 1px solid #e5eaf2;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #1765b1;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.search {
+    width: 280px;
+    padding: 10px 14px;
+    border: 1px solid #dce3ed;
+    border-radius: 6px;
+}
+
+.profile {
+    background: #e8f1fc;
+    color: #1765b1;
+    padding: 10px 14px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 65px);
+}
+
+.sidebar {
+    width: 225px;
+    background: white;
+    padding: 20px 12px;
+    border-right: 1px solid #e5eaf2;
+    flex-shrink: 0;
+}
+
+.sidebar a {
+    display: block;
+    text-decoration: none;
+    color: #526174;
+    padding: 12px 14px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #eaf3ff;
+    color: #1765b1;
+}
+
+.submenu {
+    display: block;
+    margin-left: 15px;
+}
+
+.submenu a {
+    font-size: 13px;
+    padding: 10px 12px;
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+    padding: 28px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.page-heading h1 {
+    font-size: 25px;
+    margin-bottom: 7px;
+}
+
+.breadcrumb {
+    color: #8793a3;
+    font-size: 13px;
+}
+
+.back-link {
+    background: #1765b1;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.search-panel {
+    background: white;
+    padding: 22px;
+    border-radius: 9px;
+    border: 1px solid #e8edf4;
+    margin-bottom: 22px;
+}
+
+.search-panel h2 {
+    font-size: 18px;
+    margin-bottom: 18px;
+}
+
+.search-fields {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.field label {
+    display: block;
+    font-size: 13px;
+    color: #526174;
+    margin-bottom: 8px;
+}
+
+.field input,
+.field select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #dce3ed;
+    border-radius: 5px;
+    background: white;
+    color: #526174;
+}
+
+.search-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.search-btn,
+.reset-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.search-btn {
+    background: #1765b1;
+    color: white;
+}
+
+.reset-btn {
+    background: #edf2f8;
+    color: #526174;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 17px;
+    margin-bottom: 22px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 9px;
+    border: 1px solid #e8edf4;
+    border-left: 4px solid #1765b1;
+}
+
+.card p {
+    color: #78869a;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.card h2 {
+    font-size: 23px;
+    color: #263445;
+}
+
+.table-section {
+    background: white;
+    border-radius: 9px;
+    border: 1px solid #e8edf4;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.table-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.table-heading h2 {
+    font-size: 18px;
+}
+
+.table-heading span {
+    color: #8995a5;
+    font-size: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 850px;
+}
+
+th, td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid #edf0f5;
+    font-size: 13px;
+}
+
+th {
+    color: #718096;
+    background: #f8fafd;
+    font-weight: 600;
+}
+
+td {
+    color: #465468;
+}
+
+.student-name {
+    color: #1765b1;
+    font-weight: bold;
+}
+
+.status {
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.success {
+    background: #e5f7ed;
+    color: #23834d;
+}
+
+.waiting {
+    background: #fff2dc;
+    color: #b7791f;
+}
+
+.view-link {
+    color: #1765b1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.note {
+    margin-top: 15px;
+    color: #8995a5;
+    font-size: 12px;
+}
+
+@media(max-width: 1000px) {
+    .sidebar {
+        width: 190px;
+    }
+
+    .search-fields {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 650px) {
+    .header {
+        height: auto;
+        padding: 12px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .header-right {
+        width: 100%;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main {
+        padding: 16px;
+    }
+
+    .search-fields,
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">SIMS</div>
+    <div class="header-right">
+        <input class="search" type="text"
+               placeholder="Search by name / email / mobile no.">
+        <div class="profile">D2</div>
+    </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+    <a href="../dashboard.html">▦ Dashboard</a>
+    <a href="#">▣ Approval Requests</a>
+    <a href="../live-status.html">◷ Classes Live Status</a>
+    <a href="#">▤ Academics</a>
+    <a href="../students/view-all.html">♙ Students</a>
+    <a href="#">♧ Staff</a>
+
+    <a href="finance-summary.html">▣ Finance</a>
+    <div class="submenu">
+        <a href="finance-summary.html">Summary</a>
+        <a href="fee-by-class.html">Fee by Class</a>
+        <a href="fee-by-component.html">Fee by Component</a>
+        <a href="expenditures.html">Expenditures</a>
+        <a href="finance-search.html" class="active">Search</a>
+    </div>
+
+    <a href="#">▧ Communication</a>
+    <a href="#">▤ Front Office</a>
+    <a href="#">▣ Transportation</a>
+    <a href="#">▥ Reports</a>
+    <a href="#">▧ Website</a>
+    <a href="#">↪ Logout</a>
+</aside>
+
+<main class="main">
+
+    <div class="page-heading">
+        <div>
+            <h1>Finance Search</h1>
+            <div class="breadcrumb">Finance / Search</div>
+        </div>
+
+        <a href="finance-summary.html" class="back-link">
+            Back to Summary
+        </a>
+    </div>
+
+    <section class="search-panel">
+        <h2>Search Fee Transactions</h2>
+
+        <div class="search-fields">
+
+            <div class="field">
+                <label>Student Name</label>
+                <input type="text" placeholder="Enter student name">
+            </div>
+
+            <div class="field">
+                <label>Receipt Number</label>
+                <input type="text" placeholder="Enter receipt number">
+            </div>
+
+            <div class="field">
+                <label>Class</label>
+                <select>
+                    <option>All Classes</option>
+                    <option>Class 1</option>
+                    <option>Class 2</option>
+                    <option>Class 3</option>
+                    <option>Class 4</option>
+                    <option>Class 5</option>
+                    <option>Class 6</option>
+                    <option>Class 7</option>
+                    <option>Class 8</option>
+                    <option>Class 9</option>
+                    <option>Class 10</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Payment Status</label>
+                <select>
+                    <option>All Status</option>
+                    <option>Paid</option>
+                    <option>Partial</option>
+                    <option>Pending</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>From Date</label>
+                <input type="date">
+            </div>
+
+            <div class="field">
+                <label>To Date</label>
+                <input type="date">
+            </div>
+
+        </div>
+
+        <div class="search-actions">
+            <button class="search-btn" type="button">Search</button>
+            <button class="reset-btn" type="reset">Reset</button>
+        </div>
+    </section>
+
+    <section class="cards">
+        <div class="card">
+            <p>Total Transactions</p>
+            <h2>250</h2>
+        </div>
+
+        <div class="card">
+            <p>Successful Payments</p>
+            <h2>175</h2>
+        </div>
+
+        <div class="card">
+            <p>Pending Payments</p>
+            <h2>40</h2>
+        </div>
+    </section>
+
+    <section class="table-section">
+
+        <div class="table-heading">
+            <h2>Fee Transaction Records</h2>
+            <span>Recent payment records</span>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Receipt No.</th>
+                    <th>Student Name</th>
+                    <th>Class</th>
+                    <th>Fee Component</th>
+                    <th>Payment Date</th>
+                    <th>Amount</th>
+                    <th>Payment Mode</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>REC001</td>
+                    <td class="student-name">Aarav Kumar</td>
+                    <td>Class 8</td>
+                    <td>Tuition Fee</td>
+                    <td>10-Nov-2026</td>
+                    <td>₹8,000</td>
+                    <td>Online</td>
+                    <td><span class="status success">Paid</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>REC002</td>
+                    <td class="student-name">Priya Sharma</td>
+                    <td>Class 9</td>
+                    <td>Examination Fee</td>
+                    <td>09-Nov-2026</td>
+                    <td>₹2,000</td>
+                    <td>Cash</td>
+                    <td><span class="status success">Paid</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>REC003</td>
+                    <td class="student-name">Rahul Reddy</td>
+                    <td>Class 10</td>
+                    <td>Transport Fee</td>
+                    <td>08-Nov-2026</td>
+                    <td>₹3,000</td>
+                    <td>Online</td>
+                    <td><span class="status waiting">Partial</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>REC004</td>
+                    <td class="student-name">Ananya Rao</td>
+                    <td>Class 7</td>
+                    <td>Tuition Fee</td>
+                    <td>07-Nov-2026</td>
+                    <td>₹6,000</td>
+                    <td>--</td>
+                    <td><span class="status waiting">Pending</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>REC005</td>
+                    <td class="student-name">Vikram Singh</td>
+                    <td>Class 6</td>
+                    <td>Library Fee</td>
+                    <td>06-Nov-2026</td>
+                    <td>₹500</td>
+                    <td>Online</td>
+                    <td><span class="status success">Paid</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>REC006</td>
+                    <td class="student-name">Meera Reddy</td>
+                    <td>Class 5</td>
+                    <td>Lab Fee</td>
+                    <td>05-Nov-2026</td>
+                    <td>₹1,500</td>
+                    <td>Cash</td>
+                    <td><span class="status success">Paid</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="note">
+            Note: Transaction details are sample data. Search and reset controls are visual placeholders and are not connected to a database.
+        </p>
+
+    </section>
+
+</main>
+</div>
+
+</body>
+</html>
