@@ -1,0 +1,804 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMS - Admission Request Details</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f4f6;
+    color: #252525;
+}
+
+/* HEADER */
+.header {
+    height: 65px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    color: #3158cf;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-right input {
+    width: 300px;
+    padding: 12px;
+    border: 1px solid #eee;
+}
+
+.header-right button {
+    padding: 12px 25px;
+    background: #4d7df5;
+    color: white;
+    border: none;
+}
+
+.profile {
+    margin-left: 25px;
+    font-weight: bold;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    width: 225px;
+    height: calc(100vh - 65px);
+    background: white;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+}
+
+.sidebar a {
+    display: block;
+    padding: 14px 20px;
+    color: #222;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.sidebar a:hover {
+    color: #4d7df5;
+}
+
+.sidebar .submenu a {
+    padding: 10px 35px;
+    border: none;
+}
+
+/* MAIN */
+.main {
+    margin-left: 225px;
+    padding: 30px 25px;
+}
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.page-heading h1 {
+    font-size: 27px;
+}
+
+.breadcrumb {
+    color: #777;
+    font-size: 14px;
+}
+
+.breadcrumb span {
+    color: #4d7df5;
+}
+
+.go-back {
+    color: #4d7df5;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+/* APPLICANT HEADER */
+.applicant-header {
+    background: white;
+    padding: 24px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.applicant-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.avatar {
+    width: 65px;
+    height: 65px;
+    background: #4d7df5;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.applicant-info h2 {
+    font-size: 23px;
+    margin-bottom: 7px;
+}
+
+.application-number {
+    color: #777;
+    font-size: 13px;
+}
+
+.small-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    background: #f2f3f5;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.pending {
+    background: #ffbd00;
+    color: #222;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.action-buttons button {
+    padding: 14px 22px;
+    background: white;
+    border: 1px solid;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.approve {
+    background: #69bd13 !important;
+    color: white;
+    border-color: #69bd13 !important;
+}
+
+.reject {
+    color: #f04444;
+    border-color: #f04444 !important;
+}
+
+.print {
+    color: #555;
+    border-color: #888 !important;
+}
+
+/* CONTENT LAYOUT */
+.details-layout {
+    display: grid;
+    grid-template-columns: 2.1fr 1fr;
+    gap: 20px;
+}
+
+.left-column,
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* CARDS */
+.card {
+    background: white;
+    padding: 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+    font-size: 16px;
+    margin-bottom: 25px;
+    color: #39465a;
+}
+
+.card h3 span {
+    color: #4d7df5;
+    margin-right: 8px;
+}
+
+/* STUDENT DETAILS */
+.detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 35px;
+}
+
+.detail-item label {
+    display: block;
+    font-size: 12px;
+    color: #777;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.detail-item p {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.class-badge {
+    display: inline-block;
+    background: #f1f2f4;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+/* PARENT DETAILS */
+.parent-section {
+    margin-bottom: 25px;
+}
+
+.parent-section:last-child {
+    margin-bottom: 0;
+}
+
+.parent-section h4 {
+    color: #4d7df5;
+    margin-bottom: 15px;
+}
+
+.parent-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+/* SUMMARY */
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 17px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.summary-row span {
+    color: #777;
+}
+
+.summary-row strong {
+    text-align: right;
+    font-size: 13px;
+}
+
+/* SEAT AVAILABILITY */
+.seat-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+.progress {
+    height: 10px;
+    background: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 70%;
+    background: #69bd13;
+    border-radius: 10px;
+}
+
+.seat-note {
+    color: #777;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+/* EXTRA DETAILS */
+.document-list {
+    list-style: none;
+}
+
+.document-list li {
+    padding: 13px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.document-list li:last-child {
+    border-bottom: none;
+}
+
+.uploaded {
+    color: #69bd13;
+    font-size: 12px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+    .details-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 18px 12px;
+    }
+
+    .header {
+        height: auto;
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .header-right {
+        flex-wrap: wrap;
+    }
+
+    .header-right input {
+        width: 180px;
+    }
+
+    .applicant-header {
+        padding: 20px;
+    }
+
+    .detail-grid,
+    .parent-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons button {
+        padding: 11px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="logo">✦ SIMS</div>
+
+    <div class="header-right">
+        <input type="text"
+        placeholder="Search by name / email / mobile no.">
+        <button>Search</button>
+        <div class="profile">👤 &nbsp; sharath &nbsp;⌄</div>
+    </div>
+</header>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <a href="../dashboard.html">⌂ &nbsp; Dashboard</a>
+    <a href="#">▰ &nbsp; Approval requests</a>
+    <a href="../live-status.html">◉ &nbsp; Classes Live Status</a>
+    <a href="#">▦ &nbsp; Academics</a>
+
+    <a href="view-all.html">♙ &nbsp; Students</a>
+
+    <div class="submenu">
+        <a href="view-all.html">• &nbsp; View all</a>
+        <a href="leave-request.html">• &nbsp; Leave Requests</a>
+        <a href="concessions-map.html">• &nbsp; Concessions map</a>
+        <a href="new-admission.html">• &nbsp; New admission</a>
+        <a href="admission-requests.html">• &nbsp; Admission requests</a>
+    </div>
+
+    <a href="#">♟ &nbsp; Staff</a>
+    <a href="#">▣ &nbsp; Finance</a>
+    <a href="#">▰ &nbsp; Communication</a>
+    <a href="#">♧ &nbsp; Front Office</a>
+    <a href="#">♜ &nbsp; Transportation</a>
+    <a href="#">▦ &nbsp; Reports</a>
+    <a href="#">Website</a>
+    <a href="#">Logout</a>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+    <div class="page-heading">
+        <h1>Admission request details</h1>
+
+        <div class="breadcrumb">
+            ⌂ &nbsp; / Admission request / 
+            <span>ADM-2026-1042</span>
+
+            <a href="admission-requests.html" class="go-back">
+                ⊕ Go back
+            </a>
+        </div>
+    </div>
+
+    <!-- APPLICANT HEADER -->
+    <section class="applicant-header">
+
+        <div class="applicant-info">
+
+            <div class="avatar">AS</div>
+
+            <div>
+                <h2>Aarav Sharma</h2>
+
+                <div class="application-number">
+                    # ADM/2026/1042
+
+                    <span class="small-badge pending">
+                        ◷ Pending Review
+                    </span>
+
+                    <span class="small-badge">
+                        ◎ Online Portal
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="action-buttons">
+            <button class="approve">✓ Approve</button>
+            <button class="reject">✕ Reject</button>
+            <button class="print">▣ Print</button>
+        </div>
+
+    </section>
+
+    <!-- DETAILS LAYOUT -->
+    <div class="details-layout">
+
+        <!-- LEFT COLUMN -->
+        <div class="left-column">
+
+            <!-- STUDENT DETAILS -->
+            <section class="card">
+
+                <h3><span>♟</span> Student Details</h3>
+
+                <div class="detail-grid">
+
+                    <div class="detail-item">
+                        <label>Full Name</label>
+                        <p>Aarav Sharma</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Date of Birth</label>
+                        <p>14 August 2020</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Gender</label>
+                        <p>Male</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Blood Group</label>
+                        <p>B+</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Nationality</label>
+                        <p>Indian</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Mother Tongue</label>
+                        <p>Telugu</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Religion</label>
+                        <p>Hindu</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Category</label>
+                        <p>General</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Aadhaar Number</label>
+                        <p>XXXX XXXX 4821</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>Class Applied For</label>
+                        <p><span class="class-badge">1st Class</span></p>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- PARENT DETAILS -->
+            <section class="card">
+
+                <h3><span>♟</span> Parent / Guardian Details</h3>
+
+                <div class="parent-section">
+
+                    <h4>Father Details</h4>
+
+                    <div class="parent-grid">
+
+                        <div class="detail-item">
+                            <label>Father Name</label>
+                            <p>Rakesh Sharma</p>
+                        </div>
+
+                        <div class="detail-item">
+                            <label>Mobile Number</label>
+                            <p>+91 98xxxx 12345</p>
+                        </div>
+
+                        <div class="detail-item">
+                            <label>Email Address</label>
+                            <p>rakesh@example.com</p>
+                        </div>
+
+                        <div class="detail-item">
+                            <label>Occupation</label>
+                            <p>Business</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="parent-section">
+
+                    <h4>Mother Details</h4>
+
+                    <div class="parent-grid">
+
+                        <div class="detail-item">
+                            <label>Mother Name</label>
+                            <p>Priya Sharma</p>
+                        </div>
+
+                        <div class="detail-item">
+                            <label>Mobile Number</label>
+                            <p>+91 97xxxx 12345</p>
+                        </div>
+
+                        <div class="detail-item">
+                            <label>Email Address</label>
+                            <p>priya@example.com</p>
+                        </div>
+
+                        <div class="detail-item">
+                            <label>Occupation</label>
+                            <p>Homemaker</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ADDRESS -->
+            <section class="card">
+
+                <h3><span>⌖</span> Address Details</h3>
+
+                <div class="detail-grid">
+
+                    <div class="detail-item">
+                        <label>Address</label>
+                        <p>12, Green Park Road</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>City</label>
+                        <p>Hyderabad</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>State</label>
+                        <p>Telangana</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <label>PIN Code</label>
+                        <p>500001</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- DOCUMENTS -->
+            <section class="card">
+
+                <h3><span>▤</span> Documents Submitted</h3>
+
+                <ul class="document-list">
+                    <li>
+                        Birth Certificate
+                        <span class="uploaded">✓ Uploaded</span>
+                    </li>
+
+                    <li>
+                        Student Photograph
+                        <span class="uploaded">✓ Uploaded</span>
+                    </li>
+
+                    <li>
+                        Aadhaar Document
+                        <span class="uploaded">✓ Uploaded</span>
+                    </li>
+                </ul>
+
+            </section>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="right-column">
+
+            <!-- APPLICATION SUMMARY -->
+            <section class="card">
+
+                <h3><span>ⓘ</span> APPLICATION SUMMARY</h3>
+
+                <div class="summary-row">
+                    <span>Application No.</span>
+                    <strong>ADM/2026/1042</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Applied On</span>
+                    <strong>22 Sep 2026</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Source</span>
+                    <strong>Online Portal</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Class Applied</span>
+                    <strong>1st Class</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Quota</span>
+                    <strong>General</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Current Status</span>
+                    <strong>
+                        <span class="small-badge pending">
+                            ◷ Pending
+                        </span>
+                    </strong>
+                </div>
+
+            </section>
+
+            <!-- SEAT AVAILABILITY -->
+            <section class="card">
+
+                <h3><span>▣</span> SEAT AVAILABILITY · 1ST CLASS</h3>
+
+                <div class="seat-info">
+                    <span>Total Seats</span>
+                    <strong>40</strong>
+                </div>
+
+                <div class="seat-info">
+                    <span>Occupied Seats</span>
+                    <strong>28</strong>
+                </div>
+
+                <div class="seat-info">
+                    <span>Available Seats</span>
+                    <strong style="color:#69bd13;">12</strong>
+                </div>
+
+                <div class="progress">
+                    <div class="progress-fill"></div>
+                </div>
+
+                <p class="seat-note">
+                    12 seats are currently available in 1st Class.
+                </p>
+
+            </section>
+
+            <!-- APPLICATION INFORMATION -->
+            <section class="card">
+
+                <h3><span>ⓘ</span> APPLICATION INFORMATION</h3>
+
+                <div class="summary-row">
+                    <span>Academic Year</span>
+                    <strong>2026 - 2027</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Application Type</span>
+                    <strong>New Admission</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Previous School</span>
+                    <strong>ABC Public School</strong>
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

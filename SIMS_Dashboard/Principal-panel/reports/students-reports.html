@@ -1,0 +1,710 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Students Reports | SIMS</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f6f8;
+    color: #263445;
+}
+
+.header {
+    height: 60px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    border-bottom: 1px solid #e5eaf0;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #1765b1;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.global-search {
+    width: 300px;
+    padding: 11px;
+    border: 1px solid #e0e5ed;
+    border-radius: 5px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.profile-circle {
+    width: 35px;
+    height: 35px;
+    background: #e7efff;
+    color: #1765b1;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 60px);
+}
+
+.sidebar {
+    width: 225px;
+    background: white;
+    border-right: 1px solid #e5eaf0;
+    flex-shrink: 0;
+    padding: 12px 0;
+}
+
+.sidebar a {
+    display: block;
+    text-decoration: none;
+    color: #344054;
+    padding: 13px 20px;
+    font-size: 14px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    color: #4f7fff;
+    background: #f2f6ff;
+}
+
+.submenu {
+    padding-left: 35px;
+}
+
+.submenu a {
+    padding: 10px 20px;
+    font-size: 13px;
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+    padding: 25px 28px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.page-heading h1 {
+    font-size: 25px;
+    margin-bottom: 6px;
+}
+
+.breadcrumb {
+    color: #8995a5;
+    font-size: 13px;
+}
+
+.back-link {
+    color: #1765b1;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.filter-panel {
+    background: white;
+    padding: 18px;
+    border: 1px solid #e8edf4;
+    border-radius: 6px;
+    margin-bottom: 22px;
+}
+
+.filter-panel h3 {
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.filter-fields {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr) auto;
+    gap: 12px;
+}
+
+.filter-fields input,
+.filter-fields select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #dce3ed;
+    border-radius: 4px;
+    background: white;
+    color: #667085;
+    font-size: 13px;
+}
+
+.filter-btn {
+    background: #4f7fff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 11px 20px;
+    cursor: pointer;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.summary-card {
+    background: white;
+    border: 1px solid #e8edf4;
+    border-radius: 6px;
+    padding: 19px;
+    border-left: 4px solid #4f7fff;
+}
+
+.summary-card p {
+    font-size: 13px;
+    color: #8995a5;
+    margin-bottom: 12px;
+}
+
+.summary-card h2 {
+    font-size: 25px;
+    color: #263445;
+}
+
+.summary-card small {
+    display: block;
+    margin-top: 7px;
+    color: #8995a5;
+    font-size: 11px;
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.panel {
+    background: white;
+    border: 1px solid #e8edf4;
+    border-radius: 6px;
+    padding: 20px;
+    min-width: 0;
+}
+
+.panel h2 {
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+.class-row {
+    margin-bottom: 17px;
+}
+
+.class-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.class-info span {
+    color: #667085;
+}
+
+.bar {
+    height: 10px;
+    background: #edf0f5;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: #4f7fff;
+    border-radius: 10px;
+}
+
+.attendance-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 0;
+    border-bottom: 1px solid #edf0f5;
+    font-size: 13px;
+}
+
+.attendance-item:last-child {
+    border-bottom: none;
+}
+
+.attendance-item span {
+    color: #667085;
+}
+
+.percentage {
+    font-weight: bold;
+    color: #23834d;
+}
+
+.table-section {
+    background: white;
+    border: 1px solid #e8edf4;
+    border-radius: 6px;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.table-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.table-heading h2 {
+    font-size: 17px;
+}
+
+.table-heading a {
+    color: #4f7fff;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 750px;
+}
+
+th, td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid #edf0f5;
+    font-size: 13px;
+}
+
+th {
+    background: #f8fafd;
+    color: #718096;
+}
+
+td {
+    color: #526174;
+}
+
+.student-name {
+    color: #1765b1;
+    font-weight: bold;
+}
+
+.status {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 12px;
+    font-size: 11px;
+}
+
+.active-status {
+    background: #e5f7ed;
+    color: #23834d;
+}
+
+.inactive-status {
+    background: #fff2dc;
+    color: #b7791f;
+}
+
+.report-footer {
+    color: #8995a5;
+    font-size: 12px;
+    margin-top: 15px;
+}
+
+@media(max-width: 1100px) {
+    .summary-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filter-fields {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .report-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 700px) {
+    .header {
+        height: auto;
+        padding: 12px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .header-right {
+        width: 100%;
+    }
+
+    .global-search {
+        width: 100%;
+    }
+
+    .layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main {
+        padding: 15px;
+    }
+
+    .summary-cards,
+    .filter-fields {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">SIMS</div>
+
+    <div class="header-right">
+        <input class="global-search" type="text"
+               placeholder="Search by name / email / mobile no.">
+
+        <div class="profile">
+            <div class="profile-circle">D2</div>
+            <span>sharath</span>
+        </div>
+    </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+    <a href="../dashboard.html">⌂ &nbsp; Dashboard</a>
+    <a href="#">▰ &nbsp; Approval requests</a>
+    <a href="../live-status.html">◉ &nbsp; Classes Live Status</a>
+    <a href="#">▦ &nbsp; Academics</a>
+    <a href="../students/view-all.html">♙ &nbsp; Students</a>
+    <a href="#">♟ &nbsp; Staff</a>
+    <a href="../finance/finance-summary.html">▣ &nbsp; Finance</a>
+    <a href="#">▣ &nbsp; Communication</a>
+
+    <a href="../front-office/visitor-register.html">
+        ♧ &nbsp; Front Office
+    </a>
+
+    <a href="#">♜ &nbsp; Transportation</a>
+
+    <a href="students-reports.html" class="active">
+        ▦ &nbsp; Reports
+    </a>
+
+    <div class="submenu">
+        <a href="students-reports.html" class="active">• &nbsp; Students</a>
+        <a href="staff-reports.html">• &nbsp; Staff</a>
+        <a href="fees-reports.html">• &nbsp; Fees</a>
+    </div>
+
+    <a href="#">◎ &nbsp; Website</a>
+    <a href="#">⇥ &nbsp; Logout</a>
+
+</aside>
+
+<main class="main">
+
+    <div class="page-heading">
+        <div>
+            <h1>Students Reports</h1>
+            <div class="breadcrumb">
+                Dashboard / Reports / Students
+            </div>
+        </div>
+
+        <a href="../dashboard.html" class="back-link">
+            ← Go back
+        </a>
+    </div>
+
+    <!-- FILTERS -->
+    <section class="filter-panel">
+
+        <h3>Filter Student Reports</h3>
+
+        <div class="filter-fields">
+
+            <select>
+                <option>All Classes</option>
+                <option>Class 1</option>
+                <option>Class 2</option>
+                <option>Class 3</option>
+                <option>Class 4</option>
+                <option>Class 5</option>
+                <option>Class 6</option>
+                <option>Class 7</option>
+                <option>Class 8</option>
+                <option>Class 9</option>
+                <option>Class 10</option>
+            </select>
+
+            <select>
+                <option>All Sections</option>
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+            </select>
+
+            <select>
+                <option>All Status</option>
+                <option>Active</option>
+                <option>Inactive</option>
+            </select>
+
+            <input type="date" value="2026-11-12">
+
+            <button class="filter-btn" type="button">Apply</button>
+
+        </div>
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="summary-cards">
+
+        <div class="summary-card">
+            <p>Total Students</p>
+            <h2>47</h2>
+            <small>Across all classes</small>
+        </div>
+
+        <div class="summary-card">
+            <p>Active Students</p>
+            <h2>44</h2>
+            <small>Currently enrolled</small>
+        </div>
+
+        <div class="summary-card">
+            <p>Average Attendance</p>
+            <h2>95%</h2>
+            <small>Overall attendance</small>
+        </div>
+
+        <div class="summary-card">
+            <p>New Admissions</p>
+            <h2>8</h2>
+            <small>For current academic year</small>
+        </div>
+
+    </section>
+
+    <!-- REPORT ANALYSIS -->
+    <section class="report-grid">
+
+        <div class="panel">
+            <h2>Class-wise Student Strength</h2>
+
+            <div class="class-row">
+                <div class="class-info">
+                    <span>Class 1</span><strong>8 Students</strong>
+                </div>
+                <div class="bar"><div class="bar-fill" style="width:80%"></div></div>
+            </div>
+
+            <div class="class-row">
+                <div class="class-info">
+                    <span>Class 2</span><strong>6 Students</strong>
+                </div>
+                <div class="bar"><div class="bar-fill" style="width:60%"></div></div>
+            </div>
+
+            <div class="class-row">
+                <div class="class-info">
+                    <span>Class 3</span><strong>5 Students</strong>
+                </div>
+                <div class="bar"><div class="bar-fill" style="width:50%"></div></div>
+            </div>
+
+            <div class="class-row">
+                <div class="class-info">
+                    <span>Class 4</span><strong>7 Students</strong>
+                </div>
+                <div class="bar"><div class="bar-fill" style="width:70%"></div></div>
+            </div>
+
+            <div class="class-row">
+                <div class="class-info">
+                    <span>Class 5</span><strong>9 Students</strong>
+                </div>
+                <div class="bar"><div class="bar-fill" style="width:90%"></div></div>
+            </div>
+
+            <div class="class-row">
+                <div class="class-info">
+                    <span>Classes 6–10</span><strong>12 Students</strong>
+                </div>
+                <div class="bar"><div class="bar-fill" style="width:100%"></div></div>
+            </div>
+
+        </div>
+
+        <div class="panel">
+            <h2>Attendance Summary</h2>
+
+            <div class="attendance-item">
+                <span>Present Students</span>
+                <strong class="percentage">95%</strong>
+            </div>
+
+            <div class="attendance-item">
+                <span>Absent Students</span>
+                <strong style="color:#d94343;">5%</strong>
+            </div>
+
+            <div class="attendance-item">
+                <span>Average Monthly Attendance</span>
+                <strong>93%</strong>
+            </div>
+
+            <div class="attendance-item">
+                <span>Students with Low Attendance</span>
+                <strong>3</strong>
+            </div>
+
+            <div class="attendance-item">
+                <span>Attendance Period</span>
+                <strong>November 2026</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- STUDENT RECORDS -->
+    <section class="table-section">
+
+        <div class="table-heading">
+            <h2>Student Report Details</h2>
+            <a href="../students/view-all.html">View All Students →</a>
+        </div>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Class</th>
+                    <th>Section</th>
+                    <th>Attendance</th>
+                    <th>Admission Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>STU001</td>
+                    <td class="student-name">Aarav Kumar</td>
+                    <td>Class 8</td>
+                    <td>A</td>
+                    <td>96%</td>
+                    <td>10-Jun-2025</td>
+                    <td><span class="status active-status">Active</span></td>
+                </tr>
+
+                <tr>
+                    <td>STU002</td>
+                    <td class="student-name">Ananya Reddy</td>
+                    <td>Class 9</td>
+                    <td>A</td>
+                    <td>92%</td>
+                    <td>12-Jun-2024</td>
+                    <td><span class="status active-status">Active</span></td>
+                </tr>
+
+                <tr>
+                    <td>STU003</td>
+                    <td class="student-name">Rahul Sharma</td>
+                    <td>Class 7</td>
+                    <td>B</td>
+                    <td>88%</td>
+                    <td>15-Jun-2025</td>
+                    <td><span class="status active-status">Active</span></td>
+                </tr>
+
+                <tr>
+                    <td>STU004</td>
+                    <td class="student-name">Priya Singh</td>
+                    <td>Class 10</td>
+                    <td>A</td>
+                    <td>97%</td>
+                    <td>08-Jun-2023</td>
+                    <td><span class="status active-status">Active</span></td>
+                </tr>
+
+                <tr>
+                    <td>STU005</td>
+                    <td class="student-name">Kiran Reddy</td>
+                    <td>Class 6</td>
+                    <td>B</td>
+                    <td>76%</td>
+                    <td>20-Jun-2025</td>
+                    <td><span class="status inactive-status">Inactive</span></td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <p class="report-footer">
+            Note: All student records and report figures shown here are illustrative sample data.
+            Filters and report generation are visual placeholders in this prototype.
+        </p>
+
+    </section>
+
+</main>
+</div>
+
+</body>
+</html>
