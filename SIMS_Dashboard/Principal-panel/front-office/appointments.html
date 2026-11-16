@@ -1,0 +1,562 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appointments | SIMS</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f7fa;
+    color: #263445;
+}
+
+.header {
+    height: 60px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    border-bottom: 1px solid #e5eaf0;
+}
+
+.logo {
+    color: #1765b1;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search {
+    width: 300px;
+    padding: 11px;
+    border: 1px solid #dce3ed;
+    border-radius: 5px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.profile-circle {
+    width: 35px;
+    height: 35px;
+    background: #e8f1fc;
+    color: #1765b1;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 60px);
+}
+
+.sidebar {
+    width: 225px;
+    background: white;
+    padding: 15px 0;
+    border-right: 1px solid #e5eaf0;
+    flex-shrink: 0;
+}
+
+.sidebar a {
+    display: block;
+    text-decoration: none;
+    color: #344054;
+    padding: 13px 20px;
+    font-size: 14px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    color: #4f7fff;
+    background: #f2f6ff;
+}
+
+.submenu {
+    padding-left: 35px;
+}
+
+.submenu a {
+    padding: 10px 20px;
+    font-size: 13px;
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+    padding: 25px 28px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.page-heading h1 {
+    font-size: 24px;
+}
+
+.breadcrumb {
+    color: #8995a5;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.add-btn {
+    background: #4f7fff;
+    color: white;
+    text-decoration: none;
+    padding: 11px 17px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.summary-card {
+    background: white;
+    padding: 19px;
+    border: 1px solid #e8edf4;
+    border-left: 4px solid #4f7fff;
+    border-radius: 7px;
+}
+
+.summary-card p {
+    color: #7b8798;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.summary-card h2 {
+    font-size: 24px;
+}
+
+.filter-panel {
+    background: white;
+    padding: 18px;
+    border: 1px solid #e8edf4;
+    border-radius: 7px;
+    margin-bottom: 22px;
+}
+
+.filter-fields {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.2fr auto;
+    gap: 12px;
+}
+
+.filter-fields input,
+.filter-fields select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #dce3ed;
+    border-radius: 5px;
+    background: white;
+    color: #667085;
+    font-size: 13px;
+}
+
+.filter-btn {
+    background: #4f7fff;
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.table-section {
+    background: white;
+    border: 1px solid #e8edf4;
+    border-radius: 7px;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.table-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.table-heading h2 {
+    font-size: 18px;
+}
+
+.table-heading span {
+    color: #8995a5;
+    font-size: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 850px;
+}
+
+th, td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid #edf0f5;
+    font-size: 13px;
+}
+
+th {
+    background: #f8fafd;
+    color: #718096;
+    font-weight: 600;
+}
+
+td {
+    color: #526174;
+}
+
+.visitor-name {
+    color: #1765b1;
+    font-weight: bold;
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.confirmed {
+    background: #e5f7ed;
+    color: #23834d;
+}
+
+.pending {
+    background: #fff2dc;
+    color: #b7791f;
+}
+
+.completed {
+    background: #e8f1ff;
+    color: #1765b1;
+}
+
+.cancelled {
+    background: #ffe9e9;
+    color: #d94343;
+}
+
+.action-link {
+    color: #4f7fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.note {
+    margin-top: 16px;
+    font-size: 12px;
+    color: #8995a5;
+}
+
+@media(max-width: 1100px) {
+    .summary-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .filter-fields {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 700px) {
+    .header {
+        height: auto;
+        padding: 12px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .header-right {
+        width: 100%;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main {
+        padding: 15px;
+    }
+
+    .summary-cards,
+    .filter-fields {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">SIMS</div>
+
+    <div class="header-right">
+        <input class="search" type="text"
+               placeholder="Search by name / email / mobile no.">
+
+        <div class="profile">
+            <div class="profile-circle">D2</div>
+            <span>sharath</span>
+        </div>
+    </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+    <a href="../dashboard.html">♙ &nbsp; Students</a>
+    <a href="#">♟ &nbsp; Staff</a>
+    <a href="../finance/finance-summary.html">▣ &nbsp; Finance</a>
+    <a href="#">▣ &nbsp; Communication</a>
+
+    <a href="visitor-register.html" class="active">
+        ♧ &nbsp; Front Office
+    </a>
+
+    <div class="submenu">
+        <a href="visitor-register.html">• &nbsp; Visitor Register</a>
+        <a href="appointments.html" class="active">• &nbsp; Appointments</a>
+    </div>
+
+    <a href="#">♜ &nbsp; Transportation</a>
+    <a href="#">▦ &nbsp; Reports</a>
+    <a href="#">◎ &nbsp; Website</a>
+    <a href="#">⇥ &nbsp; Logout</a>
+
+</aside>
+
+<main class="main">
+
+    <div class="page-heading">
+        <div>
+            <h1>Appointments</h1>
+            <div class="breadcrumb">Front Office / Appointments</div>
+        </div>
+
+        <a href="new-appointment.html" class="add-btn">
+            + Schedule Appointment
+        </a>
+    </div>
+
+    <!-- SUMMARY -->
+    <section class="summary-cards">
+
+        <div class="summary-card">
+            <p>Total Appointments</p>
+            <h2>24</h2>
+        </div>
+
+        <div class="summary-card">
+            <p>Confirmed</p>
+            <h2>12</h2>
+        </div>
+
+        <div class="summary-card">
+            <p>Pending</p>
+            <h2>7</h2>
+        </div>
+
+        <div class="summary-card">
+            <p>Completed</p>
+            <h2>5</h2>
+        </div>
+
+    </section>
+
+    <!-- FILTERS -->
+    <section class="filter-panel">
+
+        <div class="filter-fields">
+
+            <input type="text"
+                   placeholder="Search by visitor name or purpose">
+
+            <select>
+                <option>All Status</option>
+                <option>Confirmed</option>
+                <option>Pending</option>
+                <option>Completed</option>
+                <option>Cancelled</option>
+            </select>
+
+            <select>
+                <option>All Appointment Types</option>
+                <option>Parent Meeting</option>
+                <option>Admission Enquiry</option>
+                <option>Official Meeting</option>
+                <option>Vendor Meeting</option>
+            </select>
+
+            <input type="date" value="2026-11-12">
+
+            <button type="button" class="filter-btn">Search</button>
+
+        </div>
+
+    </section>
+
+    <!-- APPOINTMENT TABLE -->
+    <section class="table-section">
+
+        <div class="table-heading">
+            <h2>Appointment Records</h2>
+            <span>November 2026</span>
+        </div>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Appointment ID</th>
+                    <th>Visitor Name</th>
+                    <th>Visitor Type</th>
+                    <th>Purpose</th>
+                    <th>Meeting With</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>APT001</td>
+                    <td class="visitor-name">Lakshmi Prasanna</td>
+                    <td>Parent</td>
+                    <td>Student Progress</td>
+                    <td>Principal</td>
+                    <td>12-Nov-2026</td>
+                    <td>10:30 AM</td>
+                    <td><span class="status confirmed">Confirmed</span></td>
+                    <td><a href="#" class="action-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>APT002</td>
+                    <td class="visitor-name">K. Srinivas</td>
+                    <td>Official</td>
+                    <td>School Inspection</td>
+                    <td>Principal</td>
+                    <td>12-Nov-2026</td>
+                    <td>11:30 AM</td>
+                    <td><span class="status pending">Pending</span></td>
+                    <td><a href="#" class="action-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>APT003</td>
+                    <td class="visitor-name">Venkat Rao</td>
+                    <td>Vendor</td>
+                    <td>Library Supplies</td>
+                    <td>Admin Officer</td>
+                    <td>12-Nov-2026</td>
+                    <td>12:00 PM</td>
+                    <td><span class="status completed">Completed</span></td>
+                    <td><a href="#" class="action-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>APT004</td>
+                    <td class="visitor-name">Ravi Kumar</td>
+                    <td>Parent</td>
+                    <td>Admission Enquiry</td>
+                    <td>Admission Officer</td>
+                    <td>13-Nov-2026</td>
+                    <td>09:30 AM</td>
+                    <td><span class="status confirmed">Confirmed</span></td>
+                    <td><a href="#" class="action-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>APT005</td>
+                    <td class="visitor-name">Meena Sharma</td>
+                    <td>Parent</td>
+                    <td>Fee Discussion</td>
+                    <td>Accounts Officer</td>
+                    <td>13-Nov-2026</td>
+                    <td>10:00 AM</td>
+                    <td><span class="status pending">Pending</span></td>
+                    <td><a href="#" class="action-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>APT006</td>
+                    <td class="visitor-name">Suresh Reddy</td>
+                    <td>Vendor</td>
+                    <td>Transport Contract</td>
+                    <td>Transport Manager</td>
+                    <td>14-Nov-2026</td>
+                    <td>11:00 AM</td>
+                    <td><span class="status cancelled">Cancelled</span></td>
+                    <td><a href="#" class="action-link">View</a></td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <p class="note">
+            Note: Appointment information is sample data for the SIMS prototype.
+            Search and action controls are not connected to a backend.
+        </p>
+
+    </section>
+
+</main>
+</div>
+
+</body>
+</html>

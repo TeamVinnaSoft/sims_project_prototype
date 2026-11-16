@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expenditures | SIMS</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fc;
+    color: #263445;
+}
+
+.header {
+    height: 65px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    border-bottom: 1px solid #e5eaf2;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #1765b1;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.search {
+    width: 280px;
+    padding: 10px 14px;
+    border: 1px solid #dce3ed;
+    border-radius: 6px;
+}
+
+.profile {
+    background: #e8f1fc;
+    color: #1765b1;
+    padding: 10px 14px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 65px);
+}
+
+.sidebar {
+    width: 225px;
+    background: white;
+    padding: 20px 12px;
+    border-right: 1px solid #e5eaf2;
+    flex-shrink: 0;
+}
+
+.sidebar a {
+    display: block;
+    text-decoration: none;
+    color: #526174;
+    padding: 12px 14px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #eaf3ff;
+    color: #1765b1;
+}
+
+.submenu {
+    display: block;
+    margin-left: 15px;
+}
+
+.submenu a {
+    font-size: 13px;
+    padding: 10px 12px;
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+    padding: 28px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.page-heading h1 {
+    font-size: 25px;
+    margin-bottom: 7px;
+}
+
+.breadcrumb {
+    color: #8793a3;
+    font-size: 13px;
+}
+
+.primary-btn {
+    background: #1765b1;
+    color: white;
+    text-decoration: none;
+    padding: 11px 17px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 17px;
+    margin-bottom: 22px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 9px;
+    border: 1px solid #e8edf4;
+    border-left: 4px solid #1765b1;
+}
+
+.card p {
+    color: #78869a;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.card h2 {
+    font-size: 23px;
+    color: #263445;
+}
+
+.card small {
+    display: block;
+    color: #8995a5;
+    margin-top: 7px;
+}
+
+.filters {
+    background: white;
+    padding: 17px;
+    border-radius: 9px;
+    border: 1px solid #e8edf4;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.filters input,
+.filters select {
+    padding: 10px 12px;
+    border: 1px solid #dce3ed;
+    border-radius: 5px;
+    min-width: 170px;
+    background: white;
+    color: #526174;
+}
+
+.filter-btn {
+    padding: 10px 18px;
+    border: none;
+    background: #1765b1;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.table-section {
+    background: white;
+    border-radius: 9px;
+    border: 1px solid #e8edf4;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.table-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.table-heading h2 {
+    font-size: 18px;
+}
+
+.table-heading span {
+    color: #8995a5;
+    font-size: 12px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+th, td {
+    padding: 14px 12px;
+    text-align: left;
+    border-bottom: 1px solid #edf0f5;
+    font-size: 13px;
+}
+
+th {
+    color: #718096;
+    background: #f8fafd;
+    font-weight: 600;
+}
+
+td {
+    color: #465468;
+}
+
+.expense-name {
+    color: #1765b1;
+    font-weight: bold;
+}
+
+.status {
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.paid {
+    background: #e5f7ed;
+    color: #23834d;
+}
+
+.pending {
+    background: #fff2dc;
+    color: #b7791f;
+}
+
+.view-link {
+    color: #1765b1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.note {
+    margin-top: 15px;
+    color: #8995a5;
+    font-size: 12px;
+}
+
+@media(max-width: 1000px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sidebar {
+        width: 190px;
+    }
+}
+
+@media(max-width: 650px) {
+    .header {
+        height: auto;
+        padding: 12px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .header-right {
+        width: 100%;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main {
+        padding: 16px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">SIMS</div>
+    <div class="header-right">
+        <input class="search" type="text"
+               placeholder="Search by name / email / mobile no.">
+        <div class="profile">D2</div>
+    </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+    <a href="../dashboard.html">▦ Dashboard</a>
+    <a href="#">▣ Approval Requests</a>
+    <a href="../live-status.html">◷ Classes Live Status</a>
+    <a href="#">▤ Academics</a>
+    <a href="../students/view-all.html">♙ Students</a>
+    <a href="#">♧ Staff</a>
+
+    <a href="finance-summary.html">▣ Finance</a>
+    <div class="submenu">
+        <a href="finance-summary.html">Summary</a>
+        <a href="fee-by-class.html">Fee by Class</a>
+        <a href="fee-by-component.html">Fee by Component</a>
+        <a href="expenditures.html" class="active">Expenditures</a>
+        <a href="finance-search.html">Search</a>
+    </div>
+
+    <a href="#">▧ Communication</a>
+    <a href="#">▤ Front Office</a>
+    <a href="#">▣ Transportation</a>
+    <a href="#">▥ Reports</a>
+    <a href="#">▧ Website</a>
+    <a href="#">↪ Logout</a>
+</aside>
+
+<main class="main">
+
+    <div class="page-heading">
+        <div>
+            <h1>Expenditures</h1>
+            <div class="breadcrumb">Finance / Expenditures</div>
+        </div>
+
+        <a href="finance-summary.html" class="primary-btn">
+            Back to Summary
+        </a>
+    </div>
+
+    <section class="cards">
+        <div class="card">
+            <p>Total Expenditure</p>
+            <h2>₹2,10,000</h2>
+            <small>For the selected period</small>
+        </div>
+
+        <div class="card">
+            <p>Paid Expenses</p>
+            <h2>₹1,65,000</h2>
+            <small>Payments completed</small>
+        </div>
+
+        <div class="card">
+            <p>Pending Payments</p>
+            <h2>₹45,000</h2>
+            <small>Payments awaiting completion</small>
+        </div>
+
+        <div class="card">
+            <p>Total Expense Records</p>
+            <h2>24</h2>
+            <small>Recorded expenses</small>
+        </div>
+    </section>
+
+    <section class="filters">
+        <input type="text" placeholder="Search expense">
+
+        <select>
+            <option>All Categories</option>
+            <option>Staff Salary</option>
+            <option>Maintenance</option>
+            <option>Utilities</option>
+            <option>Stationery</option>
+            <option>Transportation</option>
+            <option>Other Expenses</option>
+        </select>
+
+        <select>
+            <option>All Payment Status</option>
+            <option>Paid</option>
+            <option>Pending</option>
+        </select>
+
+        <select>
+            <option>November 2026</option>
+            <option>October 2026</option>
+            <option>September 2026</option>
+        </select>
+
+        <button class="filter-btn" type="button">View</button>
+    </section>
+
+    <section class="table-section">
+
+        <div class="table-heading">
+            <h2>Expense Records</h2>
+            <span>November 2026</span>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Expense ID</th>
+                    <th>Expense Name</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Payment Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>EXP001</td>
+                    <td class="expense-name">Staff Salary</td>
+                    <td>Salary</td>
+                    <td>02-Nov-2026</td>
+                    <td>₹80,000</td>
+                    <td><span class="status paid">Paid</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>EXP002</td>
+                    <td class="expense-name">Electricity Bill</td>
+                    <td>Utilities</td>
+                    <td>05-Nov-2026</td>
+                    <td>₹15,000</td>
+                    <td><span class="status paid">Paid</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>EXP003</td>
+                    <td class="expense-name">Classroom Maintenance</td>
+                    <td>Maintenance</td>
+                    <td>08-Nov-2026</td>
+                    <td>₹25,000</td>
+                    <td><span class="status pending">Pending</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>EXP004</td>
+                    <td class="expense-name">Stationery Purchase</td>
+                    <td>Stationery</td>
+                    <td>10-Nov-2026</td>
+                    <td>₹12,000</td>
+                    <td><span class="status paid">Paid</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>EXP005</td>
+                    <td class="expense-name">Bus Maintenance</td>
+                    <td>Transportation</td>
+                    <td>11-Nov-2026</td>
+                    <td>₹20,000</td>
+                    <td><span class="status pending">Pending</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>EXP006</td>
+                    <td class="expense-name">Water Supply</td>
+                    <td>Utilities</td>
+                    <td>12-Nov-2026</td>
+                    <td>₹8,000</td>
+                    <td><span class="status paid">Paid</span></td>
+                    <td><a href="#" class="view-link">View</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p class="note">
+            Note: Expense records and amounts are sample data for the prototype.
+        </p>
+
+    </section>
+
+</main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,661 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMS - Student Leave Requests</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f2f2f2;
+    color: #111;
+}
+
+/* HEADER */
+.top-header {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    background: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo-area {
+    width: 255px;
+    min-width: 255px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    border-right: 1px solid #ddd;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4055d6;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.logo-mark {
+    font-size: 29px;
+    color: #ff9d28;
+}
+
+.menu-icon {
+    font-size: 23px;
+    color: #333;
+}
+
+/* HEADER SEARCH */
+.header-search {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    width: 40px;
+    min-width: 40px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eee;
+    color: #aaa;
+}
+
+.header-search input {
+    height: 46px;
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #eee;
+    outline: none;
+    padding: 0 22px;
+    font-size: 14px;
+}
+
+.header-search input::placeholder {
+    color: #b7b7b7;
+}
+
+.header-search select {
+    width: 115px;
+    min-width: 115px;
+    height: 46px;
+    border: 1px solid #eee;
+    background: white;
+    color: #aaa;
+    padding: 0 10px;
+}
+
+.header-search button {
+    height: 46px;
+    width: 92px;
+    min-width: 92px;
+    border: none;
+    background: #4d7cff;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* PROFILE */
+.user-profile {
+    width: 200px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: white;
+    font-size: 14px;
+}
+
+.user-profile img {
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* PAGE LAYOUT */
+.dashboard-body {
+    display: flex;
+    min-height: calc(100vh - 60px);
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 255px;
+    min-width: 255px;
+    background: white;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar nav > a,
+.dropdown > a {
+    min-height: 43px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 0 21px;
+    text-decoration: none;
+    color: #111;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    color: #4d7cff;
+}
+
+.nav-icon {
+    width: 16px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.nav-arrow {
+    margin-left: auto;
+    font-size: 16px;
+}
+
+/* STUDENTS SUBMENU */
+.submenu {
+    display: block;
+    background: white;
+}
+
+.submenu a {
+    min-height: 33px;
+    display: flex;
+    align-items: center;
+    padding-left: 55px;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+}
+
+.submenu a:hover,
+.submenu a.active {
+    color: #4d7cff;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* PAGE TITLE */
+.page-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 0 16px;
+    min-height: 72px;
+    background: #f2f2f2;
+}
+
+.heading-left {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 45px;
+}
+
+.page-heading h1 {
+    font-size: 28px;
+    font-weight: 600;
+    padding-top: 3px;
+}
+
+.breadcrumb {
+    padding-top: 22px;
+    color: #777;
+    font-size: 13px;
+}
+
+.breadcrumb a {
+    color: #4d7cff;
+    text-decoration: none;
+}
+
+.go-back {
+    padding-top: 20px;
+    color: #1683ed;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* LEAVE REQUEST TABLE PANEL */
+.content-area {
+    flex: 1;
+    padding: 0 16px 25px;
+}
+
+.table-panel {
+    background: white;
+    min-height: 106px;
+    padding: 25px 30px;
+    border: 1px solid #e5e5e5;
+    overflow-x: auto;
+}
+
+.leave-table {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+}
+
+.leave-table th {
+    text-align: center;
+    padding: 17px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.leave-table td {
+    text-align: center;
+    padding: 15px 10px;
+    font-size: 13px;
+    color: #555;
+    border-bottom: 1px solid #eee;
+}
+
+/* ACTION BUTTONS */
+.action-button {
+    display: inline-block;
+    padding: 6px 10px;
+    margin: 2px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.approve {
+    color: #168b48;
+    background: #e5f6eb;
+}
+
+.reject {
+    color: #d33c3c;
+    background: #ffe9e9;
+}
+
+/* FOOTER */
+footer {
+    min-height: 65px;
+    border-top: 1px solid #e1e1e1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    color: #777;
+    font-size: 13px;
+    margin-top: auto;
+}
+
+footer span:last-child {
+    color: #111;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+    .sidebar,
+    .logo-area {
+        width: 210px;
+        min-width: 210px;
+    }
+
+    .user-profile {
+        width: 145px;
+        min-width: 145px;
+    }
+
+    .heading-left {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 700px) {
+    .sidebar {
+        width: 65px;
+        min-width: 65px;
+    }
+
+    .logo-area {
+        width: 65px;
+        min-width: 65px;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .logo {
+        font-size: 0;
+    }
+
+    .menu-icon,
+    .user-profile {
+        display: none;
+    }
+
+    .sidebar nav > a,
+    .dropdown > a {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .sidebar nav > a span:not(.nav-icon),
+    .dropdown > a span:not(.nav-icon),
+    .submenu {
+        display: none;
+    }
+
+    .header-search input {
+        padding: 0 8px;
+        font-size: 11px;
+    }
+
+    .header-search select {
+        width: 90px;
+        min-width: 90px;
+    }
+
+    .header-search button {
+        width: 65px;
+        min-width: 65px;
+    }
+
+    .page-heading h1 {
+        font-size: 22px;
+    }
+
+    .breadcrumb {
+        padding-top: 10px;
+    }
+
+    .page-heading {
+        padding-bottom: 12px;
+    }
+
+    .table-panel {
+        padding: 15px;
+    }
+
+    footer {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 450px) {
+    .header-search select {
+        display: none;
+    }
+
+    .content-area {
+        padding: 0 8px 15px;
+    }
+
+    .page-heading {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP HEADER -->
+<header class="top-header">
+
+    <div class="logo-area">
+        <div class="logo">
+            <span class="logo-mark">✦</span>
+            <span>SIMS</span>
+        </div>
+        <div class="menu-icon">☰</div>
+    </div>
+
+    <div class="header-search">
+        <div class="search-icon">⌕</div>
+
+        <input type="text"
+        placeholder="Search by name / email / mobile no.">
+
+        <select>
+            <option>In Students</option>
+            <option>In Staff</option>
+        </select>
+
+        <button type="button">Search</button>
+    </div>
+
+    <div class="user-profile">
+        <img src="https://i.pravatar.cc/40?img=12" alt="Profile">
+        <span>sharath</span>
+        <span>⌄</span>
+    </div>
+
+</header>
+
+<div class="dashboard-body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <nav>
+
+            <a href="../dashboard.html">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">▰</span>
+                <span>Approval requests</span>
+            </a>
+
+            <a href="../live-status.html">
+                <span class="nav-icon">◉</span>
+                <span>Classes Live Status</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">▦</span>
+                <span>Academics</span>
+                <span class="nav-arrow">⌄</span>
+            </a>
+
+            <!-- STUDENTS MENU -->
+            <div class="dropdown">
+
+                <a href="#" class="active">
+                    <span class="nav-icon">♙</span>
+                    <span>Students</span>
+                    <span class="nav-arrow">⌄</span>
+                </a>
+
+                <div class="submenu">
+                    <a href="view-all.html">View all</a>
+                    <a href="leave-request.html" class="active">
+                        Leave Requests
+                    </a>
+                    <a href="concessions-map.html">Concessions map</a>
+                    <a href="new-admission.html">New admission</a>
+                    <a href="admission-requests.html">Admission requests</a>
+                </div>
+
+            </div>
+
+            <a href="#">
+                <span class="nav-icon">♟</span>
+                <span>Staff</span>
+                <span class="nav-arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">▣</span>
+                <span>Finance</span>
+                <span class="nav-arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">▣</span>
+                <span>Communication</span>
+                <span class="nav-arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">♧</span>
+                <span>Front Office</span>
+                <span class="nav-arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">♜</span>
+                <span>Transportation</span>
+                <span class="nav-arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">▤</span>
+                <span>Reports</span>
+                <span class="nav-arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">◎</span>
+                <span>Website</span>
+                <span class="nav-arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">⇥</span>
+                <span>Logout</span>
+            </a>
+
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- PAGE TITLE AND BREADCRUMB -->
+        <div class="page-heading">
+
+            <div class="heading-left">
+                <h1>Student Leave Requests</h1>
+
+                <div class="breadcrumb">
+                    ⌂ &nbsp;/
+                    <a href="../dashboard.html">Dashboard</a>
+                    / Student /
+                    <a href="leave-request.html">Leave Requests</a>
+                </div>
+            </div>
+
+            <a href="../dashboard.html" class="go-back">
+                ⬅ Go back
+            </a>
+
+        </div>
+
+        <!-- LEAVE REQUEST TABLE -->
+        <div class="content-area">
+
+            <section class="table-panel">
+
+                <table class="leave-table">
+
+                    <thead>
+                        <tr>
+                            <th>Requested On</th>
+                            <th>Student name</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th>No. Of Days</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <!-- SAMPLE LEAVE REQUEST -->
+                        <tr>
+                            <td>10-11-2026</td>
+                            <td>Rahul Kumar</td>
+                            <td>12-11-2026</td>
+                            <td>13-11-2026</td>
+                            <td>2</td>
+                            <td>
+                                <a href="#" class="action-button approve">
+                                    Approve
+                                </a>
+                                <a href="#" class="action-button reject">
+                                    Reject
+                                </a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>11-11-2026</td>
+                            <td>Priya Sharma</td>
+                            <td>14-11-2026</td>
+                            <td>14-11-2026</td>
+                            <td>1</td>
+                            <td>
+                                <a href="#" class="action-button approve">
+                                    Approve
+                                </a>
+                                <a href="#" class="action-button reject">
+                                    Reject
+                                </a>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </section>
+
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <span>Copyright © 2026 All rights reserved.</span>
+            <span>Version 1.0.0</span>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

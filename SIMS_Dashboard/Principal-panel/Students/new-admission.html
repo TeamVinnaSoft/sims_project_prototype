@@ -1,0 +1,805 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMS - New Student Admission</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f2f3f7;
+    color: #333;
+}
+
+/* HEADER */
+.header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo-area {
+    width: 255px;
+    min-width: 255px;
+    height: 100%;
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-right: 1px solid #eee;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4055d6;
+}
+
+.logo span {
+    color: #ff9d28;
+}
+
+.search-area {
+    flex: 1;
+    display: flex;
+    padding-left: 20px;
+    min-width: 0;
+}
+
+.search-area input {
+    flex: 1;
+    min-width: 0;
+    height: 40px;
+    padding: 10px;
+    border: 1px solid #eee;
+}
+
+.search-area select {
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #eee;
+    background: white;
+}
+
+.search-area button {
+    background: #4d7cff;
+    color: white;
+    border: none;
+    padding: 0 20px;
+}
+
+.profile {
+    width: 160px;
+    min-width: 160px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* LAYOUT */
+.layout {
+    display: flex;
+    min-height: calc(100vh - 60px);
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 255px;
+    min-width: 255px;
+    background: white;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar nav > a,
+.dropdown > a {
+    min-height: 43px;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    padding: 0 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    color: #4d7cff;
+}
+
+.nav-icon {
+    width: 17px;
+    text-align: center;
+}
+
+.arrow {
+    margin-left: auto;
+}
+
+.submenu {
+    display: block;
+    background: #fff;
+}
+
+.submenu a {
+    display: block;
+    padding: 10px 10px 10px 55px;
+    text-decoration: none;
+    color: #444;
+    font-size: 13px;
+}
+
+.submenu a:hover,
+.submenu a.active {
+    color: #4d7cff;
+    background: #f5f7ff;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    flex: 1;
+    min-width: 0;
+    padding: 25px;
+}
+
+.page-heading {
+    margin-bottom: 22px;
+}
+
+.page-heading h1 {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.breadcrumb {
+    color: #888;
+    font-size: 13px;
+}
+
+.breadcrumb a {
+    color: #4d7cff;
+    text-decoration: none;
+}
+
+/* FORM PANEL */
+.form-panel {
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    padding: 25px;
+}
+
+.form-title {
+    font-size: 18px;
+    font-weight: 600;
+    padding-bottom: 16px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid #eee;
+}
+
+.section-title {
+    color: #4055d6;
+    font-size: 16px;
+    margin: 25px 0 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.section-title:first-of-type {
+    margin-top: 0;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 13px;
+    color: #555;
+    font-weight: 600;
+}
+
+.form-group label span {
+    color: #e74c3c;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+    padding: 10px;
+    border: 1px solid #dcdfe6;
+    border-radius: 3px;
+    background: white;
+    outline: none;
+    font-size: 13px;
+}
+
+.form-group textarea {
+    height: 85px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #4d7cff;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.gender-options {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    height: 42px;
+    font-size: 13px;
+}
+
+.gender-options label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: normal;
+}
+
+.gender-options input {
+    width: auto;
+    height: auto;
+}
+
+/* BUTTONS */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn {
+    padding: 11px 23px;
+    border: none;
+    border-radius: 3px;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-cancel {
+    background: #eee;
+    color: #444;
+}
+
+.btn-submit {
+    background: #4d7cff;
+    color: white;
+}
+
+.btn-submit:hover {
+    background: #365fd5;
+}
+
+/* FOOTER */
+footer {
+    margin-top: 25px;
+    padding: 18px 0;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    color: #777;
+    font-size: 12px;
+}
+
+/* RESPONSIVE */
+@media(max-width: 950px) {
+    .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sidebar,
+    .logo-area {
+        width: 200px;
+        min-width: 200px;
+    }
+}
+
+@media(max-width: 650px) {
+    .sidebar {
+        width: 65px;
+        min-width: 65px;
+    }
+
+    .sidebar nav > a,
+    .dropdown > a {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .sidebar nav > a span:not(.nav-icon),
+    .dropdown > a span:not(.nav-icon),
+    .submenu {
+        display: none;
+    }
+
+    .logo-area {
+        width: 65px;
+        min-width: 65px;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .logo {
+        font-size: 0;
+    }
+
+    .profile,
+    .search-area select {
+        display: none;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .form-panel {
+        padding: 16px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+
+    <div class="logo-area">
+        <div class="logo"><span>✦</span> SIMS</div>
+        <span>☰</span>
+    </div>
+
+    <div class="search-area">
+        <input type="text"
+        placeholder="Search by name / email / mobile no.">
+
+        <select>
+            <option>In Students</option>
+            <option>In Staff</option>
+        </select>
+
+        <button type="button">Search</button>
+    </div>
+
+    <div class="profile">👤 &nbsp; sharath &nbsp;⌄</div>
+
+</header>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <nav>
+
+            <a href="../dashboard.html">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">▰</span>
+                <span>Approval requests</span>
+            </a>
+
+            <a href="../live-status.html">
+                <span class="nav-icon">◉</span>
+                <span>Classes Live Status</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">▦</span>
+                <span>Academics</span>
+                <span class="arrow">⌄</span>
+            </a>
+
+            <!-- STUDENTS MENU -->
+            <div class="dropdown">
+
+                <a href="#" class="active">
+                    <span class="nav-icon">♙</span>
+                    <span>Students</span>
+                    <span class="arrow">⌄</span>
+                </a>
+
+                <div class="submenu">
+
+                    <a href="view-all.html">View All</a>
+
+                    <a href="leave-request.html">
+                        Leave Requests
+                    </a>
+
+                    <a href="concessions-map.html">
+                        Concessions Map
+                    </a>
+
+                    <a href="new-admission.html" class="active">
+                        New Admission
+                    </a>
+
+                    <a href="admission-requests.html">
+                        Admission Requests
+                    </a>
+
+                </div>
+
+            </div>
+
+            <a href="#">
+                <span class="nav-icon">♟</span>
+                <span>Staff</span>
+                <span class="arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">▣</span>
+                <span>Finance</span>
+                <span class="arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">▣</span>
+                <span>Communication</span>
+                <span class="arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">♧</span>
+                <span>Front Office</span>
+                <span class="arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">♜</span>
+                <span>Transportation</span>
+                <span class="arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">▤</span>
+                <span>Reports</span>
+                <span class="arrow">⌄</span>
+            </a>
+
+            <a href="#">
+                <span class="nav-icon">◎</span>
+                <span>Website</span>
+                <span class="arrow">⌄</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <div class="page-heading">
+            <h1>New Student Admission</h1>
+
+            <div class="breadcrumb">
+                <a href="../dashboard.html">Dashboard</a>
+                / Students / New Admission
+            </div>
+        </div>
+
+        <section class="form-panel">
+
+            <div class="form-title">
+                Student Admission Form
+            </div>
+
+            <form>
+
+                <!-- STUDENT DETAILS -->
+                <h3 class="section-title">
+                    Student Information
+                </h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>First Name <span>*</span></label>
+                        <input type="text"
+                        placeholder="Enter first name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Middle Name</label>
+                        <input type="text"
+                        placeholder="Enter middle name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Last Name <span>*</span></label>
+                        <input type="text"
+                        placeholder="Enter last name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date of Birth <span>*</span></label>
+                        <input type="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gender <span>*</span></label>
+
+                        <div class="gender-options">
+                            <label>
+                                <input type="radio"
+                                name="gender" required> Male
+                            </label>
+
+                            <label>
+                                <input type="radio"
+                                name="gender"> Female
+                            </label>
+
+                            <label>
+                                <input type="radio"
+                                name="gender"> Other
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Blood Group</label>
+                        <select>
+                            <option value="">Select Blood Group</option>
+                            <option>A+</option>
+                            <option>A-</option>
+                            <option>B+</option>
+                            <option>B-</option>
+                            <option>O+</option>
+                            <option>O-</option>
+                            <option>AB+</option>
+                            <option>AB-</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Admission Date <span>*</span></label>
+                        <input type="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Admission Number</label>
+                        <input type="text"
+                        placeholder="Enter admission number">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Academic Year <span>*</span></label>
+                        <select required>
+                            <option value="">Select Academic Year</option>
+                            <option>2026-2027</option>
+                            <option>2027-2028</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Class <span>*</span></label>
+                        <select required>
+                            <option value="">Select Class</option>
+                            <option>Nursery</option>
+                            <option>LKG</option>
+                            <option>UKG</option>
+                            <option>Class 1</option>
+                            <option>Class 2</option>
+                            <option>Class 3</option>
+                            <option>Class 4</option>
+                            <option>Class 5</option>
+                            <option>Class 6</option>
+                            <option>Class 7</option>
+                            <option>Class 8</option>
+                            <option>Class 9</option>
+                            <option>Class 10</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Section</label>
+                        <select>
+                            <option value="">Select Section</option>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Previous School</label>
+                        <input type="text"
+                        placeholder="Enter previous school">
+                    </div>
+
+                </div>
+
+                <!-- PARENT DETAILS -->
+                <h3 class="section-title">
+                    Parent / Guardian Information
+                </h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Father's Name <span>*</span></label>
+                        <input type="text"
+                        placeholder="Enter father's name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mother's Name</label>
+                        <input type="text"
+                        placeholder="Enter mother's name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Guardian Name</label>
+                        <input type="text"
+                        placeholder="Enter guardian name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Parent Mobile Number <span>*</span></label>
+                        <input type="tel"
+                        placeholder="Enter mobile number"
+                        required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Parent Email</label>
+                        <input type="email"
+                        placeholder="Enter email address">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Parent Occupation</label>
+                        <input type="text"
+                        placeholder="Enter occupation">
+                    </div>
+
+                </div>
+
+                <!-- ADDRESS DETAILS -->
+                <h3 class="section-title">
+                    Address Information
+                </h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group full-width">
+                        <label>Residential Address <span>*</span></label>
+                        <textarea
+                        placeholder="Enter complete address"
+                        required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>City <span>*</span></label>
+                        <input type="text"
+                        placeholder="Enter city" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>State <span>*</span></label>
+                        <input type="text"
+                        placeholder="Enter state" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>PIN Code</label>
+                        <input type="text"
+                        placeholder="Enter PIN code">
+                    </div>
+
+                </div>
+
+                <!-- DOCUMENTS -->
+                <h3 class="section-title">
+                    Documents
+                </h3>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Student Photograph</label>
+                        <input type="file" accept="image/*">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Birth Certificate</label>
+                        <input type="file"
+                        accept=".pdf,image/*">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Previous School Certificate</label>
+                        <input type="file"
+                        accept=".pdf,image/*">
+                    </div>
+
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="form-actions">
+
+                    <a href="../dashboard.html"
+                    class="btn btn-cancel">
+                        Cancel
+                    </a>
+
+                    <button type="reset"
+                    class="btn btn-cancel">
+                        Reset
+                    </button>
+
+                    <button type="button"
+                    class="btn btn-submit">
+                        Submit Admission
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+        <footer>
+            <span>Copyright © 2026 All rights reserved.</span>
+            <span>Version 1.0.0</span>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>
