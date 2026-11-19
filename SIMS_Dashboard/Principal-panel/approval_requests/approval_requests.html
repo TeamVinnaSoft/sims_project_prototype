@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+
+<head>
+
+<title>Approval requests</title>
+
+<link rel="stylesheet" href = "../style.css">
+
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">SIMS</div>
+
+    <div class="header-right">
+        <input class="search" type="text"
+               placeholder="Search by name / email / mobile no.">
+
+        <div class="profile">
+            <div class="profile-circle">D2</div>
+            <span>sharath</span>
+        </div>
+    </div>
+</header>
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar"id="sidebar">
+    <div class="sidebar-logo">
+
+        <h2>School Management </h2>
+    </div>
+  
+    <div class="menu">
+        <!-- DASHBOARD -->
+
+        <div class="menu-item">
+            <span class="nav-icon">▦</span>
+            <a href="dashboard.html">Dashboard </a>
+        </div>
+
+
+        <div class="menu-item">
+            <span class="nav-icon">▣</span>
+            <a href="../approval_requests/approval_requests.html">Approval Requests</a>
+        </div>
+
+
+        <div class="menu-item">
+            <span class="nav-icon">◷</span>
+            <a href="live-status.html">Classes Live Status</a>
+        </div>
+
+        <div class="menu-item">
+            <span class="nav-icon">◷</span>
+            <a href="#">Academics</a>
+        </div>
+
+
+
+        
+        <!-- STUDENTS -->
+
+        <div class="menu-item" onclick="toggleMenu('studentMenu', this)">
+            <span class="nav-icon">♙</span>
+            <span> Students </span>
+            <span class="menu-arrow">▶</span>
+        </div>
+        <div id="studentMenu"class="submenu">
+            <a href="students/view-all.html">View All Students</a>
+            <a href="students/leave-request.html">Leave Requests</a>
+            <a href="students/concessions-map.html">Concessions Map</a>
+            <a href="students/new-admission.html">New Admission</a>
+            <a href="students/admission-requests.html">Admission Requests</a>
+        </div>
+
+
+
+        <!-- STaff -->
+
+        <div class="menu-item" onclick="toggleMenu('staffMenu', this)">
+            <span class="nav-icon">♙</span>
+            <span> Staff </span>
+            <span class="menu-arrow">▶</span>
+        </div>
+        <div id="staffMenu"class="submenu">
+            <a href="#">Staff Summary</a>
+            <a href="#">Staff List</a>
+            <a href="#">Attendance</a>
+            <a href="#">Leave Requests</a>
+        </div>
+
+
+         <!-- FINANCE -->
+
+        <div class="menu-item" onclick="toggleMenu('financeMenu', this)">
+            <span class="nav-icon">▣</span>
+            <span> Finance </span>
+            <span class="menu-arrow">▶</span>
+        </div>
+        <div id="financeMenu"class="submenu">
+            <a href="finance/finance-summary.html">Summary</a>
+            <a href="finance/fee-by-class.html">Fee by Class</a>
+            <a href="finance/fee-by-component.html">Fee by Component</a>
+            <a href="finance/expenditures.html">Expenditures</a>
+            <a href="finance/finance-search.html">Search</a>
+        </div>
+
+
+
+          <!-- COMMUNICATION -->
+
+        <div class="menu-item" onclick="toggleMenu('communicationMenu', this)">
+            <span class="nav-icon">▧</span>
+            <span> Communication </span>
+            <span class="menu-arrow">▶</span>
+        </div>
+        <div id="communicationMenu"class="submenu">
+            <a href="#">Notices</a>
+            <a href="#">Messages</a>
+        </div>
+
+        
+
+<!-- FRONT OFFICE -->
+        <div class="menu-item" onclick="toggleMenu('frontOfficeMenu', this)">
+            <span class="nav-icon">♧</span>
+            <span> Front Office </span>
+            <span class="menu-arrow">▶</span>
+        </div>
+        <div id="frontOfficeMenu"class="submenu">
+            <a href="#">Visitor Register</a>
+            <a href="#">Appointments</a>
+        </div>
+
+
+
+        <!-- TRANSPORTATION -->
+
+        <div class="menu-item" onclick="toggleMenu('transportationMenu', this)">
+            <span class="nav-icon">♜</span>
+            <span> Transportation </span>
+            <span class="menu-arrow">▶</span>
+        </div>
+        <div id="transportationMenu"class="submenu">
+            <a href="#">Vehicles</a>
+            <a href="#">Routes</a>
+        </div>
+
+
+
+
+    <!-- REPORTS -->
+
+    
+        <div class="menu-item" onclick="toggleMenu('transportationMenu', this)">
+            <span class="nav-icon">♜</span>
+            <span> Transportation </span>
+            <span class="menu-arrow">▶</span>
+        </div>
+        <div id="transportationMenu"class="submenu">
+            <a href="reports/students-reports.html">Students</a>
+            <a href="reports/staff-reports.html">Staff</a>
+            <a href="reports/fees-reports.html">Fees</a>
+        </div>
+
+
+  
+        <div class="menu-item">
+            <span class="nav-icon">◎</span>
+            <a href="#">Website</a>
+        </div>
+
+        <div class="menu-item">
+            <span class="nav-icon">⇥</span>
+            <a href="logout.html">Logout</a>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<div class="main">
+
+    <!-- =========================
+         MAIN CARDS
+    ========================= -->
+
+        <section class="panel table-panel">
+            <div class="panel-heading">
+                <div>
+                    <h3>Approval Requests</h3>
+                    <p>Exams, Leaves, Fee Approvals</p>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Requested For</th>
+                            <th>Requested On</th>
+                            <th>Requested By</th>
+                            <th>Request Details</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Exam</td>
+                            <td>19-11-2026</td>
+                            <td>Teja</td>
+                            <td>Unit Test</td>
+                            <td>
+                               <a href="#">
+                                    <button class="view-btn"> View</button>
+                                </a>
+                            </td>    
+                        </tr>
+
+                        <tr>
+                          <td>Leave</td>
+                            <td>19-11-2026</td>
+                            <td>Teja</td>
+                            <td>Leave Request</td>
+                            <td>
+                               <a href="#">
+                                    <button class="view-btn"> View</button>
+                                </a>
+                            </td> 
+                        </tr>
+
+                    
+                        
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+ 
+</main>
+</div>
+
+
+<script>
+
+
+function toggleMenu(menuId, element) {
+
+    const menu =
+        document.getElementById(menuId);
+
+
+    menu.classList.toggle("show");
+
+
+    element.classList.toggle("open");
+
+}
+
+const profileBtn = document.getElementById("profileBtn");
+const dropdown = document.getElementById("dropdown");
+
+profileBtn.addEventListener("click", function (event) {
+    event.stopPropagation();
+    dropdown.classList.toggle("show");
+});
+
+document.addEventListener("click", function (event) {
+    if (!event.target.closest(".profile-menu")) {
+        dropdown.classList.remove("show");
+    }
+});
+
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+
+    sidebar.classList.toggle("open");
+
+}
+
+
+</script>
+
+
+
+
+</body>
+</html>
