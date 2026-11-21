@@ -1,0 +1,809 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Card | SIMS Parent Panel</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 240px;
+            background: #fff;
+            border-right: 1px solid #e5eaf1;
+            padding: 25px 15px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+            color: #1769aa;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .menu-title {
+            font-size: 12px;
+            color: #999;
+            margin: 20px 12px 12px;
+            text-transform: uppercase;
+        }
+
+        .sidebar a {
+            display: block;
+            text-decoration: none;
+            color: #555;
+            padding: 12px 15px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            background: #eef5ff;
+            color: #1769aa;
+        }
+
+        .sidebar a.active {
+            background: #e7f1ff;
+            color: #1769aa;
+            font-weight: bold;
+        }
+
+        /* MAIN CONTENT */
+
+        .main {
+            flex: 1;
+            padding: 30px;
+            min-width: 0;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .topbar h1 {
+            font-size: 25px;
+            color: #26384c;
+        }
+
+        .breadcrumb {
+            color: #999;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .breadcrumb span {
+            color: #1769aa;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            background: #fff;
+            border: 1px solid #dce3ec;
+            color: #555;
+        }
+
+        .print-btn {
+            background: #1769aa;
+            color: white;
+        }
+
+        /* STUDENT PROFILE */
+
+        .student-card {
+            background: #fff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin-bottom: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .avatar {
+            width: 65px;
+            height: 65px;
+            background: #e5f0ff;
+            color: #1769aa;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .student-info h2 {
+            font-size: 19px;
+            margin-bottom: 8px;
+            color: #26384c;
+        }
+
+        .student-info p {
+            font-size: 13px;
+            color: #777;
+            margin: 4px 0;
+        }
+
+        .student-details {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .detail-item p:first-child {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 7px;
+        }
+
+        .detail-item p:last-child {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* SUMMARY CARDS */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .summary-card {
+            background: #fff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .summary-card p {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 12px;
+        }
+
+        .summary-card h2 {
+            font-size: 26px;
+            color: #26384c;
+        }
+
+        .summary-card small {
+            display: block;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .blue {
+            color: #1769aa !important;
+        }
+
+        .green {
+            color: #28a36a !important;
+        }
+
+        .orange {
+            color: #e99a24 !important;
+        }
+
+        .purple {
+            color: #8262ce !important;
+        }
+
+        /* CONTENT CARDS */
+
+        .content-card {
+            background: #fff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin-bottom: 22px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 18px;
+            color: #26384c;
+        }
+
+        .select-box {
+            padding: 9px 12px;
+            border: 1px solid #dce3ec;
+            border-radius: 6px;
+            background: #fff;
+            color: #555;
+            font-size: 13px;
+        }
+
+        /* MARKS TABLE */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px;
+        }
+
+        th {
+            background: #f5f8fc;
+            color: #666;
+            font-size: 12px;
+            text-align: left;
+            padding: 14px;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px 14px;
+            border-bottom: 1px solid #edf0f4;
+            font-size: 13px;
+            color: #444;
+        }
+
+        tbody tr:hover {
+            background: #fafcff;
+        }
+
+        .grade {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #e8f6ed;
+            color: #25814b;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .progress {
+            width: 100px;
+            height: 7px;
+            background: #edf0f4;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #3b82d0;
+            border-radius: 10px;
+        }
+
+        /* PERFORMANCE */
+
+        .performance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .performance-box {
+            border: 1px solid #edf0f4;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .performance-box h3 {
+            font-size: 15px;
+            color: #26384c;
+            margin-bottom: 18px;
+        }
+
+        .performance-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #edf0f4;
+            font-size: 13px;
+        }
+
+        .performance-item:last-child {
+            border-bottom: none;
+        }
+
+        .performance-item span:first-child {
+            color: #777;
+        }
+
+        .performance-item span:last-child {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* TEACHER REMARKS */
+
+        .remarks {
+            background: #f6f9ff;
+            border-left: 4px solid #3b82d0;
+            padding: 18px;
+            border-radius: 5px;
+        }
+
+        .remarks h3 {
+            color: #26384c;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .remarks p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .teacher-name {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #1769aa;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: #aaa;
+            font-size: 12px;
+            padding: 15px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1100px) {
+            .summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                padding: 20px;
+            }
+
+            .performance-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .student-details {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e5eaf1;
+            }
+
+            .main {
+                padding: 15px;
+            }
+
+            .summary {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .summary-card {
+                padding: 15px;
+            }
+
+            .summary-card h2 {
+                font-size: 22px;
+            }
+
+            .student-details {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">SIMS</div>
+
+        <p class="menu-title">Main Menu</p>
+
+        <a href="dashboard/dashboard.html">Dashboard</a>
+        <a href="online-class.html">Online Class</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="timetable.html">TimeTable</a>
+        <a href="#">Homework</a>
+        <a href="#">Syllabus</a>
+        <a href="#">Examinations</a>
+        <a href="progress-card.html" class="active">Progress Card</a>
+        <a href="#">Transportation</a>
+        <a href="#">Academic Calendar</a>
+        <a href="#">Holidays</a>
+        <a href="#">Circular</a>
+        <a href="#">Fee Details</a>
+        <a href="#">Talk to Teacher</a>
+        <a href="#">Principal Appointment</a>
+
+        <p class="menu-title">Account</p>
+        <a href="#">Logout</a>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <div class="topbar">
+
+            <div>
+                <h1>Progress Card</h1>
+                <p class="breadcrumb">
+                    Parent Panel / <span>Progress Card</span>
+                </p>
+            </div>
+
+            <div class="top-actions">
+                <a href="dashboard/dashboard.html" class="btn back-btn">
+                    Go Back
+                </a>
+
+                <button class="btn print-btn">
+                    Print Report
+                </button>
+            </div>
+
+        </div>
+
+        <!-- STUDENT PROFILE -->
+        <section class="student-card">
+
+            <div class="student-info">
+
+                <div class="avatar">AS</div>
+
+                <div>
+                    <h2>Arjun Sharma</h2>
+                    <p>Student ID: STU2025001</p>
+                    <p>Class: 8th Grade | Section: A</p>
+                </div>
+
+            </div>
+
+            <div class="student-details">
+
+                <div class="detail-item">
+                    <p>Academic Year</p>
+                    <p>2025 - 2026</p>
+                </div>
+
+                <div class="detail-item">
+                    <p>Roll Number</p>
+                    <p>08</p>
+                </div>
+
+                <div class="detail-item">
+                    <p>Class Teacher</p>
+                    <p>Mrs. Priya</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- SUMMARY -->
+        <section class="summary">
+
+            <div class="summary-card">
+                <p>Overall Percentage</p>
+                <h2 class="blue">86.4%</h2>
+                <small>Across all subjects</small>
+            </div>
+
+            <div class="summary-card">
+                <p>Overall Grade</p>
+                <h2 class="green">A</h2>
+                <small>Excellent performance</small>
+            </div>
+
+            <div class="summary-card">
+                <p>Total Marks</p>
+                <h2 class="orange">432 / 500</h2>
+                <small>Term 1 assessment</small>
+            </div>
+
+            <div class="summary-card">
+                <p>Class Rank</p>
+                <h2 class="purple">05</h2>
+                <small>Out of 40 students</small>
+            </div>
+
+        </section>
+
+        <!-- SUBJECT MARKS -->
+        <section class="content-card">
+
+            <div class="section-header">
+
+                <h2>Subject-wise Performance</h2>
+
+                <select class="select-box">
+                    <option>Term 1</option>
+                    <option>Term 2</option>
+                    <option>Final Examination</option>
+                </select>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Maximum Marks</th>
+                            <th>Obtained Marks</th>
+                            <th>Percentage</th>
+                            <th>Grade</th>
+                            <th>Performance</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Mathematics</td>
+                            <td>100</td>
+                            <td>92</td>
+                            <td>92%</td>
+                            <td><span class="grade">A+</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-fill" style="width:92%"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Science</td>
+                            <td>100</td>
+                            <td>88</td>
+                            <td>88%</td>
+                            <td><span class="grade">A</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-fill" style="width:88%"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>English</td>
+                            <td>100</td>
+                            <td>85</td>
+                            <td>85%</td>
+                            <td><span class="grade">A</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-fill" style="width:85%"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Social Studies</td>
+                            <td>100</td>
+                            <td>82</td>
+                            <td>82%</td>
+                            <td><span class="grade">A</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-fill" style="width:82%"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Computer Science</td>
+                            <td>100</td>
+                            <td>85</td>
+                            <td>85%</td>
+                            <td><span class="grade">A</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-fill" style="width:85%"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- PERFORMANCE SUMMARY -->
+        <section class="content-card">
+
+            <div class="section-header">
+                <h2>Academic Summary</h2>
+            </div>
+
+            <div class="performance-grid">
+
+                <div class="performance-box">
+
+                    <h3>Academic Performance</h3>
+
+                    <div class="performance-item">
+                        <span>Total Subjects</span>
+                        <span>5</span>
+                    </div>
+
+                    <div class="performance-item">
+                        <span>Subjects Passed</span>
+                        <span class="green">5</span>
+                    </div>
+
+                    <div class="performance-item">
+                        <span>Subjects Failed</span>
+                        <span>0</span>
+                    </div>
+
+                    <div class="performance-item">
+                        <span>Highest Score</span>
+                        <span>92 / 100</span>
+                    </div>
+
+                    <div class="performance-item">
+                        <span>Lowest Score</span>
+                        <span>82 / 100</span>
+                    </div>
+
+                </div>
+
+                <div class="performance-box">
+
+                    <h3>Attendance Summary</h3>
+
+                    <div class="performance-item">
+                        <span>Total Working Days</span>
+                        <span>120</span>
+                    </div>
+
+                    <div class="performance-item">
+                        <span>Days Present</span>
+                        <span class="green">112</span>
+                    </div>
+
+                    <div class="performance-item">
+                        <span>Days Absent</span>
+                        <span class="orange">8</span>
+                    </div>
+
+                    <div class="performance-item">
+                        <span>Attendance Percentage</span>
+                        <span>93.3%</span>
+                    </div>
+
+                    <div class="performance-item">
+                        <span>Attendance Status</span>
+                        <span class="green">Good</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- TEACHER REMARKS -->
+        <section class="content-card">
+
+            <div class="section-header">
+                <h2>Teacher Remarks</h2>
+            </div>
+
+            <div class="remarks">
+
+                <h3>Overall Feedback</h3>
+
+                <p>
+                    Arjun has demonstrated excellent academic progress this term.
+                    He is attentive in class, completes assignments on time,
+                    and shows strong understanding of Mathematics and Science.
+                    He is encouraged to continue improving his communication
+                    skills and actively participate in classroom activities.
+                    Keep up the excellent work!
+                </p>
+
+                <div class="teacher-name">
+                    Mrs. Priya | Class Teacher
+                </div>
+
+            </div>
+
+        </section>
+
+        <div class="footer">
+            © 2025 SIMS - Student Information Management System
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

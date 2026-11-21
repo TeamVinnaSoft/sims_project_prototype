@@ -1,0 +1,656 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Classes | SIMS Parent Panel</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f4f6;
+    color: #222;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 174px;
+    height: 100vh;
+    background: #fff;
+    border-right: 1px solid #e5e5e5;
+    z-index: 10;
+}
+
+.logo {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding-left: 18px;
+    color: #4059c9;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+}
+
+.logo span {
+    color: #f5a623;
+    margin-right: 7px;
+    font-size: 21px;
+}
+
+.menu {
+    padding-top: 5px;
+}
+
+.menu a {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding: 0 15px;
+    color: #222;
+    text-decoration: none;
+    font-size: 10px;
+    border-bottom: 1px solid #f3f3f3;
+    gap: 12px;
+}
+
+.menu a:hover,
+.menu a.active {
+    color: #5279e8;
+    background: #f8faff;
+}
+
+.menu-icon {
+    width: 12px;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* TOP HEADER */
+.top-header {
+    height: 40px;
+    position: fixed;
+    top: 0;
+    left: 174px;
+    right: 0;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px;
+    z-index: 5;
+}
+
+.menu-toggle {
+    color: #555;
+    font-size: 17px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 10px;
+}
+
+.profile-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #e9e9e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    margin-left: 174px;
+    padding: 60px 12px 25px;
+    min-height: calc(100vh - 40px);
+}
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.page-heading h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.breadcrumb {
+    font-size: 10px;
+    color: #8993a3;
+    margin-top: 8px;
+}
+
+.breadcrumb span {
+    color: #2588e8;
+}
+
+.go-back {
+    color: #2588e8;
+    text-decoration: none;
+    font-size: 11px;
+}
+
+/* CONTENT WHITE AREA */
+.content-area {
+    background: #fff;
+    padding: 23px 30px 35px;
+    min-height: 1000px;
+}
+
+/* CLASS CARDS */
+.classes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 35px 22px;
+    max-width: 745px;
+    margin: 0 auto;
+}
+
+.class-card {
+    border: 1px solid #dedede;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+    background: #fff;
+    min-width: 0;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.meet-icon {
+    width: 33px;
+    height: 33px;
+    border-radius: 9px;
+    background: #e4f2ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.card-title h2 {
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.teacher {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.teacher-avatar {
+    font-size: 27px;
+}
+
+.teacher h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.class-info {
+    padding: 10px 0;
+}
+
+.class-info p {
+    font-size: 11px;
+    margin: 5px 0;
+    color: #333;
+}
+
+.class-status {
+    background: #e3f2ff;
+    color: #2583d9;
+    padding: 6px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+    margin: 2px 0 11px;
+}
+
+.session-details {
+    background: #f6f7f9;
+    padding: 12px;
+    border-radius: 7px;
+    min-height: 123px;
+}
+
+.session-details h4 {
+    color: #46566a;
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.session-details p {
+    font-size: 11px;
+    color: #68717e;
+    margin: 6px 0;
+}
+
+.teacher-notes {
+    background: #fff2df;
+    border-left: 3px solid #ff9800;
+    padding: 11px;
+    margin-top: 11px;
+    border-radius: 0 6px 6px 0;
+    min-height: 61px;
+}
+
+.teacher-notes h4 {
+    color: #e66b16;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.teacher-notes p {
+    color: #777;
+    font-size: 11px;
+}
+
+.join-btn {
+    display: block;
+    background: #2695e9;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    padding: 9px;
+    border-radius: 6px;
+    margin-top: 11px;
+    font-size: 11px;
+}
+
+.join-btn:hover {
+    background: #147dcc;
+}
+
+/* GENERAL INSTRUCTIONS */
+.instructions {
+    max-width: 700px;
+    margin: 30px auto 0;
+    padding: 20px 22px;
+    border: 1px solid #ddd;
+    border-radius: 11px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+    background: #fff;
+}
+
+.instructions h2 {
+    font-size: 18px;
+    color: #35475a;
+    margin-bottom: 13px;
+}
+
+.instructions ul {
+    padding-left: 35px;
+}
+
+.instructions li {
+    color: #666;
+    font-size: 10px;
+    margin: 9px 0;
+}
+
+/* FOOTER */
+.footer {
+    margin-left: 174px;
+    min-height: 50px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    color: #777;
+    font-size: 9px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 750px) {
+    .sidebar {
+        width: 145px;
+    }
+
+    .top-header {
+        left: 145px;
+    }
+
+    .main-content,
+    .footer {
+        margin-left: 145px;
+    }
+
+    .content-area {
+        padding: 18px 12px;
+    }
+
+    .classes-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .page-heading h1 {
+        font-size: 17px;
+    }
+
+    .instructions {
+        margin-top: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 115px;
+    }
+
+    .menu a {
+        padding: 0 8px;
+        gap: 7px;
+        font-size: 9px;
+    }
+
+    .top-header {
+        left: 115px;
+        padding: 0 10px;
+    }
+
+    .main-content,
+    .footer {
+        margin-left: 115px;
+    }
+
+    .main-content {
+        padding: 55px 7px 15px;
+    }
+
+    .content-area {
+        padding: 15px 8px;
+    }
+
+    .card-title h2 {
+        font-size: 17px;
+    }
+
+    .footer {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="logo"><span>✦</span> SIMS</div>
+
+    <nav class="menu">
+        <a href="dashboard.html">
+            <span class="menu-icon">⌂</span> Dashboard
+        </a>
+
+        <a href="online-class.html" class="active">
+            <span class="menu-icon">▣</span> Online Class
+        </a>
+
+        <a href="homework.html">
+            <span class="menu-icon">✎</span> Homework
+        </a>
+
+        <a href="attendance.html">
+            <span class="menu-icon">▧</span> Attendance
+        </a>
+
+        <a href="syllabus.html">
+            <span class="menu-icon">◧</span> Syllabus
+        </a>
+
+        <a href="timetable.html">
+            <span class="menu-icon">▦</span> Timetable
+        </a>
+
+        <a href="examinations.html">
+            <span class="menu-icon">▣</span> Examinations
+        </a>
+
+        <a href="progress-card.html">
+            <span class="menu-icon">★</span> Progress Card
+        </a>
+
+        <a href="transportation.html">
+            <span class="menu-icon">▣</span> Transportation
+        </a>
+
+        <a href="academic-calendar.html">
+            <span class="menu-icon">▦</span> Academic Calendar
+        </a>
+
+        <a href="holidays.html">
+            <span class="menu-icon">▣</span> Holidays
+        </a>
+
+        <a href="circular.html">
+            <span class="menu-icon">♧</span> Circular
+        </a>
+
+        <a href="fee-details.html">
+            <span class="menu-icon">▣</span> Fee details
+        </a>
+
+        <a href="talk-to-teacher.html">
+            <span class="menu-icon">▰</span> Talk to Teacher
+        </a>
+
+        <a href="principal-appointment.html">
+            <span class="menu-icon">▣</span> Principal Appointment
+        </a>
+
+        <a href="logout.html">
+            <span class="menu-icon">⇥</span> Logout
+        </a>
+    </nav>
+</aside>
+
+<!-- TOP HEADER -->
+<header class="top-header">
+    <div class="menu-toggle">☰</div>
+
+    <div class="profile">
+        <div class="profile-icon">👨🏻</div>
+        <span>Thigmanshu</span>
+        <span>⌄</span>
+    </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+    <div class="page-heading">
+        <div>
+            <h1>Online Classes Schedule</h1>
+            <div class="breadcrumb">
+                ⌂ / Dashboard / <span>Online Class</span>
+            </div>
+        </div>
+
+        <a href="dashboard.html" class="go-back">● Go back</a>
+    </div>
+
+    <section class="content-area">
+
+        <div class="classes-grid">
+
+            <!-- CLASS 1 -->
+            <div class="class-card">
+                <div class="card-title">
+                    <div class="meet-icon">🟨</div>
+                    <h2>Google Meet</h2>
+                </div>
+
+                <div class="teacher">
+                    <div class="teacher-avatar">👩🏻‍🏫</div>
+                    <h3>Google Meet</h3>
+                </div>
+
+                <div class="class-info">
+                    <p>▣ &nbsp; 2025-02-02</p>
+                    <p>◉ &nbsp; 11:30 - 12:30</p>
+                    <p>▪ &nbsp; Google Meet</p>
+                </div>
+
+                <div class="class-status">
+                    Time until class: Class has started
+                </div>
+
+                <div class="session-details">
+                    <h4>Session Details</h4>
+                    <p>📝 Topic: Google Meet</p>
+                    <p>📊 Required Materials: Google Meet</p>
+                    <p>⚡ Prerequisites: Google Meet</p>
+                    <p>⏱ Duration: 60</p>
+                </div>
+
+                <div class="teacher-notes">
+                    <h4>Teacher's Notes</h4>
+                    <p>NA</p>
+                </div>
+
+                <a href="#" class="join-btn">Join Class</a>
+            </div>
+
+            <!-- CLASS 2 -->
+            <div class="class-card">
+                <div class="card-title">
+                    <div class="meet-icon">🟨</div>
+                    <h2>Google Meet</h2>
+                </div>
+
+                <div class="teacher">
+                    <div class="teacher-avatar">👩🏻‍🏫</div>
+                    <h3>Google Meet</h3>
+                </div>
+
+                <div class="class-info">
+                    <p>▣ &nbsp; 2025-02-03</p>
+                    <p>◉ &nbsp; 11:30 - 12:30</p>
+                    <p>▪ &nbsp; Google Meet</p>
+                </div>
+
+                <div class="class-status">
+                    Time until class: Class has started
+                </div>
+
+                <div class="session-details">
+                    <h4>Session Details</h4>
+                    <p>📝 Topic: Google Meet</p>
+                    <p>📊 Required Materials: Google Meet</p>
+                    <p>⚡ Prerequisites: Google Meet</p>
+                    <p>⏱ Duration: 60</p>
+                </div>
+
+                <div class="teacher-notes">
+                    <h4>Teacher's Notes</h4>
+                    <p>NA</p>
+                </div>
+
+                <a href="#" class="join-btn">Join Class</a>
+            </div>
+
+            <!-- CLASS 3 -->
+            <div class="class-card">
+                <div class="card-title">
+                    <div class="meet-icon">🟨</div>
+                    <h2>Google Meet</h2>
+                </div>
+
+                <div class="teacher">
+                    <div class="teacher-avatar">👩🏻‍🏫</div>
+                    <h3>Google Meet</h3>
+                </div>
+
+                <div class="class-info">
+                    <p>▣ &nbsp; 2025-02-04</p>
+                    <p>◉ &nbsp; 11:30 - 12:30</p>
+                    <p>▪ &nbsp; Google Meet</p>
+                </div>
+
+                <div class="class-status">
+                    Time until class: Class has started
+                </div>
+
+                <div class="session-details">
+                    <h4>Session Details</h4>
+                    <p>📝 Topic: Google Meet</p>
+                    <p>📊 Required Materials: Google Meet</p>
+                    <p>⚡ Prerequisites: Google Meet</p>
+                    <p>⏱ Duration: 60</p>
+                </div>
+
+                <div class="teacher-notes">
+                    <h4>Teacher's Notes</h4>
+                    <p>NA</p>
+                </div>
+
+                <a href="#" class="join-btn">Join Class</a>
+            </div>
+
+        </div>
+
+        <!-- GENERAL INSTRUCTIONS -->
+        <div class="instructions">
+            <h2>General Instructions for Online Classes</h2>
+
+            <ul>
+                <li>Please join the class 5 minutes before the scheduled time</li>
+                <li>Ensure your microphone and camera are working properly before joining</li>
+                <li>Keep your microphone muted when not speaking</li>
+                <li>Use the 'Raise Hand' feature to ask questions</li>
+                <li>Have your study materials ready before class begins</li>
+            </ul>
+        </div>
+
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <span>Copyright © 2026 sims-q2.vinna.in All rights reserved.</span>
+    <span>Maintained by sims-q2.vinna.in IT Team</span>
+</footer>
+
+</body>
+</html>

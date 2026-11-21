@@ -1,0 +1,651 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable | SIMS Parent Panel</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f2f2f2;
+            color: #333;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 220px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #fff;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+        }
+
+        .logo-area {
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4054c8;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logo-symbol {
+            font-size: 27px;
+            color: #55a64a;
+        }
+
+        .menu-toggle {
+            font-size: 20px;
+            color: #555;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            height: 37px;
+            padding: 0 18px;
+            text-decoration: none;
+            color: #222;
+            font-size: 13px;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .menu a:hover {
+            background: #f4f7ff;
+            color: #5083f7;
+        }
+
+        .menu a.active {
+            color: #5083f7;
+        }
+
+        .menu-icon {
+            width: 17px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        /* TOPBAR */
+        .topbar {
+            height: 52px;
+            position: fixed;
+            top: 0;
+            left: 220px;
+            right: 0;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 30px;
+            border-bottom: 1px solid #ddd;
+            z-index: 5;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .avatar {
+            font-size: 23px;
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: 220px;
+            padding-top: 52px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            padding: 25px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .heading-area {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .page-header h1 {
+            font-size: 26px;
+            font-weight: 500;
+        }
+
+        .breadcrumb {
+            font-size: 13px;
+            color: #777;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #5083f7;
+        }
+
+        .go-back {
+            text-decoration: none;
+            color: #1680ee;
+            font-size: 13px;
+        }
+
+        /* TABLE CONTAINER */
+        .timetable-container {
+            background: white;
+            margin: 0 15px 40px;
+            padding: 20px 25px;
+            border: 1px solid #e5e5e5;
+            overflow-x: auto;
+        }
+
+        .timetable {
+            width: 100%;
+            min-width: 950px;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .timetable th {
+            background: #f7f7f7;
+            height: 50px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .timetable td {
+            border: 1px solid #f0f0f0;
+            text-align: center;
+            height: 72px;
+            padding: 8px 5px;
+            vertical-align: middle;
+        }
+
+        .time-column {
+            width: 115px;
+        }
+
+        .time-label {
+            color: #5083f7;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .time-value {
+            color: #777;
+            font-size: 12px;
+        }
+
+        .subject {
+            display: inline-block;
+            min-width: 65px;
+            padding: 5px 12px;
+            color: white;
+            border-radius: 5px;
+            font-size: 12px;
+            box-shadow: 0 2px 4px #ccc;
+        }
+
+        .teacher {
+            font-size: 11px;
+            color: #ccc;
+            margin-top: 7px;
+        }
+
+        /* SUBJECT COLORS */
+        .telugu {
+            background: #08b8b9;
+        }
+
+        .english {
+            background: #e95a00;
+        }
+
+        .science {
+            background: #f0d000;
+        }
+
+        .hindi {
+            background: #ff43a5;
+        }
+
+        .mathematics {
+            background: #57bd2c;
+        }
+
+        .social {
+            background: #9959f5;
+        }
+
+        .computers {
+            background: #83d0f5;
+        }
+
+        .games {
+            background: #ff5722;
+        }
+
+        /* BREAK ROWS */
+        .break-row td {
+            height: 72px;
+            background: #f8f8f8;
+        }
+
+        .break-row .time-label {
+            margin-bottom: 10px;
+        }
+
+        .not-scheduled {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .not-scheduled span {
+            font-size: 15px;
+            margin-right: 4px;
+        }
+
+        /* FOOTER */
+        .footer {
+            border-top: 1px solid #e5e5e5;
+            padding: 25px 15px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            color: #777;
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 20px 12px;
+            }
+
+            .heading-area {
+                display: block;
+            }
+
+            .breadcrumb {
+                margin-top: 10px;
+            }
+
+            .timetable-container {
+                margin: 0 10px 25px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .sidebar {
+                width: 60px;
+            }
+
+            .logo-area {
+                justify-content: center;
+                padding: 0;
+            }
+
+            .logo-text,
+            .menu-text {
+                display: none;
+            }
+
+            .menu a {
+                justify-content: center;
+                padding: 0;
+            }
+
+            .topbar {
+                left: 60px;
+                padding: 0 12px;
+            }
+
+            .main {
+                margin-left: 60px;
+            }
+
+            .page-header h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+    <div class="logo-area">
+        <div class="logo">
+            <span class="logo-symbol">✦</span>
+            <span class="logo-text">SIMS</span>
+        </div>
+        <span class="menu-toggle">☰</span>
+    </div>
+
+    <nav class="menu">
+
+        <a href="dashboard/dashboard.html">
+            <span class="menu-icon">⌂</span>
+            <span class="menu-text">Dashboard</span>
+        </a>
+
+        <a href="online-class.html">
+            <span class="menu-icon">▣</span>
+            <span class="menu-text">Online Class</span>
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">✎</span>
+            <span class="menu-text">Homework</span>
+        </a>
+
+        <a href="attendance.html">
+            <span class="menu-icon">▦</span>
+            <span class="menu-text">Attendance</span>
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">◧</span>
+            <span class="menu-text">Syllabus</span>
+        </a>
+
+        <a href="timetable.html" class="active">
+            <span class="menu-icon">◷</span>
+            <span class="menu-text">Timetable</span>
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">▤</span>
+            <span class="menu-text">Examinations</span>
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">★</span>
+            <span class="menu-text">Progress Card</span>
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">▣</span>
+            <span class="menu-text">Transportation</span>
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">▣</span>
+            <span class="menu-text">Academic Calendar</span>
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">▣</span>
+            <span class="menu-text">Holidays</span>
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">♧</span>
+            <span class="menu-text">Circular</span>
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">▣</span>
+            <span class="menu-text">Fee details</span>
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">▰</span>
+            <span class="menu-text">Talk to Teacher</span>
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">⊞</span>
+            <span class="menu-text">Principal Appointment</span>
+        </a>
+
+        <a href="#">
+            <span class="menu-icon">⇥</span>
+            <span class="menu-text">Logout</span>
+        </a>
+
+    </nav>
+</aside>
+
+<!-- TOPBAR -->
+<header class="topbar">
+    <div class="profile">
+        <span class="avatar">👤</span>
+        <span>Thigm anshu</span>
+        <span>⌄</span>
+    </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+    <div class="page-header">
+
+        <div class="heading-area">
+            <h1>Time table</h1>
+
+            <div class="breadcrumb">
+                ⌂ / Dashboard /
+                <a href="timetable.html">Time table</a>
+            </div>
+        </div>
+
+        <a href="dashboard/dashboard.html" class="go-back">
+            ⊕ Go back
+        </a>
+
+    </div>
+
+    <section class="timetable-container">
+
+        <table class="timetable">
+
+            <thead>
+                <tr>
+                    <th class="time-column">TIME</th>
+                    <th>MONDAY</th>
+                    <th>TUESDAY</th>
+                    <th>WEDNESDAY</th>
+                    <th>THURSDAY</th>
+                    <th>FRIDAY</th>
+                    <th>SATURDAY</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <!-- 1ST HOUR -->
+                <tr>
+                    <td>
+                        <div class="time-label">1st Hour</div>
+                        <div class="time-value">9:00 - 9:45</div>
+                    </td>
+
+                    <td><span class="subject telugu">Telugu</span><div class="teacher">Teacher-1</div></td>
+                    <td><span class="subject telugu">Telugu</span><div class="teacher">Teacher-1</div></td>
+                    <td><span class="subject telugu">Telugu</span><div class="teacher">Teacher-1</div></td>
+                    <td><span class="subject telugu">Telugu</span><div class="teacher">Teacher-1</div></td>
+                    <td><span class="subject telugu">Telugu</span><div class="teacher">Teacher-1</div></td>
+                    <td><span class="subject telugu">Telugu</span><div class="teacher">Teacher-1</div></td>
+                </tr>
+
+                <!-- 2ND HOUR -->
+                <tr>
+                    <td>
+                        <div class="time-label">2nd Hour</div>
+                        <div class="time-value">9:45 - 10:30</div>
+                    </td>
+
+                    <td><span class="subject english">English</span><div class="teacher">Teacher-2</div></td>
+                    <td><span class="subject english">English</span><div class="teacher">Teacher-2</div></td>
+                    <td><span class="subject english">English</span><div class="teacher">Teacher-2</div></td>
+                    <td><div class="not-scheduled"><span>⊘</span>Not scheduled</div></td>
+                    <td><span class="subject english">English</span><div class="teacher">Teacher-2</div></td>
+                    <td><span class="subject english">English</span><div class="teacher">Teacher-2</div></td>
+                </tr>
+
+                <!-- SHORT BREAK -->
+                <tr class="break-row">
+                    <td>
+                        <div class="time-label">Short Break</div>
+                        <div class="time-value">10:30 - 10:45</div>
+                    </td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+
+                <!-- 3RD HOUR -->
+                <tr>
+                    <td>
+                        <div class="time-label">3rd Hour</div>
+                        <div class="time-value">10:45 - 11:30</div>
+                    </td>
+
+                    <td><span class="subject science">Science</span><div class="teacher">Teacher-3</div></td>
+                    <td><span class="subject science">Science</span><div class="teacher">Teacher-3</div></td>
+                    <td><span class="subject science">Science</span><div class="teacher">Teacher-3</div></td>
+                    <td><span class="subject science">Science</span><div class="teacher">Teacher-3</div></td>
+                    <td><span class="subject science">Science</span><div class="teacher">Teacher-3</div></td>
+                    <td><span class="subject science">Science</span><div class="teacher">Teacher-3</div></td>
+                </tr>
+
+                <!-- 4TH HOUR -->
+                <tr>
+                    <td>
+                        <div class="time-label">4th Hour</div>
+                        <div class="time-value">11:30 - 12:15</div>
+                    </td>
+
+                    <td><span class="subject hindi">Hindi</span><div class="teacher">Teacher-4</div></td>
+                    <td><span class="subject hindi">Hindi</span><div class="teacher">Teacher-4</div></td>
+                    <td><span class="subject hindi">Hindi</span><div class="teacher">Teacher-4</div></td>
+                    <td><div class="not-scheduled"><span>⊘</span>Not scheduled</div></td>
+                    <td><span class="subject hindi">Hindi</span><div class="teacher">Teacher-4</div></td>
+                    <td><span class="subject hindi">Hindi</span><div class="teacher">Teacher-4</div></td>
+                </tr>
+
+                <!-- LUNCH -->
+                <tr class="break-row">
+                    <td>
+                        <div class="time-label">Lunch Break</div>
+                        <div class="time-value">12:15 - 01:15</div>
+                    </td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+
+                <!-- 5TH HOUR -->
+                <tr>
+                    <td>
+                        <div class="time-label">5th Hour</div>
+                        <div class="time-value">01:15 - 2:00</div>
+                    </td>
+
+                    <td><span class="subject mathematics">Mathematics</span><div class="teacher">Teacher-5</div></td>
+                    <td><span class="subject mathematics">Mathematics</span><div class="teacher">Teacher-5</div></td>
+                    <td><span class="subject mathematics">Mathematics</span><div class="teacher">Teacher-5</div></td>
+                    <td><span class="subject mathematics">Mathematics</span><div class="teacher">Teacher-5</div></td>
+                    <td><span class="subject mathematics">Mathematics</span><div class="teacher">Teacher-5</div></td>
+                    <td><span class="subject mathematics">Mathematics</span><div class="teacher">Teacher-5</div></td>
+                </tr>
+
+                <!-- 6TH HOUR -->
+                <tr>
+                    <td>
+                        <div class="time-label">6th Hour</div>
+                        <div class="time-value">2:00 - 2:45</div>
+                    </td>
+
+                    <td><span class="subject social">Social</span><div class="teacher">Teacher-6</div></td>
+                    <td><span class="subject social">Social</span><div class="teacher">Teacher-6</div></td>
+                    <td><span class="subject social">Social</span><div class="teacher">Teacher-6</div></td>
+                    <td><div class="not-scheduled"><span>⊘</span>Not scheduled</div></td>
+                    <td><span class="subject social">Social</span><div class="teacher">Teacher-6</div></td>
+                    <td><span class="subject social">Social</span><div class="teacher">Teacher-6</div></td>
+                </tr>
+
+                <!-- SHORT BREAK -->
+                <tr class="break-row">
+                    <td>
+                        <div class="time-label">Short Break</div>
+                        <div class="time-value">2:45 - 3:00</div>
+                    </td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+
+                <!-- 7TH HOUR -->
+                <tr>
+                    <td>
+                        <div class="time-label">7th Hour</div>
+                        <div class="time-value">3:00 - 3:45</div>
+                    </td>
+
+                    <td><span class="subject computers">Computers</span><div class="teacher">Teacher-7</div></td>
+                    <td><span class="subject computers">Computers</span><div class="teacher">Teacher-7</div></td>
+                    <td><span class="subject computers">Computers</span><div class="teacher">Teacher-7</div></td>
+                    <td><span class="subject computers">Computers</span><div class="teacher">Teacher-7</div></td>
+                    <td><span class="subject computers">Computers</span><div class="teacher">Teacher-7</div></td>
+                    <td><span class="subject computers">Computers</span><div class="teacher">Teacher-7</div></td>
+                </tr>
+
+                <!-- 8TH HOUR -->
+                <tr>
+                    <td>
+                        <div class="time-label">8th Hour</div>
+                        <div class="time-value">3:45 - 4:30</div>
+                    </td>
+
+                    <td><span class="subject games">Games</span><div class="teacher">Not available</div></td>
+                    <td><div class="not-scheduled"><span>⊘</span>Not scheduled</div></td>
+                    <td><div class="not-scheduled"><span>⊘</span>Not scheduled</div></td>
+                    <td><div class="not-scheduled"><span>⊘</span>Not scheduled</div></td>
+                    <td><div class="not-scheduled"><span>⊘</span>Not scheduled</div></td>
+                    <td><span class="subject games">Games</span><div class="teacher">Not available</div></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <span>Copyright © 2026 sims-q2.vinna.in All rights reserved.</span>
+        <span>Maintained by sims-q2.vinna.in IT Team</span>
+    </footer>
+
+</main>
+
+</body>
+</html>
+```

@@ -1,0 +1,871 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Calendar | SIMS Parent Panel</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 240px;
+            background: #fff;
+            border-right: 1px solid #e5eaf1;
+            padding: 25px 15px;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #1769aa;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .menu-title {
+            font-size: 12px;
+            color: #999;
+            margin: 20px 12px 12px;
+            text-transform: uppercase;
+        }
+
+        .sidebar a {
+            display: block;
+            text-decoration: none;
+            color: #555;
+            padding: 12px 15px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #e7f1ff;
+            color: #1769aa;
+        }
+
+        .sidebar a.active {
+            font-weight: bold;
+        }
+
+        /* MAIN */
+
+        .main {
+            flex: 1;
+            min-width: 0;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .topbar h1 {
+            font-size: 25px;
+            color: #26384c;
+        }
+
+        .breadcrumb {
+            color: #999;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .breadcrumb span {
+            color: #1769aa;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            text-decoration: none;
+            border: none;
+        }
+
+        .back-btn {
+            background: #fff;
+            border: 1px solid #dce3ec;
+            color: #555;
+        }
+
+        /* SUMMARY CARDS */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .summary-card {
+            background: #fff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .summary-card p {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 12px;
+        }
+
+        .summary-card h2 {
+            font-size: 23px;
+            color: #26384c;
+        }
+
+        .blue { color: #1769aa !important; }
+        .green { color: #28a36a !important; }
+        .orange { color: #e99a24 !important; }
+        .purple { color: #8262ce !important; }
+
+        /* CONTENT CARD */
+
+        .card {
+            background: #fff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin-bottom: 22px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            color: #26384c;
+            font-size: 18px;
+        }
+
+        .select-box {
+            padding: 10px 12px;
+            border: 1px solid #dce3ec;
+            border-radius: 6px;
+            background: #fff;
+            font-size: 13px;
+            color: #555;
+        }
+
+        /* CALENDAR NAVIGATION */
+
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .month-title {
+            font-size: 20px;
+            color: #26384c;
+            font-weight: bold;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-buttons button {
+            width: 36px;
+            height: 36px;
+            background: #fff;
+            border: 1px solid #dce3ec;
+            border-radius: 6px;
+            color: #555;
+            font-size: 18px;
+        }
+
+        /* CALENDAR GRID */
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            border: 1px solid #edf0f4;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .day-header {
+            background: #f5f8fc;
+            text-align: center;
+            padding: 13px 5px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #666;
+            border-bottom: 1px solid #edf0f4;
+        }
+
+        .day {
+            min-height: 115px;
+            padding: 9px;
+            border-right: 1px solid #edf0f4;
+            border-bottom: 1px solid #edf0f4;
+            background: #fff;
+        }
+
+        .day:nth-child(7n) {
+            border-right: none;
+        }
+
+        .date {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .muted {
+            color: #bbb;
+            background: #fafbfc;
+        }
+
+        .today {
+            background: #f0f7ff;
+        }
+
+        .today .date {
+            display: inline-flex;
+            background: #1769aa;
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+
+        .event {
+            display: block;
+            padding: 5px 6px;
+            margin-top: 4px;
+            border-radius: 4px;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .holiday {
+            background: #fdeaea;
+            color: #d9534f;
+        }
+
+        .exam {
+            background: #fff0d9;
+            color: #bd7a12;
+        }
+
+        .event-blue {
+            background: #e6f1ff;
+            color: #1769aa;
+        }
+
+        .meeting {
+            background: #eee8ff;
+            color: #7654bd;
+        }
+
+        .activity {
+            background: #e4f6ec;
+            color: #25814b;
+        }
+
+        /* LEGEND */
+
+        .legend {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .legend-color {
+            width: 11px;
+            height: 11px;
+            border-radius: 3px;
+        }
+
+        /* UPCOMING EVENTS */
+
+        .events-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .event-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #edf0f4;
+            border-radius: 9px;
+        }
+
+        .event-date {
+            min-width: 55px;
+            text-align: center;
+            background: #f0f6ff;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .event-date h2 {
+            color: #1769aa;
+            font-size: 21px;
+        }
+
+        .event-date p {
+            color: #777;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .event-info h3 {
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .event-info p {
+            color: #888;
+            font-size: 12px;
+        }
+
+        .event-type {
+            display: inline-block;
+            margin-top: 7px;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 15px;
+        }
+
+        /* NOTICE */
+
+        .notice {
+            background: #f6f9ff;
+            border-left: 4px solid #3b82d0;
+            padding: 17px;
+            border-radius: 5px;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .footer {
+            text-align: center;
+            color: #aaa;
+            font-size: 12px;
+            padding: 15px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1100px) {
+            .summary {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .events-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 800px) {
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                padding: 20px;
+            }
+
+            .day {
+                min-height: 90px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e5eaf1;
+            }
+
+            .main {
+                padding: 15px;
+            }
+
+            .summary {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .summary-card {
+                padding: 15px;
+            }
+
+            .calendar {
+                min-width: 600px;
+            }
+
+            .calendar-wrapper {
+                overflow-x: auto;
+            }
+
+            .day {
+                min-height: 100px;
+            }
+
+            .events-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">SIMS</div>
+
+        <p class="menu-title">Main Menu</p>
+
+        <a href="dashboard/dashboard.html">Dashboard</a>
+        <a href="online-class.html">Online Class</a>
+        <a href="homework/homework.html">Homework</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="syllabus/syllabus.html">Syllabus</a>
+        <a href="timetable.html">TimeTable</a>
+        <a href="examination/examination.html">Examinations</a>
+        <a href="progress-card.html">Progress Card</a>
+        <a href="transportation/transportation.html">Transportation</a>
+        <a href="academic-calendar.html" class="active">Academic Calendar</a>
+        <a href="holidays/holidays.html">Holidays</a>
+        <a href="#">Circular</a>
+        <a href="#">Fee Details</a>
+        <a href="#">Talk to Teacher</a>
+        <a href="principal_appointment/principal_appointment.html">Principal Appointment</a>
+        <a href="#">Logout</a>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <div class="topbar">
+
+            <div>
+                <h1>Academic Calendar</h1>
+                <p class="breadcrumb">
+                    Parent Panel / <span>Academic Calendar</span>
+                </p>
+            </div>
+
+            <a href="dashboard/dashboard.html" class="btn back-btn">
+                Go Back
+            </a>
+
+        </div>
+
+        <!-- SUMMARY -->
+        <section class="summary">
+
+            <div class="summary-card">
+                <p>Academic Year</p>
+                <h2 class="blue">2026 - 2027</h2>
+            </div>
+
+            <div class="summary-card">
+                <p>Upcoming Events</p>
+                <h2 class="green">06</h2>
+            </div>
+
+            <div class="summary-card">
+                <p>Upcoming Holidays</p>
+                <h2 class="orange">03</h2>
+            </div>
+
+            <div class="summary-card">
+                <p>Next Examination</p>
+                <h2 class="purple">24 Nov</h2>
+            </div>
+
+        </section>
+
+        <!-- CALENDAR -->
+        <section class="card">
+
+            <div class="section-header">
+                <h2>School Calendar</h2>
+
+                <select class="select-box">
+                    <option>2026 - 2027</option>
+                    <option>2025 - 2026</option>
+                </select>
+            </div>
+
+            <div class="calendar-nav">
+
+                <div class="month-title">November 2026</div>
+
+                <div class="nav-buttons">
+                    <button>&lt;</button>
+                    <button>&gt;</button>
+                </div>
+
+            </div>
+
+            <div class="calendar-wrapper">
+
+                <div class="calendar">
+
+                    <!-- WEEK DAYS -->
+                    <div class="day-header">Sun</div>
+                    <div class="day-header">Mon</div>
+                    <div class="day-header">Tue</div>
+                    <div class="day-header">Wed</div>
+                    <div class="day-header">Thu</div>
+                    <div class="day-header">Fri</div>
+                    <div class="day-header">Sat</div>
+
+                    <!-- WEEK 1 -->
+                    <div class="day muted"><div class="date">1</div></div>
+
+                    <div class="day">
+                        <div class="date">2</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">3</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">4</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">5</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">6</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">7</div>
+                        <span class="event activity">Sports Day</span>
+                    </div>
+
+                    <!-- WEEK 2 -->
+                    <div class="day">
+                        <div class="date">8</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">9</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">10</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">11</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">12</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">13</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">14</div>
+                        <span class="event holiday">Children's Day</span>
+                    </div>
+
+                    <!-- WEEK 3 -->
+                    <div class="day">
+                        <div class="date">15</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">16</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">17</div>
+                        <span class="event meeting">Parent Meeting</span>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">18</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">19</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">20</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">21</div>
+                        <span class="event activity">Science Exhibition</span>
+                    </div>
+
+                    <!-- WEEK 4 -->
+                    <div class="day">
+                        <div class="date">22</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">23</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">24</div>
+                        <span class="event exam">Maths Exam</span>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">25</div>
+                        <span class="event exam">Science Exam</span>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">26</div>
+                        <span class="event holiday">Holiday</span>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">27</div>
+                        <span class="event exam">English Exam</span>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">28</div>
+                    </div>
+
+                    <!-- WEEK 5 -->
+                    <div class="day">
+                        <div class="date">29</div>
+                    </div>
+
+                    <div class="day">
+                        <div class="date">30</div>
+                    </div>
+
+                    <div class="day muted"><div class="date">1</div></div>
+                    <div class="day muted"><div class="date">2</div></div>
+                    <div class="day muted"><div class="date">3</div></div>
+                    <div class="day muted"><div class="date">4</div></div>
+                    <div class="day muted"><div class="date">5</div></div>
+
+                </div>
+
+            </div>
+
+            <!-- LEGEND -->
+            <div class="legend">
+
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#fdeaea"></div>
+                    Holiday
+                </div>
+
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#fff0d9"></div>
+                    Examination
+                </div>
+
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#e6f1ff"></div>
+                    School Event
+                </div>
+
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#eee8ff"></div>
+                    Parent Meeting
+                </div>
+
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#e4f6ec"></div>
+                    Activities
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- UPCOMING EVENTS -->
+        <section class="card">
+
+            <div class="section-header">
+                <h2>Upcoming Events</h2>
+            </div>
+
+            <div class="events-list">
+
+                <div class="event-card">
+                    <div class="event-date">
+                        <h2>17</h2>
+                        <p>NOV</p>
+                    </div>
+
+                    <div class="event-info">
+                        <h3>Parent-Teacher Meeting</h3>
+                        <p>10:00 AM - 01:00 PM</p>
+                        <span class="event-type meeting">Meeting</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">
+                        <h2>21</h2>
+                        <p>NOV</p>
+                    </div>
+
+                    <div class="event-info">
+                        <h3>Science Exhibition</h3>
+                        <p>09:00 AM - 02:00 PM</p>
+                        <span class="event-type activity">School Event</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">
+                        <h2>24</h2>
+                        <p>NOV</p>
+                    </div>
+
+                    <div class="event-info">
+                        <h3>Mathematics Examination</h3>
+                        <p>09:30 AM - 12:30 PM</p>
+                        <span class="event-type exam">Examination</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">
+                        <h2>25</h2>
+                        <p>NOV</p>
+                    </div>
+
+                    <div class="event-info">
+                        <h3>Science Examination</h3>
+                        <p>09:30 AM - 12:30 PM</p>
+                        <span class="event-type exam">Examination</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">
+                        <h2>26</h2>
+                        <p>NOV</p>
+                    </div>
+
+                    <div class="event-info">
+                        <h3>School Holiday</h3>
+                        <p>School remains closed</p>
+                        <span class="event-type holiday">Holiday</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">
+                        <h2>27</h2>
+                        <p>NOV</p>
+                    </div>
+
+                    <div class="event-info">
+                        <h3>English Examination</h3>
+                        <p>09:30 AM - 12:30 PM</p>
+                        <span class="event-type exam">Examination</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- NOTICE -->
+        <section class="card">
+
+            <h2 class="section-title">Calendar Notice</h2>
+
+            <div class="notice">
+                The academic calendar contains important school events,
+                examinations, holidays, meetings, and activities.
+                Parents are requested to check the calendar regularly
+                for updates and schedule changes. Dates shown in this
+                prototype are sample dates.
+            </div>
+
+        </section>
+
+        <div class="footer">
+            © 2026 SIMS - Student Information Management System
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>
